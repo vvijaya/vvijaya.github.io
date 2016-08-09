@@ -260,6 +260,10 @@ body{
   margin: auto;
   padding: 4em 1em 1em;
 }
+[data-lightbox-close]{
+  display: block;
+  font-size: 0;
+}
 [data-lightbox]:target [data-lightbox-close]{
   position: fixed;
   width: 100%;
@@ -273,6 +277,7 @@ body{
 }
 [data-lightbox] [data-lightbox-wrapper] {
   height: 100%;
+  background: #fff;
   overflow: hidden;
 }
 [data-lightbox]:target [data-lightbox-wrapper] {
