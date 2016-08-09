@@ -382,3 +382,20 @@ body{
   font-size: small;
   padding: .5em;
 }
+@media print {
+  * {
+    color: #333 !important;
+  }
+  blockquote,
+  .flex-view,
+  .about .card {
+    border: solid;
+    page-break-inside: avoid;
+  }
+  .about .card::before,
+  .about .card::after,
+  .no-print {
+    content: "";
+    display: none !important;
+  }
+}
