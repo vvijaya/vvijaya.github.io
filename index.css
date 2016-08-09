@@ -367,6 +367,10 @@ body{
   margin-left: 2px;
   color: #fff;
 }
+.about .card ul {
+  padding: 0;
+  margin: 0;
+}
 .about .card li {
   text-align: left;
   list-style: none;
