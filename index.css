@@ -25,6 +25,12 @@
   -o-transition: ease all .25s;
   transition: ease all .25s;
 }
+.no-ease {
+  -webkit-transition: none;
+  -ms-transition: none;
+  -o-transition: none;
+  transition: none;
+}
 .btn {
   padding: 1em 1.5em;
   line-height: 1;
@@ -35,6 +41,7 @@
   color: inherit;
   background-color: rgba(127,127,127,0);
   display: inline-block;
+  cursor: pointer;
 }
 .btn-link {
   border-color: transparent;
@@ -98,7 +105,7 @@
 * {
   font-family: 'Montserrat', sans-serif;
   word-break: break-word;
-  box-sizing: inherit;
+  box-sizing: border-box;
 }
 footer {
   border-bottom: solid .5em #232323;

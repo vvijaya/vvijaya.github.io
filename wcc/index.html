@@ -1,0 +1,223 @@
+<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="wijaya.cc client">
+  <!--  Essential META Tags -->
+  <meta property="og:title" content="WCC">
+  <meta property="og:description" content="wijaya.cc client">
+  <meta property="og:image" content="http://gunawan.wijaya.cc/assets/images/w.png">
+  <meta property="og:url" content="http://gunawan.wijaya.cc">
+  <meta name="twitter:card" content="summary_large_image">
+  <!--  Non-Essential, But Recommended -->
+  <meta name="og:site_name" content="WCC">
+  <meta name="twitter:image:alt" content="alt">
+  <!--  Non-Essential, But Required for Analytics -->
+  <meta property="fb:app_id" content="1751481311731501" />
+  <meta name="twitter:site" content="@wijaya_cc">
+  <title>WCC</title>
+
+  <link rel="apple-touch-icon" sizes="57x57" href="../assets/favicons/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="../assets/favicons/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="../assets/favicons/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="../assets/favicons/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="../assets/favicons/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="../assets/favicons/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="../assets/favicons/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="../assets/favicons/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/favicons/apple-touch-icon-180x180.png">
+  <link rel="icon" type="image/png" href="../assets/favicons/android-chrome-192x192.png" sizes="192x192">
+  <link rel="icon" type="image/png" href="../assets/favicons/favicon-96x96.png" sizes="96x96">
+  <link rel="icon" type="image/png" href="../assets/favicons/favicon-32x32.png" sizes="32x32">
+  <link rel="icon" type="image/png" href="../assets/favicons/favicon-16x16.png" sizes="16x16">
+  <link rel="manifest" href="../assets/favicons/manifest.json">
+  <link rel="shortcut icon" href="../assets/favicons/favicon.ico">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-TileImage" content="assets/favicons/mstile-144x144.png">
+  <meta name="msapplication-config" content="assets/favicons/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+  <noscript id="deferred-styles">
+    <link rel="stylesheet" type="text/css" href="../index.css">
+  </noscript>
+  <style>
+  html,body{background:#232323;}
+  .jsload{opacity:0;}
+  body .container{max-width:480px;}
+  body .card{padding:1.5em 2.5em;}
+  body .card input[type="text"]{width:100%;}
+  body .btn{min-width:130px;}
+  </style>
+  <script>document.documentElement.className += " jsload";</script>
+</head><body>
+<header></header>
+<main>
+  <section class="clearfix center color-w" id="!/home">
+    <div class="container">
+      <h1>WCC</h1>
+      <p>
+        WCC is an application to make social sharing easier than before,
+        from Facebook, Twitter, Instagram, Google + and many more
+      </p><p>
+        WCC help people to easily share from social media feed to your
+        personal page, be it WordPress, Tumblr or even plain HTML.
+      </p>
+      <div class="card color-w" id="github">
+        <form>
+          <p>GitHub Token</p>
+          <p><input type="text" name="github" value=""/></p>
+          <button type="submit" class="btn no-ease">NEXT</button>
+        </form>
+      </div>
+      <div class="left card color-w" id="social" hidden="hidden">
+        <p></p>
+        <form>
+          <input type="hidden" name="wcc_fb" id="wcc_fb" value="1"/>
+          <button type="submit" class="btn no-ease">Facebook </button> &emsp;
+          <small id="wcc_fb_stat" class="color-r">INACTIVE</small>
+        </form><p></p>
+        <!-- <form>
+          <input type="hidden" name="wcc_tw" id="wcc_tw" value="1"/>
+          <button type="submit" class="btn no-ease">Twitter  </button> &emsp;
+          <small id="wcc_tw_stat" class="color-r">INACTIVE</small>
+        </form><p></p> -->
+        <form>
+          <input type="hidden" name="wcc_ig" id="wcc_ig" value="1"/>
+          <button type="submit" class="btn no-ease">Instagram</button> &emsp;
+          <small id="wcc_ig_stat" class="color-r">INACTIVE</small>
+        </form><p></p>
+        <!-- <form>
+          <input type="hidden" name="wcc_gp" id="wcc_gp" value="1"/>
+          <button type="submit" class="btn no-ease">Google + </button> &emsp;
+          <small id="wcc_gp_stat" class="color-r">INACTIVE</small>
+        </form><p></p> -->
+      </div>
+    </div>
+  </section>
+</main>
+<footer>
+  <var class="hidden">
+    <script src="../GitHub.bundle.min.js"></script>
+    <script src="../index.js"></script>
+    <script>
+      var base= window.location.origin+window.location.pathname;
+      var redir= 0;
+      var oauth= {
+        fb:{
+          client_id:"1751481311731501",
+          redirect_uri:encodeURIComponent(base+"?cb_fb=1"),
+        },
+        tw:{
+          client_id:"bTWuxpV3lgaKHh3LdTyPzlBs7",
+          redirect_uri:encodeURIComponent(base+"?cb_tw=1"),
+        },
+        ig:{
+          client_id:"a208242da3d940bb9a41ff20dfc0707a",
+          redirect_uri:encodeURIComponent(base+"?cb_ig=1"),
+        },
+        gp:{},
+      };
+      if (!qs.no_github) {
+        one("#social").removeAttribute("hidden");
+        one("#github").setAttribute("hidden","hidden");
+      }
+      if (qs.github) {
+        setCookie("gh_at",qs.github,7);
+      }
+
+      if (getCookie("gh_id") && getCookie("gh_username") && getCookie("gh_at")) {
+        if (qs.no_github) { window.location= base; }
+        var gh= new GitHub({token:getCookie("gh_at")});
+        var gist= {
+          description:"AT_"+getCookie("gh_id"),
+          public:true,
+          files:{}
+        };
+        if(getCookie("uid_fb")&&getCookie("access_fb")){gist.files["fb_"+getCookie("uid_fb")]= { "content":getCookie("access_fb")};}
+        if(getCookie("uid_ig")&&getCookie("access_ig")){gist.files["ig_"+getCookie("uid_ig")]= { "content":getCookie("access_ig")};}
+        get("https://api.github.com/users/"+getCookie("gh_username")+"/gists?access_token="+getCookie("gh_at"), function(data) {
+          data= JSON.parse(data); i= data.length;
+          console.log(data);
+          while (i>=0 && i--) { if (data[i].description == gist.description) { i=-2; } }
+          if (i>-2) {
+            gh.getGist().create(gist).then(function(r){console.log("c",r);});
+          }else{
+            gh.getGist(data[0].id).update(gist,function(a,r){console.log("u",r);});
+          }
+          // gh.getGist("ID").delete(function(a,r){console.log("d",r);});
+        });
+// =============================================================================
+        if(qs.wcc_fb>0){
+          redir= "https://www.facebook.com/dialog/oauth"+"?client_id="+oauth.fb.client_id+"&redirect_uri="+oauth.fb.redirect_uri+"&response_type=token";
+        }
+        if(qs.cb_fb>0 && window.location.hash){
+          setCookie("access_fb",window.location.hash.split("#access_token=")[1].split("&expires_in")[0],7);
+          window.location= base;
+        }
+        if(getCookie("access_fb")) {
+          window.user_fb= function (o) {
+            if (o.id) {
+              removeClass(one("#wcc_fb_stat"),"color-r");
+              addClass(one("#wcc_fb_stat"),"color-g");
+              one("#wcc_fb_stat").innerHTML= o.name;
+              setCookie("uid_fb",o.id,7);
+              if (getCookie("uid_fb")== null){eraseCookie("uid_fb");}
+            } else {
+              eraseCookie("access_fb");
+              window.location= base+"?wcc_fb=1";
+            }
+          };
+          jsonp("https://graph.facebook.com/me/?access_token="+getCookie("access_fb")+"&callback=user_fb");
+        }
+// =============================================================================
+        if(qs.wcc_tw>0){
+
+        }
+        if(qs.wcc_tw>1){
+
+        }
+// =============================================================================
+        if(qs.wcc_ig>0){
+          redir= "https://api.instagram.com/oauth/authorize/"+"?client_id="+oauth.ig.client_id+"&redirect_uri="+oauth.ig.redirect_uri+"&response_type=token";
+        }
+        if(qs.cb_ig>0 && window.location.hash){
+          setCookie("access_ig",window.location.hash.split("#access_token=")[1],7);
+          window.location= base;
+        }
+        if(getCookie("access_ig")) {
+          window.user_ig= function (o) {
+            if (o.data.id) {
+              removeClass(one("#wcc_ig_stat"),"color-r");
+              addClass(one("#wcc_ig_stat"),"color-g");
+              one("#wcc_ig_stat").innerHTML= "@"+o.data.username;
+              setCookie("uid_ig",o.data.id,7);
+              if (getCookie("uid_ig")== null){eraseCookie("uid_ig");}
+            } else {
+              eraseCookie("access_ig");
+              window.location= base+"?wcc_ig=1";
+            }
+          };
+          jsonp("https://api.instagram.com/v1/users/self/?access_token="+getCookie("access_ig")+"&callback=user_ig");
+        }
+// =============================================================================
+        if(qs.wcc_gp>0){
+
+        }
+// =============================================================================
+        if(redir){ window.location= redir; }
+      } else {
+        if (!qs.no_github && !getCookie("gh_at")) { window.location= base+"?no_github=1"; }
+        get("https://api.github.com/user?access_token="+getCookie("gh_at"), function(data) {
+          data= JSON.parse(data);
+          if (data.id) {
+            setCookie("gh_id",data.id,7);
+            setCookie("gh_username",data.login,7);
+            window.location= base;
+          } else {
+            window.location= base+"?no_github=1";
+          }
+        });
+      }
+    </script>
+  </var>
+</footer>
+</body></html>
