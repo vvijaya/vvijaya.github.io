@@ -8,6 +8,6 @@ img,
 }
 .unit{
   -webkit-filter: grayscale(100%); /* Chrome, Safari, Opera */
-  filter: grayscale(100%);
   filter: url("filters.svg#grayscale");
+  filter: grayscale(100%);
 }
