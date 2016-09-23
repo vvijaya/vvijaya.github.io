@@ -7,7 +7,8 @@ img,
   background-size: cover;
 }
 .unit{
-  -webkit-filter: grayscale(100%); /* Chrome, Safari, Opera */
+  -webkit-filter: grayscale(1);
+  filter: grayscale(1);
   filter: url("filters.svg#grayscale");
-  filter: grayscale(100%);
+  filter: gray;
 }
