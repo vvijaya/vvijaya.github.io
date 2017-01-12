@@ -120,14 +120,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 blockquote {
   text-align: left;
-  background-color: #fff;
-  color: #000;
+  /*background-color: #fff;
+  color: #000;*/
   position: relative;
   margin: 1em auto;
-  padding: .5em .5em 3em;
+  padding: .5em .5em 3em !important;
   border: solid transparent 0;
-  /*border-right-width: 2em;*/
-  border-left-width: 2em;
+  /*border-right-width: 2em !important;*/
+  border-left-width: 2em !important;
   font-weight: 900;
   max-width: 400px;
 }
@@ -140,7 +140,7 @@ blockquote::after {
   line-height: 1;
   height: 32px;
   width: 32px;
-  color: #999;
+  color: #000;
 }
 blockquote::before {
   content: "\201C";
@@ -262,24 +262,28 @@ body {
 
 .card {
   position: relative;
-  background: #333;
-  /*color: #FC0;*/
+  background: #232323;
+  border: solid 1px;
+  color: #FFF;
   padding: 1.5em .5em;
   margin: 4em auto;
   max-width: 400px;
 }
-.card ul {
+.about .card:first-child {
+  margin-top: 0;
+}
+.about .card ul {
   padding: 0;
   margin: 0;
 }
-.card ul li {
+.about .card ul li {
   text-align: left;
   list-style: none;
 }
-.card a {
+.about .card a {
   color: #FFD300;
 }
-.card ul li a {
+.about .card ul li a {
   font-size: small;
   padding: .5em;
 }
