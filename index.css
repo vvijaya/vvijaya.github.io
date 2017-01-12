@@ -62,6 +62,12 @@
   background-color: rgba(0,0,0,0.5);
   color: #FFF;
 }
+.hero {
+  font-size: 2em;
+}
+p{
+  margin: 16px 0;
+}
 
 /* responsive menu =================================== */
 .menu { padding: 0; position: relative; overflow: hidden; box-shadow: 0 0 .5em #000; }
@@ -214,6 +220,7 @@ body {
 .color-y { color: #FFD300; }
 .color-k { color: #000000; }
 .color-w { color: #FFFFFF; }
+.color-taro { color: #F6F; }
 
 .bg-r { background-color: #C40233; }
 .bg-g { background-color: #009F6B; }
@@ -257,7 +264,7 @@ body {
 .card {
   position: relative;
   background: #333;
-  color: #FC0;
+  /*color: #FC0;*/
   padding: 1.5em .5em;
   margin: 4em auto;
   max-width: 400px;
@@ -271,7 +278,7 @@ body {
   list-style: none;
 }
 .card a {
-  color: #f60;
+  color: #FFD300;
 }
 .card ul li a {
   font-size: small;
@@ -371,7 +378,6 @@ body {
   top: 0;
 }
 [data-lightbox]:target .flex-view .btn {
-  /*font-size: 100%;*/
   max-width: 50%;
 }
 [data-lightbox]:target .flex-view {
