@@ -76,7 +76,7 @@
 .menu .menu-item:hover,
 .menu .menu-header:hover,
 .menu .menu-toggle:hover {
-  background-color: #666;
+  background-color: #454545;
   color: #fff;
 }
 @media (min-width: 640px) {
@@ -140,7 +140,7 @@ blockquote::after {
   line-height: 1;
   height: 32px;
   width: 32px;
-  color: #000;
+  color: #232323;
 }
 blockquote::before {
   content: "\201C";
@@ -263,7 +263,7 @@ body {
 .card {
   position: relative;
   background: #232323;
-  border: solid 1px;
+  border: solid 1px #454545;
   color: #FFF;
   padding: 1.5em .5em;
   margin: 4em auto;
