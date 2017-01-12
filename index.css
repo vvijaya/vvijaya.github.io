@@ -21,18 +21,6 @@
 /* button style ============================================================= */
 /*[data-lightbox], **/
 /*.btn,*/
-.ease {
-  -webkit-transition: ease all .25s;
-  -ms-transition: ease all .25s;
-  -o-transition: ease all .25s;
-  transition: ease all .25s;
-}
-.no-ease {
-  -webkit-transition: none;
-  -ms-transition: none;
-  -o-transition: none;
-  transition: none;
-}
 .btn {
   padding: 1em 1.5em;
   line-height: 1;
@@ -61,12 +49,6 @@
 .color-k .btn:hover {
   background-color: rgba(0,0,0,0.5);
   color: #FFF;
-}
-.hero {
-  font-size: 2em;
-}
-p{
-  margin: 16px 0;
 }
 
 /* responsive menu =================================== */
@@ -128,6 +110,9 @@ p{
 footer {
   border-bottom: solid .5em #232323;
 }
+p{
+  margin: 16px 0;
+}
 blockquote,
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Playfair Display', serif;
@@ -186,6 +171,7 @@ body {
   height: 100%;
 }
 
+.hero,
 .h1 { font-size: 2em; }
 .h2 { font-size: 1.5em; }
 .h3 { font-size: 1.17em; }
@@ -193,6 +179,19 @@ body {
 .h5 { font-size: 0.67em; }
 .font-mono { font-family: monospace; }
 .normal { font-weight: normal; }
+
+.ease {
+  -webkit-transition: ease all .25s;
+  -ms-transition: ease all .25s;
+  -o-transition: ease all .25s;
+  transition: ease all .25s;
+}
+.no-ease {
+  -webkit-transition: none;
+  -ms-transition: none;
+  -o-transition: none;
+  transition: none;
+}
 
 .container {
   width: 90%;
@@ -336,7 +335,7 @@ body {
 }
 .top_scroll:hover {
   padding: 1em 6em;
-  padding: 1em 10em;
+  padding: 1em 8em;
   background-color: transparent !important;
   color: transparent !important;
 }
