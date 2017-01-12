@@ -72,13 +72,23 @@
   top: 0;
   right: 0;
   border-left: solid 2px;
-  background-color: #666;
-  color: #fff;
-  font-size: 3em;
-  padding: 0 .5em;
+  font-size: 2em;
+  padding: .25em 0;
+  width: 48px;
+  text-align: center;
 }
+.menu .menu-toggle::after { content: '×' }
+.menu.close .menu-toggle::after { content: '⋮' }
+.menu .menu-item,
+.menu .menu-header,
+.menu .menu-toggle {
+  background-color: #232323;
+  color: #fff;
+}
+.menu .menu-item:hover,
+.menu .menu-header:hover,
 .menu .menu-toggle:hover {
-  background-color: #333;
+  background-color: #666;
   color: #fff;
 }
 @media (min-width: 640px) {
@@ -319,6 +329,9 @@ body {
 }
 .top_scroll:hover {
   padding: 1em 6em;
+  padding: 1em 10em;
+  background-color: transparent !important;
+  color: transparent !important;
 }
 .top_scroll img {
   width: 120px;
