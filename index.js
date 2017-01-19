@@ -31,7 +31,7 @@ var loadDeferredStyles = function() {
   var defer, tmp, i;
   function menuClicked (e){
     el = this; while (el.parentNode) {
-      el = el.parentNode;if (el === one(".menu")) { break; }
+      el = el.parentNode;if (el === one(".accordion-menu")) { break; }
     } toggleClass(el, "close");
   }
   var menuToggle = all(".menu-toggle, .menu-item");

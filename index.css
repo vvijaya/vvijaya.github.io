@@ -52,10 +52,10 @@
 }
 
 /* responsive menu =================================== */
-.menu { padding: 0; position: relative; overflow: hidden; box-shadow: 0 0 .5em #000; }
-.menu, .menu * { display: block; margin: 0; border: 0; }
-.menu.fixed { position: fixed; width: 100%; z-index: 2; }
-.menu .menu-toggle {
+.accordion-menu, .inline-menu { padding: 0; position: relative; overflow: hidden; box-shadow: 0 0 .5em #000; }
+.accordion-menu.fixed, .inline-menu.fixed { position: fixed; width: 100%; z-index: 2; }
+.accordion-menu, .accordion-menu * { display: block; margin: 0; border: 0; }
+.accordion-menu .menu-toggle {
   position: absolute;
   top: 0;
   right: 0;
@@ -65,42 +65,60 @@
   width: 48px;
   text-align: center;
 }
-.menu .menu-toggle::after { content: '×' }
-.menu.close .menu-toggle::after { content: '⋮' }
-.menu .menu-item,
-.menu .menu-header,
-.menu .menu-toggle {
+.accordion-menu .menu-toggle::after { content: '×' }
+.accordion-menu.close .menu-toggle::after { content: '⋮' }
+.accordion-menu .menu-item,
+.accordion-menu .menu-header,
+.accordion-menu .menu-toggle {
   background-color: #232323;
   color: #fff;
 }
-.menu .menu-item:hover,
-.menu .menu-header:hover,
-.menu .menu-toggle:hover {
+.accordion-menu .menu-item:hover,
+.accordion-menu .menu-header:hover,
+.accordion-menu .menu-toggle:hover {
   background-color: #454545;
   color: #fff;
 }
 @media (min-width: 640px) {
-  .menu { text-align: center; }
-  .menu, .menu * { display: inline-block; }
-  .menu-toggle {
+  .accordion-menu { text-align: center; }
+  .accordion-menu, .accordion-menu * { display: inline-block; }
+  .accordion-menu .menu-toggle {
     display: none;
   }
 }
 @media (max-width: 640px) {
-  .menu { border-bottom: solid 2px; }
-  .menu.close { border-bottom-width: 0; }
-  .menu.close .menu-item {
+  .accordion-menu { border-bottom: solid 2px; }
+  .accordion-menu.close { border-bottom-width: 0; }
+  .accordion-menu.close .menu-item {
     height: 0;
     padding-top: 0;
     padding-bottom: 0;
     overflow: hidden;
     opacity: 0;
   }
-  .menu-header {
+  .accordion-menu .menu-header {
     border-bottom: solid 2px #fff;
   }
 }
 
+.inline-menu{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-align: center;
+  border-bottom: solid 2px #999;
+}
+.inline-menu li{
+  display: inline;
+}
+.inline-menu .btn {
+  border: 0;
+  font-size: .75em;
+  padding: 1em;
+}
+.inline-menu .menu-toggle {
+  display: none;
+}
 /* main style ======================================== */
 * {
   font-family: 'Montserrat', sans-serif;
