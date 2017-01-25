@@ -114,7 +114,12 @@
 .inline-menu .btn {
   border: 0;
   font-size: .75em;
-  padding: 1em;
+  padding: 1.5em 1em;
+}
+@media (min-width: 640px) {
+  .inline-menu .btn {
+    padding: 1.5em 2em;
+  }
 }
 .inline-menu .menu-toggle {
   display: none;
