@@ -163,7 +163,7 @@ blockquote::after {
   line-height: 1;
   height: 32px;
   width: 32px;
-  color: #232323;
+  color: #fff;
 }
 blockquote::before {
   content: "\201C";
@@ -290,7 +290,16 @@ body {
   color: #FFF;
   padding: 1.5em .5em;
   margin: 4em auto;
-  max-width: 400px;
+  max-width: 380px;
+}
+.card.business.back{background:#fff;}
+.card.business{font-size:75%;background:#454545;padding:38px 5%}
+.card.business .logo{height: 60px;margin: -10px 0}
+.card.business .qr{height: 79px;margin: -19px 0}
+@media (min-width:444px){
+  .card.business{font-size:100%}
+  .card.business .logo{height: 80px;margin: -14px 0}
+  .card.business .qr{height: 99px;margin: -23px 0}
 }
 .about .card:first-child {
   margin-top: 0;
@@ -332,22 +341,21 @@ body {
   color: #f00;
 }
 .about .card::after {
-  height: 5.5em;
+  height: 5.555em;
   border-left: solid 4px;
   margin-bottom: -1.5em;
   margin-left: 2px;
   color: #fff;
 }
 @media print {
-  * {
-    color: #333 !important;
-  }
-  blockquote,
-  .flex-view,
-  .about .card {
-    border: solid;
-    page-break-inside: avoid;
-  }
+  *{background: transparent !important;color: #333 !important}
+  body{zoom:.99;}
+  footer{border: none}
+  img{-webkit-filter: grayscale(100%);filter: grayscale(100%)}
+  .flex-view,.card{border: solid;page-break-inside: avoid}
+  .container,.card{margin: 1em auto}
+  [data-lightbox] .flex-view{padding-bottom: 0}
+  [data-lightbox] [data-lightbox-wrapper],
   .about .card::before,
   .about .card::after,
   .no-print {
