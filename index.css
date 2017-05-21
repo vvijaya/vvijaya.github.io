@@ -480,3 +480,10 @@ body {
   background-size: 1em 1em;
   border: solid 1px #333;
 }
+
+.broken [data-lightbox-active] .btn {
+  color: #f00;
+}
+.broken [data-lightbox-active], .broken .flex-view {
+  border-color: #f00;
+}
