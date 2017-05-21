@@ -400,9 +400,9 @@ body {
   white-space: nowrap;
   overflow: hidden;
   font-size: 80%;
-  max-width: 100%;
+  max-width: 0;
   border-width: 1px;
-  padding: 1.5em 1em;
+  padding: 1.5em 0;
   position: absolute;
   font-weight: normal;
   border: solid 2px;
@@ -415,6 +415,8 @@ body {
 }
 [data-lightbox] .flex-view:hover .btn {
   opacity: 1;
+  max-width: 100%;
+  padding: 1.5em 1em;
 }
 [data-lightbox]:target .flex-view .btn {
   max-width: 50%;
