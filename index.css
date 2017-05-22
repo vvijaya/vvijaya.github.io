@@ -133,7 +133,7 @@
 footer {
   border-bottom: solid .5em #232323;
 }
-p{
+p, figure{
   margin: 16px 0;
 }
 blockquote,
