@@ -45,6 +45,14 @@ var loadDeferredStyles = function() {
   for (i = 0; i < menuToggle.length; i++) { on(menuToggle[i], "click", menuClicked); }
   smoothScroll.init({before: function (anchor, toggle){}});
 
+  on(document, 'keydown', function(e) {
+    e = e || window.event;
+    var isEscape = (e.keyCode == 27) || false;
+    if (isEscape && window.location.href.indexOf('!/portfolio')>0) {
+      window.location.href = '#!/_';
+    }
+  });
+
   defer = one("#deferred-styles");
   tmp = document.createElement("var");
   tmp.innerHTML = defer.textContent;

@@ -440,7 +440,6 @@ body {
 }
 [data-lightbox-close] {
   display: block;
-  font-size: 0;
 }
 [data-lightbox]:target [data-lightbox-close] {
   position: fixed;
@@ -449,6 +448,19 @@ body {
   top: 0;
   left: 0;
   opacity: 1;
+}
+[data-lightbox]:target [data-lightbox-close]:before {
+  content: '×';
+  position: absolute;
+  text-align: center;
+  font-weight: bold;
+  line-height: .9;
+  font-size: 60px;
+  color: #f00;
+  height: 1em;
+  width: 1em;
+  right: 0;
+  top: 0;
 }
 [data-lightbox]:target [data-lightbox-close]:hover {
   opacity: .5;
