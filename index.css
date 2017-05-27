@@ -266,7 +266,7 @@ body {
   float: left;
   box-sizing: border-box;
 }
-.full, .half {
+.full, .half, .third {
   width: 100%;
 }
 @media (min-width: 640px) {
@@ -274,12 +274,12 @@ body {
     width: 50%;
   }
 }
-.third {
-  width: 100%;
-}
 @media (min-width: 960px) {
   .third {
     width: 33.3333%;
+  }
+  .third.x2 {
+    width: 66.6666%;
   }
 }
 
