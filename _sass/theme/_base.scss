@@ -1,0 +1,315 @@
+/* Basic styling
+  =========================================================================== */
+*{
+   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
+  position: relative;
+}
+*,*:active,*:focus{
+  -webkit-tap-highlight-color: transparent;
+           -moz-outline-width: 0;
+                outline-width: 0;
+                outline-style: none;
+                      outline: 0;
+}
+body {
+  font: 400 #{$base-font-size}/#{$base-line-height} $base-font-family;
+  @extend %overflowcolor;
+}
+.font {
+  &-serif {font-family: $serif-font-family; }
+  &-mono {font-family: $monospace-family; }
+  &-web {font-family: $web-font-family; }
+}
+main {
+  background-color: $light-color;
+  color: $dark-color;
+  @extend %ease;
+  > footer {
+    font-size: 80%;
+    padding: $spacing-unit 0;
+    @extend %overflowcolor;
+  }
+}
+/* Set `margin-top-bottom` to maintain vertical rhythm
+  =========================================================================== */
+h1, h2, h3, h4, h5, h6,
+p, blockquote, pre, hr,
+ul, ol, dl, figure,
+%vertical-rhythm {
+  margin: $spacing-unit auto;
+  .row > * & {
+    &:first-child {
+      margin-top: 0;
+    }
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+/* Word break
+  =========================================================================== */
+article,
+aside,
+footer,
+header,
+nav,
+section {
+  word-break: break-word;
+}
+
+/* Images
+  =========================================================================== */
+img {
+  max-width: 100%;
+  vertical-align: middle;
+}
+
+/* Figures
+  =========================================================================== */
+figure > img {
+  display: block;
+}
+figcaption {
+  @include relative-font-size(0.875);
+}
+
+/* Lists
+  =========================================================================== */
+ul, ol {
+  // margin-left: $spacing-unit;
+  padding: 0 $spacing-unit;
+}
+li {
+  > ul,
+  > ol {
+    margin: 0;
+  }
+}
+
+/* Headings
+  =========================================================================== */
+h1, h2, h3, h4, h5, h6 {
+  font-family: $web-font-family;
+  a {
+    &, &:active, &:focus, &:hover {
+      background-color: inherit;
+      font-weight: inherit;
+      color: inherit;
+    }
+  }
+}
+h1, h2 { font-weight: 100; }
+h3, h4 { font-weight: 400; }
+h5, h6 { font-weight: 600; }
+
+/* Links
+  =========================================================================== */
+a {
+  font-weight: 700;
+  display:inline-block;
+  color: $accent-color;
+  text-decoration: none;
+  &:active, &:focus, &:hover { text-decoration: underline; }
+  @extend %ease;
+}
+
+/* Horizontal rule
+  =========================================================================== */
+hr {
+  opacity: .25;
+  border: 0;
+  border-top: dashed 2px;
+}
+
+/* Blockquotes
+  =========================================================================== */
+blockquote {
+  color: $dark-alt-color;
+  padding: $spacing-unit/2;
+  padding-right: $spacing-unit/4*3;
+  border-left: $spacing-unit/4 solid $accent-color;
+  font-style: italic;
+  margin: $spacing-unit $spacing-unit/4*3*-1;
+  @include relative-font-size(1.25);
+  @include media-query($on-md) { margin: $spacing-unit; }
+  p { font-weight: 100; &:last-child { margin-bottom: 0; } &:first-child { margin-top: 0; }
+    & + p:last-child {
+      font-weight: 700;
+      text-align: right;
+      @include relative-font-size(.8125);
+    }
+  }
+}
+
+/* Code formatting
+  =========================================================================== */
+pre,
+code {
+  @include relative-font-size(0.875);
+  font-family: $monospace-family;
+  border: 1px solid $light-alt-color;
+  background-color: #eef;
+  @include media-query($on-md) { border-radius: 3px; }
+}
+
+code {
+  padding: 1px $base-font-size/4;
+}
+
+pre {
+  padding: $spacing-unit/2 $spacing-unit*0.75;
+  overflow-x: auto;
+  > code {
+    border: 0;
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+
+/* Table
+  =========================================================================== */
+table {
+  width: 100%;
+  overflow: auto;
+  display: block;
+  border-spacing: 0;
+  border-collapse: collapse;
+  word-break: normal;
+  th {
+    font-weight: bold;
+  }
+  th, td {
+    border: 1px solid #ddd;
+    padding: $spacing-unit/4 $spacing-unit;
+  }
+  tr {
+    color: $dark-color;
+    border-top: 1px solid #ccc;
+    background-color: $light-color;
+    th, &:nth-child(2n) {
+      background-color: $light-alt-color;
+    }
+  }
+  &.responsive{
+    margin: auto;
+    &, tbody,
+    tr, th, td {
+      display: block;
+      overflow: hidden;
+    }
+    tr, th, td {
+      background-color: inherit;
+      color: inherit;
+      border: 0;
+    }
+  }
+}
+/* Form
+  =========================================================================== */
+button,
+input,
+textarea {
+  font-family: $base-font-family;
+  border-radius: 0;
+  font-weight: 600;
+  display: block;
+  padding: $spacing-unit/2;
+  resize: none;
+  border: 0;
+  @extend %ease;
+  &:hover, &:focus, &:active {
+    box-shadow: inset 0 0 2px 2px $dark-color;
+  }
+}
+button {
+  cursor: pointer;
+  background-color: $light-alt-color;
+  color: $dark-color;
+  &:hover, &:focus, &:active {
+    background-color: $dark-color;
+    color: $light-alt-color;
+  }
+}
+
+/* Container
+  =========================================================================== */
+.container {
+  max-width: $content-width;
+  margin: auto;
+  padding-right: $spacing-unit;
+  padding-left: $spacing-unit;
+  @extend %clearfix;
+  @include media-query($on-lg) {
+
+  }
+}
+
+/* a11y
+  =========================================================================== */
+.hide,
+%hide {
+  background-color: $light-color;
+  color: $dark-color;
+  position: absolute;
+  right: 0;
+  clip: rect(1px 1px 1px 1px);
+  clip: rect(1px, 1px, 1px, 1px);
+}
+
+/* block element
+  =========================================================================== */
+.block,
+%block {
+  display: block;
+  margin: auto;
+}
+/* Clearfix
+  =========================================================================== */
+.clearfix { @extend %clearfix; }
+%clearfix:before,
+%clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Easing
+  =========================================================================== */
+.ease,
+%ease {
+  -webkit-transition: ease-in-out .3s;
+          transition: ease-in-out .3s;
+}
+
+/* Checkered
+  =========================================================================== */
+.checkered,
+%checkered {
+  background-color: #fff;
+  background-position: 0 0,10px 10px;
+  -webkit-background-size: 20px 20px;
+  background-size: 20px 20px;
+  border: 0;
+  background-image: -webkit-linear-gradient(45deg,#eee 25%,transparent 25%,transparent 75%,#eee 75%,#eee),
+                    -webkit-linear-gradient(45deg,#eee 25%,transparent 25%,transparent 75%,#eee 75%,#eee);
+}
+
+/* Overflow color outside the <main> section
+  =========================================================================== */
+%overflowcolor{
+  background-color: $dark-color;
+  color: $light-color;
+}
+@media print {
+  * {
+    background-color: #fff!important;
+    border-color: #666!important;
+    color: #333!important;
+  }
+  .no-print{
+    content:"";display:none!important;
+  }
+}

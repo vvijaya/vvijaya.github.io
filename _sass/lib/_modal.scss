@@ -1,0 +1,55 @@
+/* Modal
+  =========================================================================== */
+.mModal{
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 90%;
+  height: 80%;
+  margin: auto;
+  max-width: 800px;
+  background: #333;
+  color: #FAFAFA;
+  z-index: 99;
+  padding: 1.5em;
+  & .header{
+    z-index: 2;
+    margin-top: 0;
+    overflow: hidden;
+    padding-right: 40px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  & .body{
+    margin-top: -4em;
+    padding-top: 4em;
+    overflow: hidden;
+    height: 100%;
+    & div{
+      height: 100%;
+      overflow: auto;
+    }
+  }
+  & .close{
+    z-index: 3;
+    position: absolute;
+    font-size: 0;
+    padding: 0;
+    right: 0;
+    top: 0;
+    &:after{
+      content: '×';
+      color: #CC0033;
+      position: absolute;
+      line-height: .8;
+      font-size: 40px;
+      height: 1em;
+      width: 1em;
+      right: 0;
+      top: 0;
+    }
+  }
+}

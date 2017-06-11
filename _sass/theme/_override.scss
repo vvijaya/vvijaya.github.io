@@ -1,0 +1,235 @@
+/* Style override Highlight
+  =========================================================================== */
+.highlight {
+  margin: 0 -#{$spacing-unit};
+  @include media-query($on-md) {
+    margin: $spacing-unit;
+  }
+  @extend %vertical-rhythm;
+}
+
+/* Style override Grid Layout
+  =========================================================================== */
+.row {
+  width: calc(100% + #{$spacing-unit});
+  margin: -$spacing-unit/2;
+  margin-bottom: -6px;
+  > [class^=col-] {
+    padding: $spacing-unit/2;
+  }
+}
+
+/* Style extend Modal Full
+  =========================================================================== */
+.mModal {
+  background-color: $light-alt-color;
+  color: $dark-color;
+  &.full {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    padding: $spacing-unit;
+  }
+  .header { padding-right: $base-font-size*4; }
+  .close:after { font-size: $base-font-size*4; }
+  .close:hover:after { background-color: $light-color; }
+}
+
+/* Style extend Ratio
+  =========================================================================== */
+.ratio {
+  @extend %checkered;
+}
+
+/* Style override NProgress
+  =========================================================================== */
+#nprogress {
+  .bar {
+    height: 2px;
+    background: $accent-alt-color;
+    .peg {
+      box-shadow: 0 0 $spacing-unit $accent-alt-color, 0 0 $spacing-unit/2 $accent-alt-color;
+    }
+  }
+  .spinner {
+    top: $spacing-unit;
+    right: $spacing-unit;
+    &-icon {
+      width: $spacing-unit;
+      height: $spacing-unit;
+      border: solid 2px transparent;
+      border-top-color: $accent-alt-color;
+      border-left-color: $accent-alt-color;
+    }
+  }
+  &:after {
+    content: 'Loading...';
+    text-align: center;
+    position: fixed;
+    display: block;
+    margin: 0;
+    padding: 0;
+    line-height: 0;
+    font-size: $spacing-unit*2;
+    opacity: .5;
+    width: 100%;
+    left: 0;
+    top: 50%;
+  }
+}
+.nprogress-busy main {
+  opacity: 0;
+}
+
+/* OVERRIDE Responsive inline menu
+  =========================================================================== */
+.menu{
+  min-height: $spacing-unit+28;
+}
+.inline-menu {
+  background-color: $light-color;
+  color: $dark-color;
+  .active a { border-color: $dark-color; }
+  li a {
+    color: $dark-color;
+    padding: $spacing-unit/2 $spacing-unit/2;
+    @include media-query($on-md) {
+      padding: $spacing-unit/2 $spacing-unit;
+    }
+    &:active, &:focus, &:hover {
+      background: $dark-color;
+      color: $light-color;
+    }
+  }
+}
+
+/* OVERRIDE Interactive Markdown
+  =========================================================================== */
+.figure.responsive {
+  max-width: 400px;
+  .avatar img { border-radius: 50%; }
+  .avatar img , .closeup img { padding: 1em; width: 200px; }
+}
+
+.card {
+  background-color: $dark-color;
+  border: solid 1px $dark-color;
+  color: $light-color;
+  margin: $spacing-unit auto;
+  padding: $spacing-unit*2 0;
+  max-width: 400px;
+  font-weight: 600;
+  text-align: center;
+  .card-list & {
+    margin: $spacing-unit*2 auto;
+    &:first-child { margin-top: $spacing-unit; }
+    &:last-child { margin-bottom: $spacing-unit; }
+    &:first-child:after { display: none; }
+    &:before,
+    &:after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      bottom: 100%;
+      box-sizing: border-box;
+    }
+    &:before {
+      width: $spacing-unit;
+      height: $spacing-unit;
+      border: solid $spacing-unit/4;
+      margin-bottom: -$spacing-unit*1.75;
+      margin-left: -$spacing-unit/4;
+      background: $light-color;
+      border-radius: 100%;
+      color: #f00;
+    }
+    &:after {
+      height: $spacing-unit*3;
+      border-left: solid $spacing-unit/4;
+      margin-bottom: -$spacing-unit;
+      margin-left: $spacing-unit/8;
+      color: $light-color;
+    }
+  }
+  &.back {
+    background: #fff;
+    a { color: $b-color; }
+    [alt="logo"] { max-height: 60px; margin: -8px 0; }
+    [alt="qr"] { max-height: 80px; margin: -16px 0; }
+    @include media-query($on-md) {
+      [alt="logo"] { max-height: 80px; margin: -12px 0; }
+      [alt="qr"] { max-height: 100px; margin: -20px 0; }
+    }
+  }
+  &.social p { max-width: 120px; text-align: left; }
+  > *:first-child { color: $t-color; }
+  ul { text-align: left; list-style: none; }
+  @media print {
+    & { padding: 0; }
+    &:before,
+    &:after {
+      content:"";display:none!important;
+    }
+  }
+}
+
+/* OVERRIDE Theme Color
+  =========================================================================== */
+.red {
+  .inline-menu { background-color:$light-color; color:$r-color;
+    .active a { border-color:$r-color; }
+    li a { color: $r-color; &:active, &:focus, &:hover {
+      background-color:$r-color; color:$light-color;
+    }}
+  }
+  section { background-color: $r-color; color: $light-color; }
+  a { color: $y-color; }
+}
+.green {
+  .inline-menu { background-color:$light-color; color:$g-color;
+    .active a { border-color:$g-color; }
+    li a { color: $g-color; &:active, &:focus, &:hover {
+      background-color:$g-color; color:$light-color;
+    }}
+  }
+  section { background-color: $g-color; color: $light-color; }
+  a { color: $y-color; }
+}
+.blue {
+  .inline-menu { background-color:$light-color; color:$b-color;
+    .active a { border-color:$b-color; }
+    li a { color: $b-color; &:active, &:focus, &:hover {
+      background-color:$b-color; color:$light-color;
+    }}
+  }
+  section { background-color: $b-color; color: $light-color; }
+  a { color: $y-color; }
+}
+
+/* OVERRIDE Up Down Status
+  =========================================================================== */
+.down {
+  &, a { color: #C00; }
+}
+.up, .down {
+  .work-list & {
+    border: solid;
+  }
+}
+
+/* OVERRIDE Font Color
+  =========================================================================== */
+.color {
+  &-c { color: $c-color!important; }
+  &-m { color: $m-color!important; }
+  &-y { color: $y-color!important; }
+  &-r { color: $r-color!important; }
+  &-g { color: $g-color!important; }
+  &-b { color: $b-color!important; }
+}
+.align {
+  &-left { text-align: left; }
+  &-right { text-align: right; }
+  &-center { text-align: center; }
+  &-justify { text-align: justify; }
+}

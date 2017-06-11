@@ -1,4 +1,0 @@
-User-Agent: *
-Disallow:
-
-Sitemap: http://gunawan.wijaya.cc/sitemap.xml

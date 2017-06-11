@@ -1,0 +1,16 @@
+<footer>
+  <div class="container no-print align-center">
+{% capture md %} {{ site.copyright }}
+
+powered by [Vanilla JS](http://vanilla-js.com/ "Link$ class$ color-r"), [Google Cloud Speech](https://cloud.google.com/speech/ "Link$ class$ color-g") and [GitHub](https://github.com/gunawanwijaya/gunawanwijaya.github.io/ "Link$ class$ color-b")
+
+inspired by [Family](https://www.instagram.com/p/ogbtRcn3_W/ "Link$ class$ color-c") and [Dickbutt](https://youtu.be/AmYrTp-JdnY/ "Link$ class$ color-m"), avatar by [Norm the pug](https://www.instagram.com/p/Z9fSDFCgzG/ "Link$ class$ color-y")
+{% endcapture %} {{ md | markdownify }}
+  </div>
+</footer>
+<div class="hide" defer-script-and-style>
+  <script src="{{ "/assets/js/lib.js" | absolute_url }}" async="" defer=""></script>
+  <script src="{{ "/assets/js/script.js" | absolute_url }}" async="" defer=""></script>
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Montserrat:400,700">
+  {{ page.defer }}
+</div>
