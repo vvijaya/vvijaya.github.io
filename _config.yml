@@ -13,7 +13,7 @@ description:  |
   Hi there, my name is Gunawan, spelled goo - nah - one.
   I do many things, from Front End to Big Spoon.
 baseurl:      "" # the subpath of your site, e.g. /blog
-url:          "" # the base hostname & protocol for your site, e.g. http://example.com
+url:          https://gunawan.wijaya.cc # the base hostname & protocol for your site, e.g. http://example.com
 copyright:    <https://wijaya.cc/> © 2017
 repository:   gunawanwijaya/gunawanwijaya.github.io
 ########################################
