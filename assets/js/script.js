@@ -64,8 +64,9 @@ function polyfillsAreLoaded() {
         var tag = (p[1]||'').replace(/ /g, '').toUpperCase(),
             cls = (p[2]||'');
         wrapDOM(e, str2DOM(
-          `<`+tag+` class="`+cls+`"></`+tag+`>`
+          `<`+tag+`></`+tag+`>`
         ));
+        addClass(e.parentNode, cls);
         if (tag==='FIGURE') {
           e.parentNode.appendChild(str2DOM(
             `<figcaption>`+e.alt+`</figcaption>`
