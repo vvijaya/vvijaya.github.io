@@ -1,8 +1,7 @@
 ---
-layout:         page
 permalink:      /contact/
 title:          Contact
-menu_index:     4
+menu_index:     3
 ---
 # Contact[](# "Find$ main$ red align-center")
 

@@ -1,8 +1,7 @@
 ---
-layout:         page
 permalink:      /about/
 title:          About
-menu_index:     2
+menu_index:     1
 ---
 # About[](# "Find$ main$ green align-center")
 
@@ -32,5 +31,5 @@ Timeline (not so accurate, but well, why not)
 
 ---
 
-[Avatar]: https://gunawan.wijaya.cc/assets/images/avatar.jpg "Image$ block avatar"
-[Close Up]: https://gunawan.wijaya.cc/assets/images/closeup.jpg "Image$ block closeup"
+[Avatar]: https://gunawan.wijaya.cc/assets/images/avatar.jpg "Image$ span$ block avatar"
+[Close Up]: https://gunawan.wijaya.cc/assets/images/closeup.jpg "Image$ span$ block closeup"

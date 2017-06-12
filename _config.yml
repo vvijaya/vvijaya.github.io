@@ -5,35 +5,53 @@
 #
 # YAML guide
 # https://stackoverflow.com/a/21699210/4729477
-title: Gunawan Wijaya
-email: gunawan@wijaya.cc
-description: |
+#
+########################################
+title:        Gunawan Wijaya
+email:        gunawan@wijaya.cc
+description:  |
   Hi there, my name is Gunawan, spelled goo - nah - one.
   I do many things, from Front End to Big Spoon.
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
-copyright: <https://wijaya.cc/> © 2017
-repository: gunawanwijaya/gunawanwijaya.github.io
-limit_posts: 12
-permalink: pretty
-show_drafts: true
-unpublished: true
-future: true
+baseurl:      "" # the subpath of your site, e.g. /blog
+url:          "" # the base hostname & protocol for your site, e.g. http://example.com
+copyright:    <https://wijaya.cc/> © 2017
+repository:   gunawanwijaya/gunawanwijaya.github.io
+########################################
 analytics:
-  google: UA-67065348-1
-  mixpanel: 8104be8963c319b2d6aef0fd2da80da3
-  yandex: 44827765
+  google:     UA-67065348-1
+  mixpanel:   8104be8963c319b2d6aef0fd2da80da3
+  yandex:     44827765
 disqus:
-  shortname:
-#######################################
+  shortname:  wijaya-cc
+########################################
+limit_posts:  12
+permalink:    pretty
+show_drafts:  false
+unpublished:  false
+future:       false
+########################################
+defaults:
+  - ####################################
+    scope:
+      path:   ""
+    values:
+      layout: page
+      author: Gunawan Wijaya
+  - ####################################
+    scope: { path: _posts }
+    values: { layout: post }
+  - ####################################
+    scope: { path: _drafts }
+    values: { layout: post }
+########################################
 compress_html:
   clippings: all
-  comments:  ["<!-- ", " -->"]
-  endings:   all
-#######################################
+  comments: ["<!-- ", " -->"]
+  endings: all
+########################################
 sass:
   style: compressed
-#######################################
+########################################
 gems:
   - jekyll-feed
   - jekyll-github-metadata
@@ -41,8 +59,8 @@ gems:
   - jekyll-seo-tag
   - jekyll-sitemap
   - jemoji
-#######################################
+########################################
 exclude:
   - Gemfile
   - Gemfile.lock
-#######################################
+########################################

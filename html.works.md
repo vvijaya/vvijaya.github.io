@@ -1,8 +1,7 @@
 ---
-layout:         page
 permalink:      /works/
 title:          Works
-menu_index:     3
+menu_index:     2
 ---
 # Works[](# "Find$ main$ blue align-center")
 

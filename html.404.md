@@ -1,5 +1,4 @@
 ---
-layout:         page
 permalink:      /404.html
 custom_header:  true
 className:      container err404 align-center
@@ -13,10 +12,10 @@ Since you're here, BEHOLD! this majestic dickbutt.
 
 [![dickbutt][img]][uri]
 
-Enough of this majestic dickbutt? back to [home](https://gunawan.wijaya.cc/)
+Enough of this majestic dickbutt? back to [home]({{ "/" | absolute_url }})
 
 ## AOA | four-OH-four | HEeyYy..
 
 ---
-[img]: https://gunawan.wijaya.cc/assets/images/dickbutt.gif
+[img]: https://gunawan.wijaya.cc/assets/images/dickbutt.gif "Image$ Figure"
 [uri]: https://gunawan.wijaya.cc/assets/sounds/dickbutt.mp3 "Link$ Audio$ Loop Autoplay"

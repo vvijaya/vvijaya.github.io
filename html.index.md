@@ -1,10 +1,7 @@
 ---
-layout:         page
 permalink:      /
 title:          Home
-menu_index:     1
-# custom_header:  true
-redirect_from:  /home
+menu_index:     0
 ---
 # Gunawan Wijaya[](# "Find$ h1$ hide")
 

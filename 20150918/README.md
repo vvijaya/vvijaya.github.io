@@ -1,2 +1,0 @@
-# gunawan
-gunawan.wijaya.cc

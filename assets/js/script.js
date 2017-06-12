@@ -1,3 +1,4 @@
+"use strict";
 function polyfillsAreLoaded() {
   var tmp, i, w = window, d=document;
   gumshoe.init({selectorHeader: '[data-gumshoe]'});
@@ -6,7 +7,7 @@ function polyfillsAreLoaded() {
 
   // scrollspy
   var lastScrollTop = 0;
-  cache = window.cache || {};
+  w.cache = w.cache || {};
   cache.menu = cache.menu || one('.menu');
   function scrollspy(e) {
     if (getViewport().w < 480) {
@@ -17,7 +18,7 @@ function polyfillsAreLoaded() {
         removeClass(cache.menu,'folded');  // scroll up
       } lastScrollTop = st;
     } else {
-      cache.menu ? removeClass(cache.menu,'folded') : 0;
+      removeClass(cache.menu,'folded');
     }
     lazyLoad();
   } scrollspy(); on(window, 'scroll resize', scrollspy);
@@ -43,8 +44,8 @@ function polyfillsAreLoaded() {
         var loop = 1,
             ref = e,
             tmp,
-            cls = (p[2]||''),
-            tag = p[1].replace(/ /g, '').toUpperCase();
+            tag = (p[1]||'').replace(/ /g, '').toUpperCase(),
+            cls = (p[2]||'');
         e.tabIndex = -1;
         while (loop && p[1] && (e=e.parentNode)) {
           if (e.tagName === tag) { loop = 0; addClass(e, cls);
@@ -60,10 +61,17 @@ function polyfillsAreLoaded() {
         } // loop
       },
       image : function (e,p) {
+        var tag = (p[1]||'').replace(/ /g, '').toUpperCase(),
+            cls = (p[2]||'');
         wrapDOM(e, str2DOM(
-          `<span class="`+p[1]+`"></span>`
+          `<`+tag+` class="`+cls+`"></`+tag+`>`
         ));
-        e.title = "";
+        if (tag==='FIGURE') {
+          e.parentNode.appendChild(str2DOM(
+            `<figcaption>`+e.alt+`</figcaption>`
+          ));
+        }
+        e.title = '';
       },
       link  : function (e,p) {
         if (p[1].indexOf('► youtube embed')>=0) {
@@ -74,9 +82,7 @@ function polyfillsAreLoaded() {
             e = this;
             e.href.indexOf('?')<0 ? (e.href+='?&autoplay=1&iv_load_policy=3&modestbranding=1&showinfo=0&rel=0&playsinline=1') : 0;
             e.parentNode.replaceChild(str2DOM(
-              `<span class="ratio ratio-16-9">
-              <iframe src="`+e.href+`" allowfullscreen frameborder="0" type="text/html"></iframe>
-              </span>`
+              `<span class="ratio ratio-16-9"><iframe src="`+e.href+`" allowfullscreen frameborder="0"></iframe></span>`
             ), e);
             return false;
           });
@@ -98,7 +104,7 @@ function polyfillsAreLoaded() {
             modal.invoke({
               show: 1,
               body: this.innerHTML,
-              header: '<a target="_blank" href="'+this.href+'">'+p[2]+'</a>',
+              header: `<a target="_blank" href="`+this.href+`">`+p[2]+`</a>`,
               className: 'full align-center',
             });
             return false;
@@ -109,7 +115,7 @@ function polyfillsAreLoaded() {
         } else {
           // ELSE
         }
-        e.title = "";
+        e.title = '';
       },
     }, c = all('body [title]'), i = c.length;
     while(i--){
