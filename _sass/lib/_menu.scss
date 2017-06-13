@@ -26,7 +26,6 @@
       border:0;
       color:#CC0033;
       border-top:solid 2px transparent;
-      font-weight:bold;
       padding:16px 8px;
       text-decoration: none;
       @media screen and (min-width: 480px) {
@@ -36,7 +35,7 @@
       &:focus,
       &:hover{
         text-decoration: none;
-        background:#CC0033;
+        background-color:#CC0033;
         color:#FAFAFA;
       }
     }

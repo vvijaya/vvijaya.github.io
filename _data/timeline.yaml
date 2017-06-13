@@ -144,6 +144,7 @@
       live  : up
       desc  : |
         2014 — PT. Omnia Media
+
         The client is a villa owner in Lombok, he want a nice video of his place and luxury looking website, so the basic update is fullpage video background on the home screen, different image on certain pages. This one, the logic is quite simple but required much attention to detail and so many test, some best practice is in mobile decided to use still image instead of video, also not all menu is shown on mobile. After a while they want to stop using video as background.
 - ###########################
   date  : Jan 2015 - Sep 2015

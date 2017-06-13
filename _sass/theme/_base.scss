@@ -32,6 +32,9 @@ main {
     @extend %overflowcolor;
   }
 }
+section {
+  @extend %ease;
+}
 /* Set `margin-top-bottom` to maintain vertical rhythm
   =========================================================================== */
 h1, h2, h3, h4, h5, h6,
@@ -93,13 +96,6 @@ li {
   =========================================================================== */
 h1, h2, h3, h4, h5, h6 {
   font-family: $web-font-family;
-  a {
-    &, &:active, &:focus, &:hover {
-      background-color: inherit;
-      font-weight: inherit;
-      color: inherit;
-    }
-  }
 }
 h1, h2 { font-weight: 100; }
 h3, h4 { font-weight: 400; }
@@ -108,7 +104,6 @@ h5, h6 { font-weight: 600; }
 /* Links
   =========================================================================== */
 a {
-  font-weight: 700;
   display:inline-block;
   color: $accent-color;
   text-decoration: none;
@@ -127,31 +122,48 @@ hr {
 /* Blockquotes
   =========================================================================== */
 blockquote {
-  color: $dark-alt-color;
-  padding: $spacing-unit/2;
-  padding-right: $spacing-unit/4*3;
-  border-left: $spacing-unit/4 solid $accent-color;
+  padding: $spacing-unit 0;
   font-style: italic;
-  margin: $spacing-unit $spacing-unit/4*3*-1;
+  margin: $spacing-unit 0;
+  font-family: $serif-font-family;
   @include relative-font-size(1.25);
-  @include media-query($on-md) { margin: $spacing-unit; }
-  p { font-weight: 100; &:last-child { margin-bottom: 0; } &:first-child { margin-top: 0; }
+  &:before {
+    content: '❝';
+    color: $accent-color;
+    font-size: $spacing-unit*6;
+    position: absolute; left: 50%; line-height: 0.5; opacity: .25;
+    margin-left: -$spacing-unit*10/4;
+    @extend %ease;
+  }
+  p { font-weight: 100; display: inline;
+    &:last-child { margin-bottom: 0; }
+    &:first-child { margin-top: 0; }
     & + p:last-child {
-      font-weight: 700;
-      text-align: right;
+      display: block;
+      font-weight: 600;
+      font-family: $base-font-family;
       @include relative-font-size(.8125);
     }
   }
+  @include media-query($on-md) {
+    margin: $spacing-unit;
+    &:before {
+      font-size: $spacing-unit*4;
+      position: relative; left: 0; line-height: 0; opacity: .5;
+    }
+  }
+
 }
 
 /* Code formatting
   =========================================================================== */
-pre,
-code {
+pre, code {
   @include relative-font-size(0.875);
   font-family: $monospace-family;
   border: 1px solid $light-alt-color;
   background-color: #eef;
+  color: $dark-color;
+  @extend %ease;
   @include media-query($on-md) { border-radius: 3px; }
 }
 
@@ -162,11 +174,7 @@ code {
 pre {
   padding: $spacing-unit/2 $spacing-unit*0.75;
   overflow-x: auto;
-  > code {
-    border: 0;
-    padding-right: 0;
-    padding-left: 0;
-  }
+  > code { border: 0; padding: 0; }
 }
 
 /* Table

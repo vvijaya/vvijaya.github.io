@@ -3,7 +3,7 @@ permalink:      /
 title:          Home
 menu_index:     0
 ---
-# Gunawan Wijaya[](# "Find$ h1$ hide")
+# Gunawan Wijaya[](# "Find$ main$ align-center")
 
 ---
 

@@ -126,6 +126,29 @@ function polyfillsAreLoaded() {
     }
   }());
   // MD interactive
+
+  on(one('.rotator'), 'click', function() {
+    var main = one('main');
+    addClass(this,'clicked');
+    if (hasClass(main,'red')) {
+      removeClass(main,'red');
+      addClass(main,'green');
+    } else if (hasClass(main,'green')) {
+      removeClass(main,'green');
+      addClass(main,'blue');
+    } else if (hasClass(main,'blue')) {
+      removeClass(main,'blue');
+      addClass(main,'dark');
+    } else if (hasClass(main,'dark')) {
+      removeClass(main,'dark');
+    } else {
+      addClass(main,'red');
+    }
+    setTimeout(function(){
+      removeClass(one('.rotator'),'clicked');
+    },400);
+  });
+
   NProgress.done();
 } window.afterLib.push(polyfillsAreLoaded);
 window.runAfterLib&&runAfterLib();

@@ -6,6 +6,7 @@ layout: compress
   {% include head.html %}
   <body>
     <main role="main" aria-label="Content">
+      <span class="rotator"></span>
       {% unless page.custom_header %}{% include header.html %}{% endunless %}
       {{ content }}
       {% unless page.custom_footer %}{% include footer.html %}{% endunless %}
