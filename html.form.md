@@ -31,6 +31,9 @@ fieldset p label span {
     <p><label><span>Email:</span>
       <input type="email"/>
     </label></p>
+    <p><label><span>password:</span>
+      <input type="password"/>
+    </label></p>
     <p><label><span>Phone:</span>
       <input type="tel"/>
     </label></p>
@@ -57,9 +60,6 @@ fieldset p label span {
     </label></p>
     <p><label><span>number:</span>
       <input type="number"/>
-    </label></p>
-    <p><label><span>password:</span>
-      <input type="password"/>
     </label></p>
     <p><label><span>radio:</span>
       <input type="radio"/>
