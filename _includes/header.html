@@ -1,7 +1,7 @@
 <header>
   <div class="container">
     <nav class="menu fixed no-print" role="menubar">
-      <ul class="inline-menu">
+      <ul class="inline-menu ease">
         {% assign sorted_pages = site.pages | sort:"menu_index","last" %}
         {% for _page in sorted_pages %}{% if _page.title and _page.menu_index >= 0 %}
         <li class="{% if _page.url == page.url %}active{% endif %}">
