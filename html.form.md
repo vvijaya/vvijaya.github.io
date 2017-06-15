@@ -15,7 +15,7 @@ fieldset {
 fieldset p label * {
   width: 250px;
 }
-fieldset p label span {
+fieldset p label span:first-child {
   width: 100px;
   display: inline-block;
   text-align: right;
@@ -65,10 +65,10 @@ fieldset p label span {
       <input type="number"/>
     </label></p>
     <p><label><span>radio:</span>
-      <input type="radio"/>
+      <input type="radio"/><span class="input-control"></span>
     </label></p>
     <p><label><span>checkbox:</span>
-      <input type="checkbox"/>
+      <input type="checkbox"/><span class="input-control"></span>
     </label></p>
     <p><label><span>range:</span>
       <input type="range"/>
