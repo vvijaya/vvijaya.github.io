@@ -46,6 +46,9 @@ fieldset p label span {
     <p><label><span>datetime:</span>
       <input type="datetime-local"/>
     </label></p>
+    <p><label><span>date:</span>
+      <input type="date"/>
+    </label></p>
     <p><label><span>month:</span>
       <input type="month"/>
     </label></p>

@@ -11,14 +11,18 @@
 
 /* Style override Grid Layout
   =========================================================================== */
-.row {
+.row,.flex {
   width: calc(100% + #{$spacing-unit});
   margin: -$spacing-unit/2;
-  margin-bottom: -6px;
   > [class^=col-] {
     padding: $spacing-unit/2;
   }
+  p {
+    &:last-child { margin-bottom: 0; }
+    &:first-child { margin-top: 0; }
+  }
 }
+.row { margin-bottom: -6px; }
 
 /* Style extend Modal Full
   =========================================================================== */
@@ -135,11 +139,12 @@ footer a { font-weight: 600; }
       color: #f00;
     }
     &:after {
-      height: $spacing-unit*3;
+      height: ($spacing-unit*3)+3;
       border-left: solid $spacing-unit/4;
-      margin-bottom: -$spacing-unit;
+      margin-bottom: (-$spacing-unit)-2;
       margin-left: $spacing-unit/8;
       color: $light-color;
+      box-shadow: 0 0 1em $dark-color;
     }
   }
   &.back {
