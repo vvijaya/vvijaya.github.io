@@ -30,7 +30,7 @@ button {
     vertical-align: middle; display: inline-block; min-width: 1em; height: 1em; width: 1em; border-width: 2px; border-radius: 2px;
     &:after{ content: ''; position: absolute; border-radius: 2px; margin: auto; height: .5em; width: .5em; bottom: 0; right: 0; left: 0; top: 0; }
   }
-  &:hover, &:focus, &:active { background: transparent; & + .input-control{ border-color: #36f; box-shadow: 0 0 2px #36f; } }
+  &:focus, &:active { background: transparent; & + .input-control{ border-color: #36f; box-shadow: 0 0 2px #36f; } }
   &:checked { & + .input-control{ &:after{ background: #36f; } } }
 }
 [type=radio]{ & + .input-control{ &, &:after{ border-radius: 50%; } } }
@@ -44,7 +44,7 @@ input[list], textarea {
 [type=range] {
   -webkit-appearance: none; background: transparent; padding: 0;
   border-color: transparent; box-shadow: 0 0 2px transparent;
-  &:hover, &:focus, &:active  {
+  &:focus, &:active  {
     border-color: transparent; box-shadow: 0 0 2px transparent;
     &::-webkit-slider-thumb { border-color: #36f; box-shadow: 0 0 2px #36f; }
     &::-moz-range-thumb { border-color: #36f; box-shadow: 0 0 2px #36f; }
