@@ -13,7 +13,7 @@ fieldset {
   margin: auto;
 }
 fieldset p label * {
-  width: 250px;
+  width: 240px;
 }
 fieldset p label span:first-child {
   width: 100px;
