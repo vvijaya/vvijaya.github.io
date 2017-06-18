@@ -99,10 +99,10 @@ footer a { font-weight: 600; }
 
 /* OVERRIDE Interactive Markdown
   =========================================================================== */
-.figure.responsive {
+table.responsive {
   max-width: 400px;
   .avatar img { border-radius: 50%; }
-  .avatar img , .closeup img { padding: 1em; width: 200px; }
+  .avatar img , .closeup img { padding: 1em; width: 200px; border: solid 2px; margin-bottom: $spacing-unit; }
 }
 
 .card {
@@ -146,9 +146,17 @@ footer a { font-weight: 600; }
       color: $light-color;
       box-shadow: 0 0 1em $dark-color;
     }
+    ul li a:after {
+        content: '▲';
+        padding: .5em;
+    }
+    ul li .down a:after {
+        content: '▼';
+    }
   }
   &.back {
     background-color: #fff;
+    border: solid 1px #ccc;
     a { color: $b-color; }
     [alt="logo"] { max-height: 60px; margin: -8px 0; }
     [alt="qr"] { max-height: 80px; margin: -16px 0; }
@@ -271,3 +279,5 @@ footer a { font-weight: 600; }
   &-center { text-align: center; }
   &-justify { text-align: justify; }
 }
+
+.err404 { max-width: 560px; }

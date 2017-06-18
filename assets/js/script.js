@@ -12,7 +12,7 @@ function polyfillsAreLoaded() {
   function scrollspy(e) {
     if (getViewport().w < 480) {
       var st = getScroll().y;
-      if (st > lastScrollTop && st > cache.menu.clientHeight*2) {
+      if (cache.menu && st > lastScrollTop && st > cache.menu.clientHeight*2) {
         addClass(cache.menu,'folded');  // scroll down
       } else {
         removeClass(cache.menu,'folded');  // scroll up
@@ -40,89 +40,89 @@ function polyfillsAreLoaded() {
   // MD interactive
   (function () {
     var  cmd = {
-      find  : function (e,p) {
+      find  : function (d,j) {
         var loop = 1,
-            ref = e,
             tmp,
-            tag = (p[1]||'').replace(/ /g, '').toUpperCase(),
-            cls = (p[2]||'');
-        e.tabIndex = -1;
-        while (loop && p[1] && (e=e.parentNode)) {
-          if (e.tagName === tag) { loop = 0; addClass(e, cls);
-            if (tag === 'TABLE' && hasClass(e,'responsive')) {
+            tag = (j.tag || '').trim().toUpperCase(),
+            className = (j.className || '');
+        d.tabIndex = -1;
+        while (loop && (d=d.parentNode)) {
+          if (d.tagName === tag) {
+            loop = 0; addClass(d, className);
+            if (tag === 'TABLE' && hasClass(d,'responsive')) {
               // TABLE.responsive
-              tmp = all('tr', e);     addClass(tmp, 'row');
-              tmp = all('td,th', e);  addClass(tmp, 'col-sm-1 col-md-1-' + tmp[0].parentNode.children.length);
-              tmp = one('thead', e);  addClass(tmp, 'hide');
+              tmp = all('tr', d);     addClass(tmp, 'row');
+              tmp = all('td,th', d);  addClass(tmp, 'col-sm-1 col-md-1-' + tmp[0].parentNode.children.length);
+              tmp = one('thead', d);  addClass(tmp, 'hide');
             } else {
 
             }
           } // e.tagName === tag
         } // loop
       },
-      image : function (e,p) {
-        var tag = (p[1]||'').replace(/ /g, '').toUpperCase(),
-            cls = (p[2]||'');
-        wrapDOM(e, str2DOM(
-          `<`+tag+`></`+tag+`>`
-        ));
-        addClass(e.parentNode, cls);
-        if (tag==='FIGURE') {
-          e.parentNode.appendChild(str2DOM(
-            `<figcaption>`+e.alt+`</figcaption>`
-          ));
+      wrap  : function (d,j) {
+        var tag = (j.tag || '').trim().toUpperCase(),
+            className = (j.className || ''),
+            figcaption = (j.figcaption || d.alt || d.title || ''),
+            wrapper = tag.length ? str2DOM(
+              `<`+tag+`></`+tag+`>`
+            ) : d;
+        addClass(wrapper, className);
+        if (wrapper!==d) {
+          wrapDOM(d, wrapper);
+          if (tag==='FIGURE' && figcaption.length) {
+            wrapper.appendChild(str2DOM(
+              `<figcaption>`+figcaption+`</figcaption>`
+            ));
+          }
         }
-        e.title = '';
       },
-      link  : function (e,p) {
-        if (p[1].indexOf('► youtube embed')>=0) {
-          // ► youtube embed
-          addClass(e,'block');
-          on(e,'click', function (e) {
-            e.preventDefault();
-            e = this;
-            e.href.indexOf('?')<0 ? (e.href+='?&autoplay=1&iv_load_policy=3&modestbranding=1&showinfo=0&rel=0&playsinline=1') : 0;
-            e.parentNode.replaceChild(str2DOM(
-              `<span class="ratio ratio-16-9"><iframe src="`+e.href+`" allowfullscreen frameborder="0"></iframe></span>`
-            ), e);
-            return false;
-          });
-        } else if (p[1].indexOf('audio')>=0) {
-          // audio
-          e.parentNode.insertBefore(str2DOM(
-            `<audio src="`+e.href+`" `+p[2]+`></audio>`
-          ),e);
-          on(e,'click', function (e) {
-            e.preventDefault();
-            e = one('audio[src="'+this.href+'"]', e.parentNode);
-            e.paused ? e.play() : e.pause();
-            return false;
-          });
-        } else if (p[1].indexOf('image modal')>=0) {
-          // image modal
-          on(e,'click', function (e) {
-            e.preventDefault();
-            modal.invoke({
-              show: 1,
-              body: this.innerHTML,
-              header: `<a target="_blank" href="`+this.href+`">`+p[2]+`</a>`,
-              className: 'full align-center',
-            });
-            return false;
-          });
-        } else if (p[1].indexOf('class')>=0) {
-          // class
-          addClass(e, p[2]);
-        } else {
-          // ELSE
-        }
-        e.title = '';
+      audio : function (d,j) {
+        var src = (j.src || d.src || d.href || ''),
+            attr = (j.attr || ''),
+            audio = str2DOM(
+              `<audio src="`+src+`" `+attr+`></audio>`
+            );
+        d.parentNode.insertBefore(audio,d);
+        on(d,'click', function (e) {
+          e.preventDefault();
+          audio.paused ? audio.play() : audio.pause();
+          return false;
+        });
       },
-    }, c = all('body [title]'), i = c.length;
+      embed : function (d,j) {
+        var src = (j.src || d.src || d.href || ''),
+            className = (j.className || 'ratio ratio-16-9');
+        src.toLowerCase().indexOf('youtube')>=0 && src.indexOf('?')<0 ? (src+='?&autoplay=1&iv_load_policy=3&modestbranding=1&showinfo=0&rel=0&playsinline=1') : 0;
+        addClass(d, className);
+        on(d,'click', function (e) {
+          e.preventDefault();
+          d.parentNode.replaceChild(str2DOM(
+            `<span class="`+className+`"><iframe src="`+src+`" allowfullscreen frameborder="0"></iframe></span>`
+          ), d);
+          return false;
+        });
+      },
+      modal : function (d,j) {
+        var src = (j.src || d.src || d.href || ''),
+            body = (j.body || d.innerHTML || 'Body'),
+            header = (j.header || 'Header'),
+            className = (j.className || '');
+        on(d,'click', function (e) {
+          e.preventDefault();
+          modal.invoke({
+            body: body,
+            header: `<a target="_blank" href="`+src+`">`+header+`</a>`,
+            className: className,
+          });
+          lazyLoad();
+          return false;
+        });
+      },
+    }, el = all('body [title]'), i = el.length;
     while(i--){
-      var r, p = c[i].title.toLowerCase().split('$');
-      r = cmd[p[0]];
-      r&&r(c[i], p);
+      var j, t; try { t = JSON.parse(el[i].title); t = t.pop ? t : [t]; } catch (e) {}
+      while (t && ( j = t.pop() ) ) { cmd[j['>']](el[i],j); el[i].title=""; }
     }
   }());
   // MD interactive

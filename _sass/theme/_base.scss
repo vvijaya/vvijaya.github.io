@@ -72,11 +72,21 @@ img {
 
 /* Figures
   =========================================================================== */
-figure > img {
-  display: block;
-}
-figcaption {
+figure {
+  text-align: center;
+  font-style: italic;
+  font-weight: 600;
   @include relative-font-size(0.875);
+  padding: $spacing-unit;
+  color: $dark-color;
+  background-color: #fff;
+  &, & > *:first-child{
+    box-shadow: 0 0 0 1px $light-alt-color;
+    border-radius: 3px;
+  }
+  > figcaption {
+    margin-top: $spacing-unit;
+  }
 }
 
 /* Lists

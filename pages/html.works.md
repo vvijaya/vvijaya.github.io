@@ -5,7 +5,7 @@ menu_index:     2
 defer:          |
   <script src="https://cdn.jsdelivr.net/npm/fuse.js@3.0.4/dist/fuse.min.js" async="" defer=""></script>
 ---
-# Works[](# "Find$ main$ blue align-center")
+# Works[](# '{">":"find","tag":"main","className":"blue align-center"}')
 
 ---
 
@@ -24,9 +24,13 @@ Below is the list of my project, click the image to enlarge, or click the link t
 {% for q in site.data.timeline %} {% if q.detail %}
 {% for detail in q.detail %} {% if detail.img and detail.desc %}
 <div class="col-sm-1 col-md-1-2" data-uri="{{ detail.uri }}">
-  <p> <span class="ratio ratio-16-9 {{ detail.live }}"> <a href="{{ detail.uri }}" title="Link$ Image Modal$ {{ detail.title }}">
+  <p> <span class="ratio ratio-16-9 {{ detail.live }}">
+
+  <a href="{{ detail.uri }}" title='{">":"modal","header":"{{ detail.title | smartify }}","className":"full align-center"}'>
   <img class="lazyload" data-src="{{ detail.img }}" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
-  </a> </span> </p>
+  </a>
+
+  </span> </p>
   <div> {{ detail.desc | markdownify }} </div>
 </div>
 {% endif %} {% endfor %}
@@ -50,11 +54,11 @@ afterLib.push(function(){
 
     var options = {
       shouldSort: true,
-      /*
+      /*=
       findAllMatches: true,
       includeScore: true,
       includeMatches: true,
-      */
+      =*/
       threshold: 0.2,
       location: 0,
       distance: 4000,
@@ -75,13 +79,13 @@ afterLib.push(function(){
         var res = (new Fuse(detail, options).search(this.value)), i = res.length;
         addClass(all('.work-list [id]'),'hide');
         while (i--) {
-          /*removeClass(one('#card-'+md5(res[i].item.date)),'hide');*/
+          /*= removeClass(one('#card-'+md5(res[i].item.date)),'hide'); =*/
           removeClass(one('#item-'+md5(res[i].uri)),'hide');
         }
       } else {
         removeClass(all('.work-list [id]'),'hide');
       }
-    }); /* omnibox changed */
+    }); /*= omnibox changed =*/
   });
 });
 </script>

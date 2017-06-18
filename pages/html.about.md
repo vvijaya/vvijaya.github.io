@@ -5,13 +5,13 @@ menu_index:     1
 defer:          |
   <script src="https://cdn.jsdelivr.net/npm/fuse.js@3.0.4/dist/fuse.min.js" async="" defer=""></script>
 ---
-# About[](# "Find$ main$ green align-center")
+# About[](# '{">":"find","tag":"main","className":"green align-center"}')
 
 ---
 
 90's boy, half normal, half stupid, yet still alive — 🌏 🦄 ⚡️ 🔥 ✨ 🐉
 
-|[](# "Find$ table$ responsive figure")|
+|[](# '{">":"find","tag":"table","className":"responsive"}')|
 |:---:|:---:|
 | ![Avatar][Avatar]Figure 1.1 — Avatar | ![Close Up][Close Up]Figure 1.2 — Close Up |
 
@@ -51,11 +51,11 @@ afterLib.push(function(){
 
     var options = {
       shouldSort: true,
-      /*
+      /*=
       findAllMatches: true,
       includeScore: true,
       includeMatches: true,
-      */
+      =*/
       threshold: 0.2,
       location: 0,
       distance: 1000,
@@ -75,18 +75,18 @@ afterLib.push(function(){
         var res = (new Fuse(list, options).search(this.value)), i = res.length;
         addClass(all('.card-list .card[id]'),'hide');
         while (i--) {
-          /*removeClass(one('#card-'+md5(res[i].item.date)),'hide');*/
+          /*= removeClass(one('#card-'+md5(res[i].item.date)),'hide'); =*/
           removeClass(one('#card-'+md5(res[i].date)),'hide');
         }
       } else {
         removeClass(all('.card-list .card[id]'),'hide');
       }
-    }); /* omnibox changed */
+    }); /*= omnibox changed =*/
   });
 });
 </script>
 
 ---
 
-[Avatar]: https://gunawan.wijaya.cc/assets/images/avatar.jpg "Image$ span$ block avatar"
-[Close Up]: https://gunawan.wijaya.cc/assets/images/closeup.jpg "Image$ span$ block closeup"
+[Avatar]: https://gunawan.wijaya.cc/assets/images/avatar.jpg '{">":"wrap","tag":"span","className":"block avatar"}'
+[Close Up]: https://gunawan.wijaya.cc/assets/images/closeup.jpg '{">":"wrap","tag":"span","className":"block closeup"}'
