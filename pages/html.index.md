@@ -34,4 +34,4 @@ I sketch, tinker, eat, dream, and sleep
 ---
 
 [img]: http://img.youtube.com/vi/PWgvGjAhvIw/hqdefault.jpg 'OutKast - Hey Ya!'
-[uri]: https://www.youtube.com/embed/PWgvGjAhvIw '[{">":"embed","className":"ratio ratio-4-3"}, {">":"wrap","tag":"figure","figcaption":"Alright, alright, alright, alright"}]'
+[uri]: https://www.youtube.com/embed/PWgvGjAhvIw '[{">":"embed","className":"embed ratio ratio-4-3"}, {">":"wrap","tag":"figure","figcaption":"Alright, alright, alright, alright"}]'

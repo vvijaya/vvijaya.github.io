@@ -92,11 +92,12 @@ function polyfillsAreLoaded() {
       },
       embed : function (d,j) {
         var src = (j.src || d.src || d.href || ''),
-            className = (j.className || 'ratio ratio-16-9');
+            className = (j.className || 'embed ratio ratio-16-9');
         src.toLowerCase().indexOf('youtube')>=0 && src.indexOf('?')<0 ? (src+='?&autoplay=1&iv_load_policy=3&modestbranding=1&showinfo=0&rel=0&playsinline=1') : 0;
         addClass(d, className);
         on(d,'click', function (e) {
           e.preventDefault();
+          removeClass(d,'embed');
           d.parentNode.replaceChild(str2DOM(
             `<span class="`+className+`"><iframe src="`+src+`" allowfullscreen frameborder="0"></iframe></span>`
           ), d);
