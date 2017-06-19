@@ -6,10 +6,10 @@ layout: compress
   {% include head.html %}
   <body>
     <main role="main" aria-label="Content">
-      <span class="rotator"></span>
-      {% unless page.custom_header %}{% include header.html %}{% endunless %}
+      {% if page.color_rotator != false %}<span class="rotator"></span>{% endif %}
+      {% if page.header != false %}{% include header.html %}{% endif %}
       {{ content }}
-      {% unless page.custom_footer %}{% include footer.html %}{% endunless %}
+      {% if page.footer != false %}{% include footer.html %}{% endif %}
       <div class="hide" defer-script-and-style>
         <script src="{{ "/assets/js/lib.js" | absolute_url }}" async="" defer=""></script>
         <script src="{{ "/assets/js/script.js" | absolute_url }}" async="" defer=""></script>

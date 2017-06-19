@@ -34,9 +34,13 @@ a.embed {
 /* Style override Highlight
   =========================================================================== */
 .highlight {
-  main & { pre, code { opacity: 1; } }
+  padding: 0; text-align: left;
   margin: 0 -#{$spacing-unit};
-  @include media-query($on-md) { margin: $spacing-unit; }
+  pre, &{ box-shadow: none; border-radius: 0; }
+  @include media-query($on-md) {
+    margin: $spacing-unit;
+    pre{ border-radius: 3px; }
+  }
   @extend %vertical-rhythm;
 }
 
@@ -65,7 +69,7 @@ a.embed {
   .header { padding-right: $base-font-size*4; }
   .close {
     background-color: inherit; width: $base-font-size*4; height: $base-font-size*4;
-    &:after { font-size: $base-font-size*4; background-color: inherit; }
+    &:after { @include relative-font-size(4); background-color: inherit; }
     &:active, &:focus, &:hover {
       &:after { background-color: $light-color; }
     }
@@ -97,7 +101,7 @@ a.embed {
   &:after {
     content: 'Loading...';
     text-align: center; position: fixed; display: block;
-    font-size: $spacing-unit*2; opacity: .5;
+    @include relative-font-size(2); opacity: .5;
     margin: 0; padding: 0; line-height: 0;
     width: 100%; top: 50%; left: 0;
   }
@@ -254,7 +258,7 @@ table.responsive {
     top: 0;
     z-index: 5;
     border: solid;
-    font-size: 32px;
+    @include relative-font-size(2);
     border-radius: 50%;
     margin: 0.2em;
     height: 1em;
@@ -263,7 +267,7 @@ table.responsive {
     border-left-color: $g-color;
     border-right-color: $b-color;
     border-bottom-color: $y-color;
-    opacity: 1; border-width: 3px; box-shadow: 0 0 0 0px;
+    opacity: 1; border-width: 3px; box-shadow: 0 0 0 transparent;
     cursor: pointer;
     &:hover, &:focus, &:active {
       -webkit-animation: nprogress-spinner 400ms linear infinite;

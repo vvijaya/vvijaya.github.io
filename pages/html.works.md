@@ -36,6 +36,7 @@ Below is the list of my project, click the image to enlarge, or click the link t
 {% endif %} {% endfor %}
 {% endif %} {% endfor %}
 </div></div>
+
 <script>
 afterLib.push(function(){
   var dataUri = all('[data-uri]'), i = dataUri.length;
