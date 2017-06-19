@@ -77,7 +77,8 @@ figure {
   font-style: italic;
   font-weight: 600;
   @include relative-font-size(0.875);
-  padding: $spacing-unit;
+  margin: 0 ($spacing-unit/-4*3);
+    padding: ($spacing-unit/4*1);
   color: $dark-color;
   background-color: #fff;
   &, & > *:first-child{
@@ -86,6 +87,10 @@ figure {
   }
   > figcaption {
     margin-top: $spacing-unit;
+  }
+  @include media-query($on-md) {
+    margin: 0 auto;
+    padding: $spacing-unit;
   }
 }
 
