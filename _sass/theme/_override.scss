@@ -24,8 +24,10 @@ a.embed {
     width: 0; height: 0;
     margin: -1em -.5em;
   }
-  &:hover:before {
-    background: $r-color;
+  &:active, &:focus, &:hover {
+    &:before {
+      background: $r-color;
+    }
   }
 }
 
@@ -64,7 +66,9 @@ a.embed {
   .close {
     background-color: inherit; width: $base-font-size*4; height: $base-font-size*4;
     &:after { font-size: $base-font-size*4; background-color: inherit; }
-    &:hover:after { background-color: $light-color; }
+    &:active, &:focus, &:hover {
+      &:after { background-color: $light-color; }
+    }
   }
 }
 
