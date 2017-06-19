@@ -1,36 +1,38 @@
 .err404 { max-width: 560px; }
 
 a.embed {
+  &:before,
   &:after{
-    content: '△';
+    content: '';
     position: absolute;
     color: $light-color;
-    background: $dark-color;
-    transform: rotateZ(90deg);
-    box-shadow: 0 0 0 3px;
-    top: 50%;
-    left: 50%;
-    width: 2em;
-    height: 2em;
-    margin: -1em;
-    border-radius: 50%;
-    line-height: 1.7em;
-    font-style: normal;
-    @include relative-font-size(2);
-    @extend %ease;
-    opacity: .2;
+    top: 50%; left: 50%;
+    width: 2em; height: 2em;
+    z-index: 2;
   }
-  &:hover:after{
-    opacity: .6
+  &:before {
+    @include relative-font-size(1.25);
+    background: $dark-color;
+    box-shadow: 0 0 0 3px;
+    border-radius: 50%;
+    margin: -1em;
+  }
+  &:after {
+    @include relative-font-size(.5);
+    border: solid 1em transparent;
+    border-left: solid 1.5em;
+    width: 0; height: 0;
+    margin: -1em -.5em;
+  }
+  &:hover:before {
+    background: $r-color;
   }
 }
 
 /* Style override Highlight
   =========================================================================== */
 .highlight {
-  main &{
-    pre, code { opacity: 1; }
-  }
+  main & { pre, code { opacity: 1; } }
   margin: 0 -#{$spacing-unit};
   @include media-query($on-md) { margin: $spacing-unit; }
   @extend %vertical-rhythm;
@@ -41,9 +43,7 @@ a.embed {
 .row,.flex {
   width: calc(100% + #{$spacing-unit});
   margin: -$spacing-unit/2;
-  > [class^=col-] {
-    padding: $spacing-unit/2;
-  }
+  > [class^=col-] { padding: $spacing-unit/2; }
   p {
     &:last-child { margin-bottom: 0; }
     &:first-child { margin-top: 0; }
@@ -57,14 +57,12 @@ a.embed {
   background-color: $light-alt-color;
   color: $dark-color;
   &.full {
-    width: 100%;
-    height: 100%;
-    max-width: 100%;
+    width: 100%; height: 100%; max-width: 100%;
     padding: $spacing-unit;
   }
   .header { padding-right: $base-font-size*4; }
   .close {
-    background-color: inherit;
+    background-color: inherit; width: $base-font-size*4; height: $base-font-size*4;
     &:after { font-size: $base-font-size*4; background-color: inherit; }
     &:hover:after { background-color: $light-color; }
   }
@@ -128,8 +126,8 @@ footer a { font-weight: 600; }
   =========================================================================== */
 table.responsive {
   max-width: 400px;
+  .avatar img , .closeup img { border-radius: 15%; padding: 1em; width: 200px; border: solid 2px; margin-bottom: $spacing-unit; }
   .avatar img { border-radius: 50%; }
-  .avatar img , .closeup img { padding: 1em; width: 200px; border: solid 2px; margin-bottom: $spacing-unit; }
 }
 
 .card {
