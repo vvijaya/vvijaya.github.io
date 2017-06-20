@@ -155,7 +155,7 @@ fieldset p label span:first-child {
   width: 100px;
   display: inline-block;
 }
-.input-control, button, input, optgroup, select, textarea, meter { width: 100%; }
+.input-control, button, input, optgroup, select, textarea, meter { width: 480px; max-width: 100%; }
 @media screen and (min-width: 480px){
   fieldset p label span:first-child { text-align: right; }
   .input-control, button, input, optgroup, select, textarea, meter { width: 200px; }
