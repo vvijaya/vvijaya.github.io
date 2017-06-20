@@ -22,7 +22,7 @@ button {
 }
 
 [type=image]{ padding: 0; display: inline-block; }
-[type=file]{ padding: 0; height: auto; font-size: .85em; cursor: pointer; }
+[type=file]{ padding: 0; height: auto; font-size: .85em; cursor: pointer; background: transparent; border-color: transparent; }
 [type=checkbox], [type=radio]{
   position: absolute; opacity: 0; width: 0;
   & + .input-control{
@@ -33,12 +33,12 @@ button {
   &:checked { & + .input-control{ &:after{ background: #36f; } } }
 }
 [type=radio]{ & + .input-control{ &, &:after{ border-radius: 50%; } } }
-[type=password], [type=search], [type=number], [type=email], [type=color], [type=week], [type=url], [type=tel], [type=text],
-input[list], textarea {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-}
+// [type=password], [type=search], [type=number], [type=email], [type=color], [type=week], [type=url], [type=tel], [type=text],
+// input[list], textarea {
+//   -webkit-appearance: none;
+//   -moz-appearance: none;
+//   appearance: none;
+// }
 
 [type=range] {
   -webkit-appearance: none; background: transparent; padding: 0;
