@@ -11,7 +11,7 @@ defer:          |
 
 90's boy, half normal, half stupid, yet still alive — 🌏 🦄 ⚡️ 🔥 ✨ 🐉
 
-|[](# '{">":"find","tag":"table","className":"responsive"}')|
+|[](# '{">":"find","tag":"table","className":"responsive card"}')|
 |:---:|:---:|
 | ![Avatar][Avatar]Figure 1.1 — Avatar | ![Close Up][Close Up]Figure 1.2 — Close Up |
 
@@ -21,14 +21,15 @@ CONS: weak against kryptonite and those piercing eyes of yours.
 
 Timeline (not so accurate, but well, why not)
 
-
+[Avatar]: https://gunawan.wijaya.cc/assets/images/avatar.jpg '{">":"wrap","tag":"span","className":"block avatar"}'
+[Close Up]: https://gunawan.wijaya.cc/assets/images/closeup.jpg '{">":"wrap","tag":"span","className":"block closeup"}'
 
 <div class="card-list">
-  <div class="card" style="background: #eee; border-color: #ccc;">
-    <h2 style="font-weight: 600; margin-top: 0; color: #666;">Search</h2>
-    <input id="omnibox" type="search" disabled="disabled"/>
+  <div class="card white no-print">
+    <h2>Search</h2>
+    <p><input id="omnibox" type="search" disabled="disabled"/></p>
   </div>
-{% for q in site.data.timeline %} <div class="card" data-date="{{ q.date }}"> {% capture md %}
+{% for q in site.data.timeline %} <div class="card black" data-date="{{ q.date }}"> {% capture md %}
 {{ q.date }}
 
 {{ q.md }}
@@ -87,6 +88,3 @@ afterLib.push(function(){
 </script>
 
 ---
-
-[Avatar]: https://gunawan.wijaya.cc/assets/images/avatar.jpg '{">":"wrap","tag":"span","className":"block avatar"}'
-[Close Up]: https://gunawan.wijaya.cc/assets/images/closeup.jpg '{">":"wrap","tag":"span","className":"block closeup"}'

@@ -4,15 +4,14 @@
   font-family: inherit; line-height: inherit;
   background-color: #fff; border: solid 1px #ccc;
   border-radius: 2px; height: 1.75em;
-  width: 240px; padding: 1px 4px;
+  max-width: 100%; width: 200px; padding: 1px 4px;
   p > &, div > & { margin: -2px 0px; }
   &:focus, &:active { border-color: #36f; box-shadow: 0 0 2px #36f; }
 }
-label { cursor: pointer; }
 optgroup { font-size: small; }
-fieldset { border: solid 1px #ccc; }
+fieldset { border: solid 1px #ccc; min-width: inherit; }
 legend { margin: auto; padding: 0 8px; }
-textarea { vertical-align: top; max-width: 100%; height: auto; }
+textarea { vertical-align: top; max-width: 100%; height: auto; resize: vertical; }
 input { vertical-align: bottom; }
 
 [type=button],[type=reset],[type=submit],[type=image],
@@ -23,11 +22,11 @@ button {
 }
 
 [type=image]{ padding: 0; display: inline-block; }
-[type=file]{ padding: 0; height: auto; font-size: .75em; }
+[type=file]{ padding: 0; height: auto; font-size: .85em; cursor: pointer; }
 [type=checkbox], [type=radio]{
   position: absolute; opacity: 0; width: 0;
   & + .input-control{
-    vertical-align: middle; display: inline-block; height: 1em; width: 1em; border-width: 2px; border-radius: 2px;
+    vertical-align: middle; display: inline-block; height: 1em; width: 1em; border-width: 2px; border-radius: 2px; margin: 6px; cursor: pointer;
     &:after{ content: ''; position: absolute; border-radius: 2px; margin: auto; height: .5em; width: .5em; bottom: 0; right: 0; left: 0; top: 0; }
   }
   &:focus, &:active { background: transparent; & + .input-control{ border-color: #36f; box-shadow: 0 0 2px #36f; } }
@@ -58,7 +57,8 @@ input[list], textarea {
   &::-ms-thumb { cursor: pointer;border: 2px solid #ccc;width: 1em;height: 1em;border-radius: 50%;background: #fff;margin-top: 0; }
 }
 meter {
-  background: #fff;border: 0;box-shadow: 0 0 0 1px #ccc;border-radius: 2px; height: 1em; overflow: hidden;
+  max-width: 100%; width: 200px; height: 0.75em; margin: .5em 0; vertical-align: middle;
+  background: #fff;border: 0;box-shadow: 0 0 0 1px #ccc;border-radius: 2px; overflow: hidden;
   &::-webkit-meter-bar {background: #fff; border: 0;box-shadow: 0 0 0 1px #ccc;}
   &:-moz-meter-optimum::-moz-meter-bar {background: #36f;}
   &::-webkit-meter-optimum-value {background: #36f;}

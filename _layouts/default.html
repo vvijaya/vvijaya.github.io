@@ -6,7 +6,7 @@ layout: compress
   {% include head.html %}
   <body>
     <main role="main" aria-label="Content">
-      {% if page.color_rotator != false %}<span class="rotator"></span>{% endif %}
+      {% if page.color_rotator != false %}<span class="rotator ease"></span>{% endif %}
       {% if page.header != false %}{% include header.html %}{% endif %}
       {{ content }}
       {% if page.footer != false %}{% include footer.html %}{% endif %}

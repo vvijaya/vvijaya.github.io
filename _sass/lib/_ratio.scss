@@ -7,7 +7,7 @@
 }
 .ratio {
   display: block;
-  overflow: hidden;
+  // overflow: hidden;
   position: relative;
   height: auto;
   max-width: 100%;
@@ -25,6 +25,7 @@
   @include ratio-on(1,2);
   @include ratio-on(9,16);
   @include ratio-on(10,16);
+  @include ratio-on(2,3);
   @include ratio-on(3,4);
   @include ratio-on(4,5);
   // width > height
@@ -32,6 +33,7 @@
   @include ratio-on(2,1);
   @include ratio-on(16,9);
   @include ratio-on(16,10);
+  @include ratio-on(3,2);
   @include ratio-on(4,3);
   @include ratio-on(5,4);
 }

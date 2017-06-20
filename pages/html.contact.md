@@ -7,7 +7,7 @@ menu_index:     3
 
 ---
 
-<div class="card"> {% capture md %}
+<div class="card black"> {% capture md %}
 ## Gunawan Wijaya
 
 ProGrammer — <small>Front End</small><br>
@@ -16,7 +16,7 @@ ProCuddler — <small>Big Spoon</small>
 <https://gunawan.wijaya.cc>
 {% endcapture %} {{ md | markdownify }} </div>
 
-<div class="card back"> {% capture md %}
+<div class="card white"> {% capture md %}
 ![logo](https://gunawan.wijaya.cc/assets/images/w.png)
 ![qr](https://gunawan.wijaya.cc/assets/images/qr.png)
 
@@ -25,7 +25,7 @@ ProCuddler — <small>Big Spoon</small>
 [+62 817 0302 0777](tel:+6281703020777)
 {% endcapture %} {{ md | markdownify }} </div>
 
-<div class="card social"> {% capture md %}
+<div class="card black social"> {% capture md %}
 ## Social
 
 <span class="font-mono">FB</span> [/wijaya.cc](https://fb.com/wijaya.cc/)

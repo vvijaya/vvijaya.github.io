@@ -39,7 +39,7 @@ section {
   =========================================================================== */
 h1, h2, h3, h4, h5, h6,
 p, blockquote, pre, hr,
-ul, ol, dl, figure,
+ul, ol, dl, figure, fieldset,
 %vertical-rhythm {
   margin: $spacing-unit auto;
   .row > * & {
@@ -146,7 +146,6 @@ blockquote {
     color: $accent-color;
     position: absolute; left: 50%; line-height: 0.5; opacity: .25;
     @include relative-font-size(10);
-    @extend %ease;
     width: 1em;
     margin-left: -.5em;
   }
@@ -178,8 +177,8 @@ pre, code {
   border: 1px solid $light-alt-color;
   background-color: #eef;
   color: $dark-color;
-  @extend %ease;
-  @include media-query($on-md) { border-radius: 3px; }
+  border-radius: 3px;
+  opacity: .9;
 }
 
 code {
@@ -236,12 +235,9 @@ table {
 .container {
   max-width: $content-width;
   margin: auto;
-  padding-right: $spacing-unit;
-  padding-left: $spacing-unit;
+  padding: 0 $spacing-unit;
+  & & { padding: 0; }
   @extend %clearfix;
-  @include media-query($on-lg) {
-
-  }
 }
 
 /* a11y

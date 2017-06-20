@@ -21,7 +21,9 @@ function polyfillsAreLoaded() {
       removeClass(cache.menu,'folded');
     }
     lazyLoad();
-  } scrollspy(); on(window, 'scroll resize', scrollspy);
+  } scrollspy();
+  on(window, 'scroll resize', scrollspy);
+  on(all('.row,.flex'), 'scroll', scrollspy);
   // scrollspy
 
   // lazyload image + gallery

@@ -36,6 +36,7 @@ a.embed {
 .highlight {
   padding: 0; text-align: left;
   margin: 0 -#{$spacing-unit};
+  background: transparent;
   pre, &{ box-shadow: none; border-radius: 0; }
   @include media-query($on-md) {
     margin: $spacing-unit;
@@ -47,15 +48,17 @@ a.embed {
 /* Style override Grid Layout
   =========================================================================== */
 .row,.flex {
-  width: calc(100% + #{$spacing-unit});
-  margin: -$spacing-unit/2;
+  padding: 0 $spacing-unit/2;
+  margin: -$spacing-unit/2 0;
   > [class^=col-] { padding: $spacing-unit/2; }
+  .col-sm-0, .col-md-0, .col-lg-0 {
+    padding: 0; height: 0; overflow: hidden;
+  }
   p {
     &:last-child { margin-bottom: 0; }
     &:first-child { margin-top: 0; }
   }
 }
-.row { margin-bottom: -6px; }
 
 /* Style extend Modal Full
   =========================================================================== */
@@ -133,21 +136,35 @@ footer a { font-weight: 600; }
 /* OVERRIDE Interactive Markdown
   =========================================================================== */
 table.responsive {
-  max-width: 400px;
+  thead, tbody { margin: 0 -16px; }
   .avatar img , .closeup img { border-radius: 15%; padding: 1em; width: 200px; border: solid 2px; margin-bottom: $spacing-unit; }
   .avatar img { border-radius: 50%; }
 }
 
 .card {
-  background-color: $dark-color;
-  border: solid 1px $dark-alt-color;
-  border-radius: 3px;
-  color: $light-color;
-  margin: $spacing-unit auto;
-  padding: $spacing-unit*2 0;
   max-width: 400px;
-  font-weight: 600;
-  text-align: center;
+  border-radius: 3px;
+  margin: $spacing-unit auto;
+  &.black,&.white {
+    background-color: $dark-color;
+    border: solid 1px $dark-alt-color;
+    color: $light-color;
+    padding: $spacing-unit*2 $spacing-unit;
+    font-weight: 600;
+    text-align: center;
+  }
+  &.white {
+    background-color: $light-color;
+    border: solid 1px $light-alt-color;
+    color: $dark-color;
+    a { color: $b-color; }
+    [alt="logo"] { max-height: 60px; margin: -8px 0; }
+    [alt="qr"] { max-height: 80px; margin: -16px 0; }
+    @include media-query($on-md) {
+      [alt="logo"] { max-height: 80px; margin: -12px 0; }
+      [alt="qr"] { max-height: 100px; margin: -20px 0; }
+    }
+  }
   .card-list & {
     margin: $spacing-unit*2 auto;
     &:first-child { margin-top: $spacing-unit; }
@@ -186,34 +203,22 @@ table.responsive {
     ul li .down a:after {
         content: '▼';
     }
-  }
-  &.back {
-    background-color: #fff;
-    border: solid 1px #ccc;
-    a { color: $b-color; }
-    [alt="logo"] { max-height: 60px; margin: -8px 0; }
-    [alt="qr"] { max-height: 80px; margin: -16px 0; }
-    @include media-query($on-md) {
-      [alt="logo"] { max-height: 80px; margin: -12px 0; }
-      [alt="qr"] { max-height: 100px; margin: -20px 0; }
+    @media print {
+      & { padding: 1px; }
+      &:before,
+      &:after {
+        content:""; display:none!important;
+      }
     }
   }
   &.social p { max-width: 120px; text-align: left; }
-  > *:first-child { color: $t-color; }
+  > p:first-child { color: $t-color; }
   ul { text-align: left; list-style: none; }
-  @media print {
-    & { padding: 0; }
-    &:before,
-    &:after {
-      content:"";display:none!important;
-    }
-  }
 }
 
 /* OVERRIDE Theme Color
   =========================================================================== */
 .red, .green, .blue, .dark {
-  pre, code { opacity: .5 }
   blockquote { &:before { color: $y-color; } }
   a { color: $y-color; }
 }
@@ -252,7 +257,6 @@ table.responsive {
 
 .rotator {
   position: fixed;
-  @extend %ease;
   @include media-query($on-md) {
     right: 0;
     top: 0;
