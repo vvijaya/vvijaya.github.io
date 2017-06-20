@@ -150,6 +150,7 @@ billboard(970x250)
 });</script>
 
 <style>
+fieldset p label { display: block; }
 fieldset p label span:first-child {
   width: 100px;
   display: inline-block;
