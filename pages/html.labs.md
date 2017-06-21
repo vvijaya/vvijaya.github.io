@@ -64,7 +64,7 @@ billboard(970x250)
   bottom: 0;
   top: 0;
   z-index: 2;
-  opacity: .5;
+  opacity: .3333;
 }
 @media screen and (min-width: 480px){
   .gallery { margin: auto; }
@@ -76,10 +76,10 @@ billboard(970x250)
     font-size: 48px;
     height: 1em;
   }
-}
-.gallery .prev:hover,.gallery .next:hover {
-  background: #c03;
-  opacity: 1;
+  .gallery .prev:hover,.gallery .next:hover {
+    background: #c03;
+    opacity: 1;
+  }
 }
 
 .gallery .prev { left: 0 }
@@ -108,7 +108,7 @@ billboard(970x250)
   <img alt="Gallery image" class="ease unload lazyload" data-src="https://unsplash.it/600/900/" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
 </div>
 <div class="caption"><span>
-  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
 </span></div>
 </div>
 </div>
@@ -139,14 +139,16 @@ billboard(970x250)
   on(all('.gallery .unload'), 'load', function (data) { removeClass(this,'unload'); });
   on(all('.gallery .prev, .gallery .next'), 'click', function(e) {
     e.preventDefault();
-    e=this; while(!hasClass(e,'gallery')&&(e=e.parentNode)){}
-    hasClass(this, 'prev') ? updateGallery(e, -1) : updateGallery(e, 1) ;
+    e=this;
+    while(!hasClass(e,'gallery')&&(e=e.parentNode)){};
+    hasClass(this,'prev')?updateGallery(e,-1):updateGallery(e,1);
     return false;
   });
-  on(one('.gallery'), 'touchstart touchmove', SWIPE
-  .onRight(function(){ updateGallery(SWIPE.this, -1) })
-  .onLeft(function(){ updateGallery(SWIPE.this, 1) })
-  .invoke);
+  var g = one('.gallery'), gSwipe = new Swipe();
+  gSwipe
+  .onRight(function(){ gSwipe.e.preventDefault(); updateGallery(g, -1) })
+  .onLeft(function(){ gSwipe.e.preventDefault(); updateGallery(g, 1) })
+  ;on(g, 'touchstart touchmove', gSwipe.invoke)
 });</script>
 
 <style>
