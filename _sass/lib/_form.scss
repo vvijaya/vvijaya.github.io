@@ -24,7 +24,7 @@ textarea { vertical-align: top; max-width: 100%; height: auto; resize: vertical;
 [type=checkbox], [type=radio]{ margin: 0 8px; width: auto; }
 .input-control {
   &[type=file] {
-    position: absolute;
+    position: absolute; bottom: -.5em; right: 0;
     & + .input-face{
       display: inline-block; background: #eee;
       min-height: 1.75em; padding: 1px .5em;
