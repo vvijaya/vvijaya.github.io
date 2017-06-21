@@ -72,7 +72,7 @@ textarea { vertical-align: top; max-width: 100%; height: auto; resize: vertical;
 progress,
 meter {
   max-width: 100%; width: 200px; height: 0.25em; margin: .75em 0; overflow: hidden;
-  background: #fff;border: 0;box-shadow: 0 0 0 1px #ccc;border-radius: 3px;
+  background: #fff;border: 0;box-shadow: 0 0 0 1px #ccc;border-radius: 3px; vertical-align: middle;
 
   &::-webkit-meter-bar {background: #fff; border: 0;box-shadow: 0 0 0 1px #ccc;}
   &::-webkit-progress-bar {background: #fff; border: 0;box-shadow: 0 0 0 1px #ccc;}
