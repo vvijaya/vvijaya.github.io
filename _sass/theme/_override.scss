@@ -50,6 +50,7 @@ a.embed {
 .row,.flex {
   padding: 0 $spacing-unit/2;
   margin: -$spacing-unit/2 0;
+  > [class*= col-],
   > [class^=col-] { padding: $spacing-unit/2; }
   .col-sm-0, .col-md-0, .col-lg-0 {
     padding: 0; height: 0; overflow: hidden;
@@ -62,7 +63,7 @@ a.embed {
 
 /* Style extend Modal Full
   =========================================================================== */
-.mModal {
+.Modal {
   background-color: $light-alt-color;
   color: $dark-color;
   &.full {
@@ -74,8 +75,12 @@ a.embed {
     background-color: inherit; width: $base-font-size*4; height: $base-font-size*4;
     &:after { @include relative-font-size(4); background-color: inherit; }
     &:active, &:focus, &:hover {
-      &:after { background-color: $light-color; }
+      &:after { background-color: #c03; color: $light-alt-color; }
     }
+  }
+  width: 100%; height: 100%;
+  @include media-query($on-md) {
+    width: 90%; height: 80%;
   }
 }
 
@@ -257,7 +262,7 @@ table.responsive {
 
 .rotator {
   position: fixed;
-  @include media-query($on-md) {
+  @include media-query($on-lg) {
     right: 0;
     top: 0;
     z-index: 5;

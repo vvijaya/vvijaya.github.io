@@ -10,7 +10,7 @@ function polyfillsAreLoaded() {
   w.cache = w.cache || {};
   cache.menu = cache.menu || one('.menu');
   function scrollspy(e) {
-    if (getViewport().w < 480) {
+    if (getViewport().w < 960) {
       var st = getScroll().y;
       if (cache.menu && st > lastScrollTop && st > cache.menu.clientHeight*2) {
         addClass(cache.menu,'folded');  // scroll down

@@ -7,21 +7,26 @@ menu_index:     -1
 
 ---
 <style>
-.gallery { margin: 0 -16px; position: relative; }
+.gallery { margin: 0 -16px; position: relative; padding: 0 0 16px; }
 .gallery .waitload { opacity: .5; }
 .gallery .unload { opacity: 0; pointer-events: none; position: absolute; left: 0; top: 0; }
 .gallery .nav { height: 100%; width: 100%; position: absolute; z-index: 1; }
-.gallery .caption { padding: 16px; font-weight: 600; font-style: italic; }
+.gallery, .gallery>*:first-child { border-radius: 0px; }
+.gallery img { border-radius: inherit; }
+.gallery figcaption { font-weight: 600; font-style: italic; }
 .gallery .prev,.gallery .next {
   cursor: pointer; text-align: center; position: absolute; line-height: 1em; background: #000; color: #FFF;
-  margin: auto; border-radius: 0; font-size: 32px; height: 100%; width: 1em; bottom: 0; top: 0; z-index: 2; opacity: .3333;
+  margin: auto; border-radius: 0; font-size: 32px; height: 2em; width: 1em; bottom: 0; top: 0; z-index: 2; opacity: .3333;
 }
 .gallery .prev { left: 0 } .gallery .next { right: 0 }
+
+.custom { margin: 0 -16px; }
 @media screen and (min-width: 480px){
+  .gallery, .gallery>*:first-child { border-radius: 8px; }
+  .gallery > *:first-child{ border-bottom-right-radius: 0px; border-bottom-left-radius: 0px; }
   .gallery { margin: auto; }
-  .gallery .caption { padding: 16px 0; }
   .gallery .prev,.gallery .next {
-    box-shadow: 0 0 0 3px; margin: auto -.25em;
+    box-shadow: 0 0 0 3px; margin: auto -.125em;
     border-radius: 50%; font-size: 48px; height: 1em;
   }
   .gallery .prev:hover,.gallery .next:hover {
@@ -34,47 +39,75 @@ menu_index:     -1
 }
 .gallery .prev:after { border-right: solid 2em; border-left: 0; margin: -1em -1.25em; }
 .gallery .next:after { border-right: 0; border-left: solid 2em; margin: -1em -0.75em; }
+.gallery .bullet {
+  display: inline-block;
+  cursor: pointer;
+  margin: 0 4px;
+  background: transparent;
+  border: solid 2px #ccc;
+  border-radius: 50%;
+  height: 1em;
+  width: 1em;
+}
+.gallery .bullet:active,
+.gallery .bullet:focus,
+.gallery .bullet:hover,
+.gallery .bullet.hover{
+  background: #ccc;
+}
 </style>
-<div class="card align-left">
-<div class="gallery" data-img='[
-"https://unsplash.it/600/900/",
-"https://unsplash.it/600/900/?random",
-"https://unsplash.it/g/600/900/?random",
-"https://unsplash.it/600/900/?blur",
-"https://unsplash.it/g/600/900/?blur"
-]'>
-<div class="imageList ratio ratio-2-3">
-  <div class="nav"><span class="prev no-print"></span><span class="next no-print"></span></div>
-  <img alt="Gallery image" class="ease unload lazyload" data-src="https://unsplash.it/600/900/" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
-</div>
-<div class="caption"><span>
-  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-</span></div>
+<div class="custom">
+<div class="row align-left">
+  <div class=" col-sm-1 col-md-1-2"><figure class="gallery" data-bullet data-idx="2" data-img='[
+    "https://unsplash.it/600/900/",
+    "https://unsplash.it/600/900/?random",
+    "https://unsplash.it/g/600/900/?random",
+    "https://unsplash.it/600/900/?blur",
+    "https://unsplash.it/g/600/900/?blur"
+    ]'>
+      <div class="imageList ratio ratio-2-3">
+        <div class="nav"><span class="prev no-print"></span><span class="next no-print"></span></div>
+        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+      </div>
+  </figure></div>
+  <div class=" col-sm-1 col-md-1-2"><figure class="gallery" data-bullet data-idx="1" data-img='[
+    "https://unsplash.it/600/900/",
+    "https://unsplash.it/600/900/?random",
+    "https://unsplash.it/g/600/900/?random",
+    "https://unsplash.it/600/900/?blur",
+    "https://unsplash.it/g/600/900/?blur"
+    ]'>
+      <div class="imageList ratio ratio-2-3">
+        <div class="nav"><span class="prev no-print"></span><span class="next no-print"></span></div>
+        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+      </div>
+  </figure></div>
 </div>
 </div>
 <script>afterLib.push(function () {
-  function updateGallery(G, idx = 1) {
+  window.updateGallery = function(G, idx = 1) {
     var list = JSON.parse(G.dataset.img),
         last = list.length-1, oldImg, newImg;
-    idx += (1*G.dataset.idx || 0);
+
+    idx = (idx===1*idx) ? idx+(1*G.dataset.idx || 0) : (1*idx || 0);
     idx = (idx < 0) ? last : (idx>last) ? 0 : idx;
-    oldImg = one('img:not([class~=unload])') || one('img', G);
+    oldImg = one('img:not([class~=unload])', G) || one('img', G);
     newImg = one('img[src="'+list[idx]+'"]', G);
+    removeClass(all('.bullet', G), 'hover');
+    addClass(one('.bullet[data-idx="'+idx+'"]', G), 'hover');
+
     if (!newImg) {
       newImg = str2DOM(`<img alt="Gallery image" class="ease unload">`);
-      newImg.src = list[idx];
-      oldImg.parentNode.appendChild(newImg);
+      newImg.src = list[idx]; oldImg.parentNode.appendChild(newImg);
       addClass(oldImg,'waitload');
       on(newImg, 'load', function (data) {
         removeClass(oldImg,'waitload');
-        addClass(all('img', G),'unload');
-        removeClass(newImg,'unload');
+        addClass(all('img', G),'unload'); removeClass(newImg,'unload');
       });
     } else {
-      addClass(all('img', G),'unload');
-      removeClass(newImg,'unload');
+      addClass(all('img', G),'unload'); removeClass(newImg,'unload');
     } G.dataset.idx = idx;
-  }
+  };
 
   on(all('.gallery .unload'), 'load', function (data) { removeClass(this,'unload'); });
   on(all('.gallery .prev, .gallery .next'), 'click', function(e) {
@@ -84,11 +117,89 @@ menu_index:     -1
     hasClass(this,'prev')?updateGallery(e,-1):updateGallery(e,1);
     return false;
   });
-  var g = one('.gallery'), gSwipe = new Swipe();
-  gSwipe
-  .onRight(function(){ gSwipe.e.preventDefault(); updateGallery(g, -1) })
-  .onLeft(function(){ gSwipe.e.preventDefault(); updateGallery(g, 1) })
-  ;on(g, 'touchstart touchmove', gSwipe.invoke)
+
+  var allGallery = all('.gallery');
+  while (G = allGallery.pop()) {
+    if (G.dataset.bullet==='' && !one('.bullet', G)) {
+      var B, list = JSON.parse(G.dataset.img),
+          F = str2DOM(`<figcaption></figcaption>`);
+      for(var i=0; i<list.length ;i++){
+        B = str2DOM(`<span class="bullet" data-idx="`+i+`"></span>`);
+        F.appendChild(B)
+      } G.appendChild(F);
+    }
+
+    G.dataset.idx = G.dataset.idx || '0';
+    updateGallery(G, G.dataset.idx);
+    on(all('.bullet', G), 'click', function(G){return function(e){
+      e.preventDefault(); updateGallery(G, this.dataset.idx);
+    }}(G));
+
+    on(G, 'touchstart touchmove',function(G){return function(e){
+      new Swipe()
+      .onLeft (function(){e.preventDefault();updateGallery(G, 1)})
+      .onRight(function(){e.preventDefault();updateGallery(G,-1)})
+      .invoke(e);
+    }}(G));
+  }
+});</script>
+<span>Drag'N'Drop CSV File < 10MB</span>
+<p><label>
+  <input id="dz_ctrl" class="input-control" type="file" multiple="multiple" accept=".csv" title=""/>
+  <span id="dz_face" class="input-face"> No File </span>
+</label></p>
+<script>afterLib.push(function () {
+  function DZ(ctrl,face) {
+    this.readedFiles = {};
+    this.ctrl = ctrl;
+    this.face = face;
+    var readAsText = function(C){ return function(f,cb) {
+      if (C[f.name]) {
+        return new Modal().invoke({header:'Duplicate', body:'Oh boy, there’s a duplicate file, we need only one file guys'});
+      }
+      if ( f.type.length ) {
+        return new Modal().invoke({header:'Invalid file', body:'Dude, only CSV file, or TXT'});
+      }
+      if ( f.size > 10e6 ) {
+        return new Modal().invoke({header:'File too big', body:'MAN~~ try smaller file; MAX 10MB, okay?'});
+      }
+      var reader=new FileReader();
+      reader.onload=function(data){ var file=f; file.text=data.target.result; cb&&cb(file) };
+      reader.readAsText(f);
+    }}(this.readedFiles);
+    var singleFile = function(C){ return function(file){
+      if (face.innerHTML.indexOf('</div>')<0) {
+        face.innerHTML = '';
+      }
+      face.innerHTML+= '<div title="' + file.name + '"> • ' + file.name + '</div>';
+      C[file.name] = file;
+    }}(this.readedFiles);
+    this.fileHandler = function(e) {
+      e.preventDefault();
+      if (e.type === 'dragover') {
+        addClass(ctrl,'hover');
+      } else
+      if (e.type === 'dragend') {
+        removeClass(ctrl,'hover'); e.dataTransfer.clearData();
+      } else
+      if (e.type === 'dragleave') {
+        removeClass(ctrl,'hover');
+      } else
+      if (e.type === 'drop') {
+        var files = e.dataTransfer.files;
+        for (var k = 0, f; f = files[k]; k++) { readAsText(f, singleFile) }
+        removeClass(ctrl,'hover');
+      } else
+      if (e.type === 'change') {
+        var files = e.target.files;
+        for (var k = 0, f; f = files[k]; k++) { readAsText(f, singleFile) }
+        e.target.value = '';
+      }
+    };
+  }
+  window.dz = new DZ(one('#dz_ctrl'), one('#dz_face'));
+  on(dz.face, 'drop dragover dragend dragleave', dz.fileHandler);
+  on(dz.ctrl, 'change', dz.fileHandler);
 });</script>
 
 <form class="card align-left">
@@ -126,60 +237,6 @@ menu_index:     -1
     <p><label><span>file:</span>
       <input class="" type="file"/><span class="input-face"></span>
     </label></p>
-<p><label><span>Custom File</span>
-  <input id="dz_ctrl" class="input-control" type="file" multiple="multiple" accept=".csv" title=""/>
-  <span id="dz_face" class="input-face"> No File </span>
-</label></p>
-<script>afterLib.push(function () {
-  function fileHandler(e,ctrl,face) {
-    processedFiles = window.processedFiles || {};
-    e.preventDefault();
-    function readAsText(f,cb) {
-      if (processedFiles[f.name]) {
-        new Modal().invoke({header:'Duplicate', body:'Oh boy, there’s a duplicate file, we need only one file guys'});
-        return;
-      }
-      if ( f.type.length ) {
-        new Modal().invoke({header:'Invalid file', body:'Dude, only CSV file, or TXT'});
-        return;
-      }
-      if ( f.size > 10e6 ) {
-          new Modal().invoke({header:'File too big', body:'MAN~~ try smaller file; MAX 10MB, okay?'});
-          return;
-      }
-      var reader=new FileReader();
-      reader.onload=function(data){ var file=f; file.text=data.target.result; cb&&cb(file) };
-      reader.readAsText(f);
-    }
-    function singleFile(file){
-      if (face.innerHTML.indexOf('</div>')<0) {
-        face.innerHTML = '';
-      }
-      face.innerHTML+= '<div title="' + file.name + '"> • ' + file.name + '</div>';
-      processedFiles[file.name] = file;
-    }
-    if (e.type === 'dragover') {
-      addClass(ctrl,'hover');
-    } else
-    if (e.type === 'dragend') {
-      removeClass(ctrl,'hover'); e.dataTransfer.clearData();
-    } else
-    if (e.type === 'dragleave') {
-      removeClass(ctrl,'hover');
-    } else
-    if (e.type === 'drop') { var files = e.dataTransfer.files;
-      for (var k = 0, f; f = files[k]; k++) { readAsText(f, singleFile) }
-      removeClass(ctrl,'hover');
-    } else
-    if (e.type === 'change') { var files = e.target.files;
-      for (var k = 0, f; f = files[k]; k++) { readAsText(f, singleFile) }
-      e.target.value = '';
-    }
-  }
-  var ctrl = one('#dz_ctrl'), face = one('#dz_face');
-  on(face, 'drop dragover dragend dragleave', function(e){ fileHandler(e,ctrl,face) });
-  on(ctrl, 'change', function(e){ fileHandler(e,ctrl,face) });
-});</script>
     <p><label><span>color:</span>
       <input class="" type="color" value="#3366ff"/>
     </label></p>

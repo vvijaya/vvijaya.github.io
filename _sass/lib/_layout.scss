@@ -1,5 +1,12 @@
 /* Grid layout
   =========================================================================== */
+$width-md: 480px;
+$width-lg: 960px;
+@mixin media-query($device) {
+  @media screen and (min-width: $device) {
+    @content;
+  }
+}
 @mixin col-row($mq,$col,$row) {
   .col-#{$mq}-#{$col}-#{$row} { width: ($col / $row) * 100%; }
 }
@@ -30,17 +37,17 @@
     overflow-y: hidden;
     overflow-x: auto;
   }
+  & > [class*= col-],
   & > [class^=col-] {
     width:100%;
+    box-sizing: border-box;
     display: inline-block;
     vertical-align: top;
     white-space: normal;
-    overflow-x: hidden;
-    box-sizing: border-box;
   }
   @include grid-row(sm);
-  @include media-query($on-md) { @include grid-row(md); }
-  @include media-query($on-lg) { @include grid-row(lg); }
+  @include media-query($width-md) { @include grid-row(md); }
+  @include media-query($width-lg) { @include grid-row(lg); }
 }
 
 @mixin col-flex($mq,$col,$row) {
@@ -108,6 +115,7 @@
   //     flex-direction: column-reverse;
   //   }
   // }
+  & > [class*= col-],
   & > [class^=col-] {
     box-sizing: border-box;
     -webkit-box-flex: 0;
@@ -122,6 +130,6 @@
     width: 100%;
   }
   @include grid-flex(sm);
-  @include media-query($on-md) { @include grid-flex(md); }
-  @include media-query($on-lg) { @include grid-flex(lg); }
+  @include media-query($width-md) { @include grid-flex(md); }
+  @include media-query($width-lg) { @include grid-flex(lg); }
 }
