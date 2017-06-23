@@ -55,7 +55,7 @@ a.embed {
   .col-sm-0, .col-md-0, .col-lg-0 {
     padding: 0; height: 0; overflow: hidden;
   }
-  p {
+  * {
     &:last-child { margin-bottom: 0; }
     &:first-child { margin-top: 0; }
   }

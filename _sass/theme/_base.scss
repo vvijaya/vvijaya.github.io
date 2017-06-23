@@ -42,14 +42,6 @@ p, blockquote, pre, hr,
 ul, ol, dl, figure, fieldset,
 %vertical-rhythm {
   margin: $spacing-unit auto;
-  .row > * & {
-    &:first-child {
-      margin-top: 0;
-    }
-    &:last-child {
-      margin-bottom: 0;
-    }
-  }
 }
 
 /* Word break

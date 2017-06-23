@@ -62,3 +62,28 @@ w.Modal=function(){
     }
   }
 };
+w.DropZone=function(ctrl, face, eventHandler) {
+  this.files = [];
+  this.ctrl = ctrl;
+  this.face = face;
+  this.eventHandler = eventHandler;
+  var readFile = function(F, C, beforeRead, afterRead) {
+    if (beforeRead && beforeRead(F, C)) {
+      var r; function isDone(F) { if (F.dataTXT && F.dataB64) { C.push(F); afterRead && afterRead(F, C); } }
+      r=new FileReader(); r.onload=function(F){return function(D){ F.dataTXT=D.target.result;isDone(F) }}(F); r.readAsText(F);
+      r=new FileReader(); r.onload=function(F){return function(D){ F.dataB64=D.target.result;isDone(F) }}(F); r.readAsDataURL(F);
+    }
+  };
+  this.fileHandler = function(e, beforeRead, afterRead) {
+    this.eventHandler && this.eventHandler(e);
+    if (e.type === 'dragend') { e.dataTransfer.clearData();
+    } else
+    if (e.type === 'drop') { var files = e.dataTransfer.files;
+      for (var i = 0, f; f = files[i]; i++) { readFile(f, this.files, beforeRead, afterRead) }
+    } else
+    if (e.type === 'change') { var files = e.target.files;
+      for (var i = 0, f; f = files[i]; i++) { readFile(f, this.files, beforeRead, afterRead) }
+      e.target.value = '';
+    }
+  };
+};

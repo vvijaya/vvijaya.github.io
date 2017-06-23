@@ -8,30 +8,24 @@ menu_index:     -1
 ---
 <style>
 .gallery { margin: 0 -16px; position: relative; padding: 0 0 16px; }
-.gallery .waitload { opacity: .5; }
 .gallery .unload { opacity: 0; pointer-events: none; position: absolute; left: 0; top: 0; }
+.gallery .waitload { opacity: .5; }
 .gallery .nav { height: 100%; width: 100%; position: absolute; z-index: 1; }
-.gallery, .gallery>*:first-child { border-radius: 0px; }
+.gallery, .gallery .image-list { border-radius: 0px; }
 .gallery img { border-radius: inherit; }
 .gallery figcaption { font-weight: 600; font-style: italic; }
+.gallery .prev { left: 0 }
+.gallery .next { right: 0 }
 .gallery .prev,.gallery .next {
   cursor: pointer; text-align: center; position: absolute; line-height: 1em; background: #000; color: #FFF;
   margin: auto; border-radius: 0; font-size: 32px; height: 2em; width: 1em; bottom: 0; top: 0; z-index: 2; opacity: .3333;
 }
-.gallery .prev { left: 0 } .gallery .next { right: 0 }
-
-.custom { margin: 0 -16px; }
-@media screen and (min-width: 480px){
-  .gallery, .gallery>*:first-child { border-radius: 8px; }
-  .gallery > *:first-child{ border-bottom-right-radius: 0px; border-bottom-left-radius: 0px; }
+@media screen and (min-width: 480px) {
+  .gallery, .gallery .image-list { border-radius: 8px; }
+  .gallery .image-list { border-bottom-right-radius: 0px; border-bottom-left-radius: 0px; }
   .gallery { margin: auto; }
-  .gallery .prev,.gallery .next {
-    box-shadow: 0 0 0 3px; margin: auto -.125em;
-    border-radius: 50%; font-size: 48px; height: 1em;
-  }
-  .gallery .prev:hover,.gallery .next:hover {
-    background: #c03; opacity: 1;
-  }
+  .gallery .prev,.gallery .next { box-shadow: 0 0 0 3px; margin: auto -.125em; border-radius: 50%; font-size: 48px; height: 1em; }
+  .gallery .prev:hover,.gallery .next:hover { background: #c03; opacity: 1; }
 }
 .gallery .prev:after, .gallery .next:after {
   content: ""; border: solid 1em transparent; margin: -1em; position: absolute;
@@ -40,14 +34,8 @@ menu_index:     -1
 .gallery .prev:after { border-right: solid 2em; border-left: 0; margin: -1em -1.25em; }
 .gallery .next:after { border-right: 0; border-left: solid 2em; margin: -1em -0.75em; }
 .gallery .bullet {
-  display: inline-block;
-  cursor: pointer;
-  margin: 0 4px;
-  background: transparent;
-  border: solid 2px #ccc;
-  border-radius: 50%;
-  height: 1em;
-  width: 1em;
+  display: inline-block; cursor: pointer; margin: 0 4px; background: transparent;
+  border: solid 2px #ccc; border-radius: 50%; height: 1em; width: 1em;
 }
 .gallery .bullet:active,
 .gallery .bullet:focus,
@@ -56,7 +44,8 @@ menu_index:     -1
   background: #ccc;
 }
 </style>
-<div class="custom">
+## Swipeable Gallery
+<div style="margin: 0 -16px;">
 <div class="row align-left">
   <div class=" col-sm-1 col-md-1-2"><figure class="gallery" data-bullet data-idx="2" data-img='[
     "https://unsplash.it/600/900/",
@@ -65,55 +54,52 @@ menu_index:     -1
     "https://unsplash.it/600/900/?blur",
     "https://unsplash.it/g/600/900/?blur"
     ]'>
-      <div class="imageList ratio ratio-2-3">
+      <div class="image-list ratio ratio-2-3">
         <div class="nav"><span class="prev no-print"></span><span class="next no-print"></span></div>
         <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
       </div>
   </figure></div>
   <div class=" col-sm-1 col-md-1-2"><figure class="gallery" data-bullet data-idx="1" data-img='[
-    "https://unsplash.it/600/900/",
-    "https://unsplash.it/600/900/?random",
-    "https://unsplash.it/g/600/900/?random",
-    "https://unsplash.it/600/900/?blur",
-    "https://unsplash.it/g/600/900/?blur"
+    "https://unsplash.it/400/600/",
+    "https://unsplash.it/400/600/?random",
+    "https://unsplash.it/g/400/600/?random",
+    "https://unsplash.it/400/600/?blur",
+    "https://unsplash.it/g/400/600/?blur"
     ]'>
-      <div class="imageList ratio ratio-2-3">
+      <div class="image-list ratio ratio-2-3">
         <div class="nav"><span class="prev no-print"></span><span class="next no-print"></span></div>
         <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
       </div>
   </figure></div>
 </div>
 </div>
-<script>afterLib.push(function () {
-  window.updateGallery = function(G, idx = 1) {
+<script>afterLib.push(function(){
+  window.updateGallery = function (G, idx = 1) {
     var list = JSON.parse(G.dataset.img),
         last = list.length-1, oldImg, newImg;
-
     idx = (idx===1*idx) ? idx+(1*G.dataset.idx || 0) : (1*idx || 0);
     idx = (idx < 0) ? last : (idx>last) ? 0 : idx;
-    oldImg = one('img:not([class~=unload])', G) || one('img', G);
+    oldImg = one('img[src="'+list[1*G.dataset.idx]+'"]', G) || one('img', G);
     newImg = one('img[src="'+list[idx]+'"]', G);
-    removeClass(all('.bullet', G), 'hover');
-    addClass(one('.bullet[data-idx="'+idx+'"]', G), 'hover');
-
     if (!newImg) {
-      newImg = str2DOM(`<img alt="Gallery image" class="ease unload">`);
+      newImg = str2DOM(`<img alt="Gallery image" class="ease waitload unload">`);
       newImg.src = list[idx]; oldImg.parentNode.appendChild(newImg);
       addClass(oldImg,'waitload');
-      on(newImg, 'load', function (data) {
-        removeClass(oldImg,'waitload');
-        addClass(all('img', G),'unload'); removeClass(newImg,'unload');
-      });
-    } else {
-      addClass(all('img', G),'unload'); removeClass(newImg,'unload');
+      on(newImg, 'load', function (oldImg,newImg) { return function (data) {
+        removeClass([oldImg,newImg],'waitload');
+      } }(oldImg,newImg));
     } G.dataset.idx = idx;
+    removeClass(all('.bullet', G), 'hover');
+    addClass(one('.bullet[data-idx="'+idx+'"]', G), 'hover');
+    removeClass(newImg,'unload');
+    addClass(oldImg,'unload');
   };
 
   on(all('.gallery .unload'), 'load', function (data) { removeClass(this,'unload'); });
-  on(all('.gallery .prev, .gallery .next'), 'click', function(e) {
+  on(all('.gallery .prev, .gallery .next'), 'click', function (e) {
     e.preventDefault();
     e=this;
-    while(!hasClass(e,'gallery')&&(e=e.parentNode)){};
+    while(!hasClass(e,'gallery')&&(e=e.parentNode)) {};
     hasClass(this,'prev')?updateGallery(e,-1):updateGallery(e,1);
     return false;
   });
@@ -123,7 +109,7 @@ menu_index:     -1
     if (G.dataset.bullet==='' && !one('.bullet', G)) {
       var B, list = JSON.parse(G.dataset.img),
           F = str2DOM(`<figcaption></figcaption>`);
-      for(var i=0; i<list.length ;i++){
+      for(var i=0; i<list.length ;i++) {
         B = str2DOM(`<span class="bullet" data-idx="`+i+`"></span>`);
         F.appendChild(B)
       } G.appendChild(F);
@@ -131,11 +117,11 @@ menu_index:     -1
 
     G.dataset.idx = G.dataset.idx || '0';
     updateGallery(G, G.dataset.idx);
-    on(all('.bullet', G), 'click', function(G){return function(e){
+    on(all('.bullet', G), 'click', function (G) {return function (e) {
       e.preventDefault(); updateGallery(G, this.dataset.idx);
     }}(G));
 
-    on(G, 'touchstart touchmove',function(G){return function(e){
+    on(G, 'touchstart touchmove',function (G) {return function (e) {
       new Swipe()
       .onLeft (function(){e.preventDefault();updateGallery(G, 1)})
       .onRight(function(){e.preventDefault();updateGallery(G,-1)})
@@ -143,63 +129,46 @@ menu_index:     -1
     }}(G));
   }
 });</script>
-<span>Drag'N'Drop CSV File < 10MB</span>
+<style>
+  #dz_face.hover { border-color: #36f; background: #cdf; }
+</style>
+<span>Clickable Drag'N'Drop CSV File < 10MB</span>
 <p><label>
   <input id="dz_ctrl" class="input-control" type="file" multiple="multiple" accept=".csv" title=""/>
   <span id="dz_face" class="input-face"> No File </span>
 </label></p>
-<script>afterLib.push(function () {
-  function DZ(ctrl,face) {
-    this.readedFiles = {};
-    this.ctrl = ctrl;
-    this.face = face;
-    var readAsText = function(C){ return function(f,cb) {
-      if (C[f.name]) {
-        return new Modal().invoke({header:'Duplicate', body:'Oh boy, there’s a duplicate file, we need only one file guys'});
-      }
-      if ( f.type.length ) {
-        return new Modal().invoke({header:'Invalid file', body:'Dude, only CSV file, or TXT'});
-      }
-      if ( f.size > 10e6 ) {
-        return new Modal().invoke({header:'File too big', body:'MAN~~ try smaller file; MAX 10MB, okay?'});
-      }
-      var reader=new FileReader();
-      reader.onload=function(data){ var file=f; file.text=data.target.result; cb&&cb(file) };
-      reader.readAsText(f);
-    }}(this.readedFiles);
-    var singleFile = function(C){ return function(file){
-      if (face.innerHTML.indexOf('</div>')<0) {
-        face.innerHTML = '';
-      }
-      face.innerHTML+= '<div title="' + file.name + '"> • ' + file.name + '</div>';
-      C[file.name] = file;
-    }}(this.readedFiles);
-    this.fileHandler = function(e) {
-      e.preventDefault();
-      if (e.type === 'dragover') {
-        addClass(ctrl,'hover');
-      } else
-      if (e.type === 'dragend') {
-        removeClass(ctrl,'hover'); e.dataTransfer.clearData();
-      } else
-      if (e.type === 'dragleave') {
-        removeClass(ctrl,'hover');
-      } else
-      if (e.type === 'drop') {
-        var files = e.dataTransfer.files;
-        for (var k = 0, f; f = files[k]; k++) { readAsText(f, singleFile) }
-        removeClass(ctrl,'hover');
-      } else
-      if (e.type === 'change') {
-        var files = e.target.files;
-        for (var k = 0, f; f = files[k]; k++) { readAsText(f, singleFile) }
-        e.target.value = '';
-      }
-    };
-  }
-  window.dz = new DZ(one('#dz_ctrl'), one('#dz_face'));
-  on(dz.face, 'drop dragover dragend dragleave', dz.fileHandler);
-  on(dz.ctrl, 'change', dz.fileHandler);
+<script>afterLib.push(function(){
+  window.dz = new DropZone(one('#dz_ctrl'), one('#dz_face'), function (e) {
+    e.preventDefault();
+    if (e.type === 'dragover') {addClass(dz.face,'hover')} else
+    if (e.type === 'dragend') {removeClass(dz.face,'hover')} else
+    if (e.type === 'dragleave') {removeClass(dz.face,'hover')} else
+    if (e.type === 'drop') {removeClass(dz.face,'hover')}
+  });
+  on([dz.ctrl, dz.face], 'drop dragover dragend dragleave change', function (e) {
+    dz.fileHandler(
+      e,
+      function (F, C) {
+        var r = C.length;
+        while (r--) { if (C[r].name == F.name) {
+          new Modal().invoke({header:'Duplicate', body:'Oh boy, there’s a duplicate file, try renaming first'});
+          return;
+        }}
+        if ( F.size > 10e6 ) {
+          new Modal().invoke({header:'File too big', body:'MAN~~ try smaller file; max 10MB, okay?'});
+          return;
+        }
+        if ( F.type!=='' ) {
+          new Modal().invoke({header:'Invalid file', body:'only CSV file, .txt based file'});
+          return;
+        } return true;
+      }, /*= BEFORE READ =*/
+      function (F, C) {
+        if (dz.face.innerHTML.indexOf('</div>')<0) { dz.face.innerHTML = '' }
+        dz.face.innerHTML+= '<div title="' + F.name + '"> • ' + F.name + '</div>';
+      } /*= AFTER READ =*/
+    );
+  });
 });</script>
 
 <form class="card align-left">
@@ -207,7 +176,7 @@ menu_index:     -1
     <style>
       fieldset p label span:first-child { width: 100px; display: inline-block; }
       .input-control + .input-face, button, input, optgroup, select, textarea, meter, progress { width: 480px; max-width: 100%; }
-      @media screen and (min-width: 480px){
+      @media screen and (min-width: 480px) {
         fieldset p label span:first-child { text-align: right; }
         .input-control + .input-face, button, input, optgroup, select, textarea, meter, progress { width: 200px; }
       }
