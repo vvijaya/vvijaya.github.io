@@ -22,6 +22,12 @@
     padding-right: 40px;
     white-space: nowrap;
     text-overflow: ellipsis;
+    a {
+      display: inherit;
+      overflow: inherit;
+      white-space: inherit;
+      text-overflow: inherit;
+    }
   }
   & .body{
     margin-top: -4em;
