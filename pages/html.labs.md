@@ -2,6 +2,8 @@
 permalink:      /labs/
 title:          Labs
 menu_index:     -1
+defer:          |
+  <script src="https://cdn.jsdelivr.net/npm/papaparse" async="" defer=""></script>
 ---
 # Labs[](# '{">":"find","tag":"main","className":"align-center"}')
 
@@ -47,7 +49,7 @@ menu_index:     -1
 ## Swipeable Gallery
 <div style="margin: 0 -16px;">
 <div class="row align-left">
-  <div class=" col-sm-1 col-md-1-2"><figure class="gallery" data-bullet data-idx="2" data-img='[
+  <div class=" col-sm-1 col-md-1-2"><figure class="gallery" data-bullet data-caption data-idx="2" data-img='[
     "https://unsplash.it/600/900/",
     "https://unsplash.it/600/900/?random",
     "https://unsplash.it/g/600/900/?random",
@@ -58,14 +60,24 @@ menu_index:     -1
         <div class="nav"><span class="prev no-print"></span><span class="next no-print"></span></div>
         <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
       </div>
+      <figcaption>My static caption</figcaption>
   </figure></div>
-  <div class=" col-sm-1 col-md-1-2"><figure class="gallery" data-bullet data-idx="1" data-img='[
-    "https://unsplash.it/400/600/",
-    "https://unsplash.it/400/600/?random",
-    "https://unsplash.it/g/400/600/?random",
-    "https://unsplash.it/400/600/?blur",
-    "https://unsplash.it/g/400/600/?blur"
-    ]'>
+  <div class=" col-sm-1 col-md-1-2"><figure class="gallery" data-bullet data-caption data-img='[{
+      "src":"https://unsplash.it/400/600/",
+      "caption":"My first image"
+    },{
+      "src":"https://unsplash.it/400/600/?random",
+      "caption":"This is the second one"
+    },{
+      "src":"https://unsplash.it/g/400/600/?random",
+      "caption":"And the third"
+    },{
+      "src":"https://unsplash.it/400/600/?blur",
+      "caption":"Fourth"
+    },{
+      "src":"https://unsplash.it/g/400/600/?blur",
+      "caption":"And this is the last one"
+    }]'>
       <div class="image-list ratio ratio-2-3">
         <div class="nav"><span class="prev no-print"></span><span class="next no-print"></span></div>
         <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
@@ -75,15 +87,22 @@ menu_index:     -1
 </div>
 <script>afterLib.push(function(){
   window.updateGallery = function (G, idx = 1) {
-    var list = JSON.parse(G.dataset.img),
+    var list = JSON.parse(G.dataset.img), src,
+        caption = G.dataset.caption==='',
         last = list.length-1, oldImg, newImg;
     idx = (idx===1*idx) ? idx+(1*G.dataset.idx || 0) : (1*idx || 0);
     idx = (idx < 0) ? last : (idx>last) ? 0 : idx;
-    oldImg = one('img[src="'+list[1*G.dataset.idx]+'"]', G) || one('img', G);
-    newImg = one('img[src="'+list[idx]+'"]', G);
+    src = list[1*G.dataset.idx];
+    src = src.src?src.src:src;
+    oldImg = one('img[src="'+src+'"]', G) || one('img', G);
+    src = list[idx];
+    caption = caption ? (src.caption?src.caption:' ') : false;
+    if (caption) one('.caption', G).innerHTML = caption;
+    src = src.src?src.src:src;
+    newImg = one('img[src="'+src+'"]', G);
     if (!newImg) {
       newImg = str2DOM(`<img alt="Gallery image" class="ease waitload unload">`);
-      newImg.src = list[idx]; oldImg.parentNode.appendChild(newImg);
+      newImg.src = src; oldImg.parentNode.appendChild(newImg);
       addClass(oldImg,'waitload');
       on(newImg, 'load', function (oldImg,newImg) { return function (data) {
         removeClass([oldImg,newImg],'waitload');
@@ -106,28 +125,34 @@ menu_index:     -1
 
   var allGallery = all('.gallery');
   while (G = allGallery.pop()) {
+    var B, F, list = [], t = new Swipe();
+    try { list = JSON.parse(G.dataset.img) } catch (e) {}
+
+    on(G, 'touchstart touchmove',function(G){return function(e){
+      t.invoke(e, {
+        onRight:function(){e.preventDefault();updateGallery(G,-1)},
+        onLeft: function(){e.preventDefault();updateGallery(G, 1)},
+      });
+    }}(G));
+
+    if (G.dataset.caption==='' && !one('.caption', G)) {
+      G.appendChild(str2DOM(`<figcaption class="caption"></figcaption>`));
+    }
+
     if (G.dataset.bullet==='' && !one('.bullet', G)) {
-      var B, list = JSON.parse(G.dataset.img),
-          F = str2DOM(`<figcaption></figcaption>`);
+      F = str2DOM(`<figcaption></figcaption>`);
       for(var i=0; i<list.length ;i++) {
         B = str2DOM(`<span class="bullet" data-idx="`+i+`"></span>`);
-        F.appendChild(B)
+        on(B, 'click', function (G,i) {return function (e) {
+          e.preventDefault(); updateGallery(G, i+'');
+        }}(G,i));
+        F.appendChild(B);
       } G.appendChild(F);
     }
 
     G.dataset.idx = G.dataset.idx || '0';
     updateGallery(G, G.dataset.idx);
-    on(all('.bullet', G), 'click', function (G) {return function (e) {
-      e.preventDefault(); updateGallery(G, this.dataset.idx);
-    }}(G));
-
-    on(G, 'touchstart touchmove',function (G) {return function (e) {
-      new Swipe()
-      .onLeft (function(){e.preventDefault();updateGallery(G, 1)})
-      .onRight(function(){e.preventDefault();updateGallery(G,-1)})
-      .invoke(e);
-    }}(G));
-  }
+  } /*= END OF GALLERY LOOP =*/
 });</script>
 <style>
   #dz_face.hover { border-color: #36f; background: #cdf; }
@@ -138,16 +163,17 @@ menu_index:     -1
   <span id="dz_face" class="input-face"> No File </span>
 </label></p>
 <script>afterLib.push(function(){
-  window.dz = new DropZone(one('#dz_ctrl'), one('#dz_face'), function (e) {
-    e.preventDefault();
-    if (e.type === 'dragover') {addClass(dz.face,'hover')} else
-    if (e.type === 'dragend') {removeClass(dz.face,'hover')} else
-    if (e.type === 'dragleave') {removeClass(dz.face,'hover')} else
-    if (e.type === 'drop') {removeClass(dz.face,'hover')}
-  });
+  window.dz = new DropZone(one('#dz_ctrl'), one('#dz_face'));
   on([dz.ctrl, dz.face], 'drop dragover dragend dragleave change', function (e) {
     dz.fileHandler(
-      e,
+      (function (e) {
+        e.preventDefault();
+        if (e.type === 'dragover') {addClass(dz.face,'hover')} else
+        if (e.type === 'dragend') {removeClass(dz.face,'hover')} else
+        if (e.type === 'dragleave') {removeClass(dz.face,'hover')} else
+        if (e.type === 'drop') {removeClass(dz.face,'hover')}
+        return e;
+      })(e), /*= EVENT HANDLER =*/
       function (F, C) {
         var r = C.length;
         while (r--) { if (C[r].name == F.name) {

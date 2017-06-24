@@ -69,19 +69,19 @@ figure {
   font-style: italic;
   font-weight: 600;
   @include relative-font-size(0.875);
-  margin: 0 ($spacing-unit/-4*3);
-  padding: ($spacing-unit/4*1) ($spacing-unit/4*1) ($spacing-unit);
+  margin: 0 (-$spacing-unit);
+  padding: 0 0 ($spacing-unit);
   color: $dark-color;
   background-color: #fff;
   &, & > *:first-child{
     box-shadow: 0 0 0 1px $light-alt-color;
-    border-radius: 3px;
   }
   > figcaption {
     margin-top: $spacing-unit;
   }
   @include media-query($on-md) {
     margin: 0 auto;
+    border-radius: $spacing-unit/2;
     padding: $spacing-unit;
   }
 }

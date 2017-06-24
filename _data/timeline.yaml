@@ -147,7 +147,7 @@
 
         The client is a villa owner in Lombok, he want a nice video of his place and luxury looking website, so the basic update is fullpage video background on the home screen, different image on certain pages. This one, the logic is quite simple but required much attention to detail and so many test, some best practice is in mobile decided to use still image instead of video, also not all menu is shown on mobile. After a while they want to stop using video as background.
 - ###########################
-  date  : Jan 2015 - Sep 2015
+  date  : Jan 2015 — Sep 2015
   md    : |
     Job hunt & freelance
   detail:
@@ -170,7 +170,7 @@
 
         This is kind of illegal project, well at that time I need a lot, lot, lot of monies. My friend and I got an offer from underclassman, stating that he needs a help for his final project. THANK GOD, he dropout of college and the project is abandoned. Cool Javascript function on this project is ability to tag a specific location on the image, that placing the tag (square on the figure above) consistent and accurate to the image on any screen size.
 - ###########################
-  date  : Sep 2015 - Jan 2016
+  date  : Sep 2015 — Jan 2016
   md    : |
     Web Developer
 
@@ -196,7 +196,7 @@
 
         The task is to create a new skin for Giant Singapore Online Shopping Mall — <http://giantonline.com.sg> — based on yii framework using the reference from themeforest, the skin will be break on certain category, might have a sub-category and have shopping cart functionality. Problem is the database take a long time to read, also nesting list on mobile view and category header.
 - ###########################
-  date  : Jan 2016 - Current
+  date  : Jan 2016 — Current
   md    : |
     Analyst Programmer
 

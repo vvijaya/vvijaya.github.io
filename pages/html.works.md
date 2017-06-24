@@ -3,7 +3,7 @@ permalink:      /works/
 title:          Works
 menu_index:     2
 defer:          |
-  <script src="https://cdn.jsdelivr.net/npm/fuse.js@3.0.4/dist/fuse.min.js" async="" defer=""></script>
+  <script src="https://cdn.jsdelivr.net/npm/fuse.js" async="" defer=""></script>
 ---
 
 # Works[](# '{">":"find","tag":"main","className":"blue align-center"}')
@@ -26,7 +26,7 @@ Below is the list of my project, click the image to enlarge, or click the link t
     <div class="row x_nowrap" style="padding-bottom:20px;">
       {% for q in site.data.timeline %} {% if q.detail %}
       {% for detail in q.detail %} {% if detail.img and detail.desc %}
-      <div class="col-sm-1 col-md-1-2" data-uri="{{ detail.uri }}">
+      <div class="col-sm-1 col-md-1-2 work" data-id="{{ detail.uri }}">
         <p> <span class="ratio ratio-16-9 {{ detail.live }}">
 
           <a href="{{ detail.uri }}" title='{">":"modal","header":"{{ detail.title | smartify }}","className":"full align-center"}'>
@@ -45,29 +45,19 @@ Below is the list of my project, click the image to enlarge, or click the link t
 ---
 
 <script>
-
-function _SmoothScroll(o,r,t){var e=[o.scrollLeft,o.scrollTop],n=[r[0]-e[0],r[1]-e[1]],l=0,u=20;Math.easeInOutQuad=function(o,r,t,e){return o/=e/2,1>o?t/2*o*o+r:(o--,-t/2*(o*(o-2)-1)+r)};var s=function(){l+=u,o.scrollLeft=Math.easeInOutQuad(l,e[0],n[0],t),o.scrollTop=Math.easeInOutQuad(l,e[1],n[1],t),t>l&&setTimeout(s,u)};s()}
-
-
 afterLib.push(function(){
-  var dataUri = all('[data-uri]'), i = dataUri.length;
-  while (i--) {
-    dataUri[i].id = 'item-'+md5(dataUri[i].dataset.uri);
-    dataUri[i].removeAttribute('data-uri');
-  }
+  var id=all('[data-id]'),i=id.length;while(i--){id[i].id='X-'+md5(id[i].dataset.id);delete id[i].dataset.id}
   fetch('https://gunawan.wijaya.cc/api/timeline.json')
   .then(function(e){return(e.text()||e);})
   .then(function(e){
-    var list = (JSON.parse(e));
-    var detail = [];
-    list.map(function(list){ if (list.detail) {
-      list.detail.map(function(e){ if (e.img) { detail.push(e); } });
-    } });
-    var ob = document.getElementById('omnibox');
+    var list = (JSON.parse(e)),
+        details = [],
+        ob = one('#omnibox');
+    list.map(function(list){ list.detail && list.detail.map(function(detail){ detail.img && details.push(detail); }); });
     ob.removeAttribute('disabled');
     on(ob, 'input propertychange change', function(e) {
-      if (this.value.length) {
-        var res = (new Fuse(detail, {
+      if (window.Fuse && this.value.length) {
+        var res = (new Fuse(details, {
           shouldSort: true,
           threshold: 0.2,
           location: 0,
@@ -81,11 +71,9 @@ afterLib.push(function(){
             { weight: 0.4, name: 'live' },
           ]
         }).search(this.value)), i = res.length;
-        addClass(all('.work-list [id]'),'col-sm-0 col-md-0');
-        while (i--) { removeClass(one('#item-'+md5(res[i].uri)),'col-sm-0 col-md-0'); }
-      } else {
-        removeClass(all('.work-list [id]'),'col-sm-0 col-md-0');
-      }
+        addClass(all('.work-list .work[id]'),'col-sm-0 col-md-0');
+        while (i--) { removeClass(one('#X-'+md5(res[i].uri)),'col-sm-0 col-md-0'); }
+      } else { removeClass(all('.work-list .work[id]'),'col-sm-0 col-md-0'); }
     }); /*= omnibox changed =*/
   });
 });

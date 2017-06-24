@@ -1,11 +1,84 @@
 "use strict";
 function polyfillsAreLoaded() {
   var tmp, i, w = window, d=document;
-  gumshoe.init({selectorHeader: '[data-gumshoe]'});
-  smoothScroll.init({selectorHeader: '[data-gumshoe]'});
-  NProgress.start();
+  /*= SWIPE =*/
+  w.Swipe = function(){
+    this.invoke = function(e,Z){
+      if(e.type === "touchstart")this._A(this,e,Z);
+      if(e.type === "touchmove")this._B(this,e,Z);
+      return this
+    }
+    ,this.xA
+    ,this.yA
+    ,this._A = function(_this,e,Z){ _this.xA = e.touches[0].clientX; _this.yA = e.touches[0].clientY }
+    ,this._B = function(_this,e,Z){
+      if ( _this.xA && _this.yA ){
+        var xB = _this.xA - e.touches[0].clientX, yB = _this.yA - e.touches[0].clientY;
+        if ( Math.abs( xB ) < Math.abs( yB ) ) {
+          (yB>0) ? Z.onUp&&Z.onUp() : Z.onDown&&Z.onDown();
+        } else {
+          (xB>0) ? Z.onLeft&&Z.onLeft() : Z.onRight&&Z.onRight();
+        }
+        _this.xA = _this.yA = void 0;
+      }
+    }
+  };
+  /*= DROPZONE =*/
+  w.DropZone = function(ctrl, face) {
+    this.files = [];
+    this.ctrl = ctrl;
+    this.face = face;
+    var readFile = function(F, C, beforeRead, afterRead) {
+      if (beforeRead && beforeRead(F, C)) {
+        var r; function isDone(F) { if (F.dataTXT && F.dataB64) { C.push(F); afterRead && afterRead(F, C); } }
+        r=new FileReader(); r.onload=function(F){return function(D){ F.dataTXT=D.target.result;isDone(F) }}(F); r.readAsText(F);
+        r=new FileReader(); r.onload=function(F){return function(D){ F.dataB64=D.target.result;isDone(F) }}(F); r.readAsDataURL(F);
+      }
+    };
+    this.fileHandler = function(e, beforeRead, afterRead) {
+      if (e.type === "dragend") { e.dataTransfer.clearData();
+      } else
+      if (e.type === "drop") { var files = e.dataTransfer.files;
+        for (var i = 0, f; f = files[i]; i++) { readFile(f, this.files, beforeRead, afterRead) }
+      } else
+      if (e.type === "change") { var files = e.target.files;
+        for (var i = 0, f; f = files[i]; i++) { readFile(f, this.files, beforeRead, afterRead) }
+        e.target.value = "";
+      }
+    };
+  };
+  /*= MODAL =*/
+  w.Modal = function(opts,onClose,callback){
+    var i,_default = { id:"Modal", status:0, className:"Modal", header:"Header", body:"Body goes here" },
+        _on=function(f,u,n){ f.addEventListener?f.addEventListener(u,n):f.attachEvent?f.attachEvent("on"+u,n):0 },
+        _id=function(e,d){ return(d||document).getElementById(e) },
+        close=function(e){ e&&e.parentNode.removeChild(e) },
+        n=Object.assign(_default,opts);
+    close(_id(n.id));
+    if(!_id(n.id)){
+      i=document.createElement("div");
+      i.id=n.id;
+      i.className+=n.id+" "+n.className;
+      i.innerHTML=` `+`
+      <h1 id="`+n.id+`_Header" class="header">`+n.header+`</h1>
+      <div id="`+n.id+`_Body" class="body">
+      <div>`+n.body+`</div>
+      </div>
+      <button id="`+n.id+`_Close" class="close">Close</button>`;
+      document.body.appendChild(i);
+      onClose=onClose||function(){}
+      _on(_id(n.id+"_Close"),"click",function(){
+        if(onClose&&(onClose()!==false)) close(_id(n.id));
+      });
+      _on(document,"keydown",function(e){
+        if((27==e.keyCode)&&onClose&&(onClose()!==false)) close(_id(n.id));
+      });
+      callback&&callback();
+    }
+  };
 
-  // scrollspy
+  NProgress.start();
+  /*= scrollspy =*/
   var lastScrollTop = 0;
   w.cache = w.cache || {};
   cache.menu = cache.menu || one('.menu');
@@ -13,9 +86,9 @@ function polyfillsAreLoaded() {
     if (getViewport().w < 960) {
       var st = getScroll().y;
       if (cache.menu && st > lastScrollTop && st > cache.menu.clientHeight*2) {
-        addClass(cache.menu,'folded');  // scroll down
+        addClass(cache.menu,'folded');  /*= scroll down =*/
       } else {
-        removeClass(cache.menu,'folded');  // scroll up
+        removeClass(cache.menu,'folded');  /*= scroll up =*/
       } lastScrollTop = st;
     } else {
       removeClass(cache.menu,'folded');
@@ -24,9 +97,9 @@ function polyfillsAreLoaded() {
   } scrollspy();
   on(window, 'scroll resize', scrollspy);
   on(all('.row,.flex'), 'scroll', scrollspy);
-  // scrollspy
+  /*= scrollspy =*/
 
-  // lazyload image + gallery
+  /*= lazyload image + gallery =*/
   function lazyLoad() {
     var g = all('img.lazyload'); i = g.length;
     while (i--) {
@@ -37,9 +110,9 @@ function polyfillsAreLoaded() {
       }
     }
   } lazyLoad(); on(w,'hashchange',lazyLoad);
-  // lazyload image + gallery
+  /*= lazyload image + gallery =*/
 
-  // MD interactive
+  /*= MD interactive =*/
   (function () {
     var  cmd = {
       find  : function (d,j) {
@@ -52,15 +125,15 @@ function polyfillsAreLoaded() {
           if (d.tagName === tag) {
             loop = 0; addClass(d, className);
             if (tag === 'TABLE' && hasClass(d,'responsive')) {
-              // TABLE.responsive
+              /*= TABLE.responsive =*/
               tmp = all('tr', d);     addClass(tmp, 'row');
               tmp = all('td,th', d);  addClass(tmp, 'col-sm-1 col-md-1-' + tmp[0].parentNode.children.length);
               tmp = one('thead', d);  addClass(tmp, 'hide');
             } else {
 
             }
-          } // e.tagName === tag
-        } // loop
+          } /*= e.tagName === tag =*/
+        } /*= loop =*/
       },
       wrap  : function (d,j) {
         var tag = (j.tag || '').trim().toUpperCase(),
@@ -128,7 +201,7 @@ function polyfillsAreLoaded() {
       while (t && ( j = t.pop() ) ) { cmd[j['>']](el[i],j); el[i].title=""; }
     }
   }());
-  // MD interactive
+  /*= MD interactive =*/
 
   on(one('.rotator'), 'click', function() {
     var main = one('main');
