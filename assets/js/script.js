@@ -186,7 +186,7 @@ function polyfillsAreLoaded() {
             className = (j.className || '');
         on(d,'click', function (e) {
           e.preventDefault();
-          modal.invoke({
+          new Modal({
             body: body,
             header: `<a target="_blank" href="`+src+`">`+header+`</a>`,
             className: className,

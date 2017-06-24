@@ -177,15 +177,15 @@ defer:          |
       function (F, C) {
         var r = C.length;
         while (r--) { if (C[r].name == F.name) {
-          new Modal().invoke({header:'Duplicate', body:'Oh boy, there’s a duplicate file, try renaming first'});
+          new Modal({header:'Duplicate', body:'Oh boy, there’s a duplicate file, try renaming first'});
           return;
         }}
         if ( F.size > 10e6 ) {
-          new Modal().invoke({header:'File too big', body:'MAN~~ try smaller file; max 10MB, okay?'});
+          new Modal({header:'File too big', body:'MAN~~ try smaller file; max 10MB, okay?'});
           return;
         }
         if ( F.type!=='' ) {
-          new Modal().invoke({header:'Invalid file', body:'only CSV file, .txt based file'});
+          new Modal({header:'Invalid file', body:'only CSV file, .txt based file'});
           return;
         } return true;
       }, /*= BEFORE READ =*/
