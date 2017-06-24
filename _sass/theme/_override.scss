@@ -201,12 +201,21 @@ table.responsive {
       color: $light-color;
       box-shadow: 0 0 1em $dark-color;
     }
-    ul li a:after {
-        content: '▲';
-        padding: .5em;
-    }
-    ul li .down a:after {
+    ul li{
+      a {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        display: block;
+        margin: .5em 0;
+        &:before {
+          content: '▲';
+          padding: .5em;
+        }
+      }
+      .down a:before {
         content: '▼';
+      }
     }
     @media print {
       & { padding: 1px; }
@@ -218,7 +227,7 @@ table.responsive {
   }
   &.social p { max-width: 120px; text-align: left; }
   > p:first-child { color: $t-color; }
-  ul { text-align: left; list-style: none; }
+  ul { text-align: left; list-style: none; padding: 0; }
 }
 
 /* OVERRIDE Theme Color
