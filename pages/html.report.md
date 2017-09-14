@@ -2,10 +2,18 @@
 permalink:      /report/
 title:          Interactive Reporting Tools
 menu_index:     -1
+header:         false
+footer:         false
+color_rotator:  false
 defer:          |
-  <script src="https://unpkg.com/papaparse/papaparse.min.js" async="" defer=""></script>
-  <script src="https://unpkg.com/lodash/lodash.min.js" async="" defer=""></script>
-  <script src="https://cdn.rawgit.com/javve/list.js/master/dist/list.min.js" async="" defer=""></script>
+  <script async="" defer="" src="https://unpkg.com/papaparse"></script>
+  <script async="" defer="" src="https://unpkg.com/marked"></script>
+  <!--
+  <script async="" defer="" src="/assets/js/papaparse.min.js"></script>
+  <script async="" defer="" src="/assets/js/marked.js"></script>
+  <script async="" defer="" src="https://unpkg.com/lodash/lodash.min.js"></script>
+  <script async="" defer="" src="https://cdn.rawgit.com/javve/list.js/master/dist/list.min.js"></script>
+  -->
 ---
 # Interactive Reporting Tools[](# '{">":"find","tag":"main","className":"align-center"}')
 
@@ -22,6 +30,55 @@ defer:          |
     pointer-events: none;
     user-select: none;
   }
+  #report ul {
+    list-style: none;
+    padding: 0;
+  }
+  #report .list .list{
+    border-right: solid 24px transparent;
+  }
+  #report .list .list:nth-child(even){
+    background: #eee;
+  }
+  #report .list .group{
+    margin: 2em 0;
+    box-shadow: 0 0 0 1px #999;
+    border-left: solid 24px #ccc;
+  }
+  #report .list .group:nth-child(even){
+    xbackground: #ddd;
+    xborder-left: solid 24px #333;
+  }
+  #report p {
+    margin: 0 4px;
+    text-align: left;
+  }
+  #report label.group-check,
+  #report label.list-check {
+    position: absolute;
+    cursor: pointer;
+    line-height: 0;
+    margin-top: -0.5em;
+    top: 50%;
+    margin-top: 0.25em;
+    top: 0;
+  }
+  .input-control[type=checkbox] + label .input-face,
+  .input-control[type=radio] + label .input-face,
+  .input-control[type=checkbox] + .input-face,
+  .input-control[type=radio] + .input-face{
+    margin: 0;
+  }
+  #report label.group-check { left: -1.25em; }
+  #report label.list-check { right: -1.25em; }
+  #report input[type=checkbox]:checked + label + ul .list {
+    overflow: hidden;
+    height: 0;
+  }
+  #report input[type=checkbox]:checked + label + ul .list:first-child {
+    overflow: visible;
+    height: auto;
+  }
 </style>
 
 <div class="step hide">
@@ -37,7 +94,8 @@ defer:          |
   <p><label>
     <button class="step-back">◁ Back</button>
   </label></p>
-  <div id="report_list">
+  <div id="report">
+    <span class="meta"></span>
     <ul class="list"></ul>
   </div>
 </div>
@@ -78,28 +136,86 @@ defer:          |
           new Modal({header:'File too big', body:'MAN~~ try smaller file; max 10MB, okay?'});
           return;
         }
-        if ( F.type!=='text/csv' &&  F.type!=='text/plain' &&  F.type!=='' ) {
+        if ( F.type !== 'text/csv'
+          && F.type !== 'text/plain'
+          && F.type !== 'application/vnd.ms-excel'
+          && F.type !== 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+          && F.type !== '' ) {
           new Modal({header:'Invalid file', body:'only accept CSV file, .txt based file'});
           return;
-        }
-        /*= LOADING FILE =*/
-        
-        return true;
+        } return true;
       }, /*= BEFORE READ =*/
       function (F, C) {
+        var loadingModal = new Modal({className:'sticky',header:'Loading', body:'Please wait'});
+
         window.reportObj = Papa.parse(F.dataTXT, {
           header: true,
           skipEmptyLines: false,
         });
-        
 
-        window.reportList = new List('report_list', {
-          valueNames: reportObj.meta.fields,
-          item: '<li> <span class="' + reportObj.meta.fields.join('"></span><span class="') + '"></span> </li>'
-        }, reportObj.data);
+        var firstK = reportObj.meta.fields[0];
+        window.reportGObj = (reportObj.data[0][firstK] === '') ? [] : false;
 
-        console.log(reportObj);        
-        goToStep(++step);        
+        if (!!reportGObj) {
+          reportObj.data.forEach( function(rowCSV, index, array){
+            if (rowCSV[firstK] === '') {
+              var t = {
+                meta:{length:0},
+                data:[]
+              };
+              reportGObj.push(t);
+            } else if (reportGObj.length > 0) {
+              reportGObj[reportGObj.length-1].meta.length++;
+              reportGObj[reportGObj.length-1].data.push(rowCSV);
+            }
+          });
+        }
+
+        goToStep(++step);
+
+        loadingModal.close();
+        one('#report .meta').innerHTML = `
+        This report is ${(!!reportGObj) ? '' : 'not '}a Grouped Report ${(!!reportGObj) ? '(containing '+ reportGObj.length +' group(s)) ' : ''}
+        `;
+        one('#report .list').innerHTML = '';
+        var listHTML = one('#report .list').innerHTML;
+
+        var smartlink = function(str){
+          return ( marked(`<${str}>`).includes('<a href="') && str.includes('@')) ? `<${str}>`: str;
+        };
+
+        if (!!reportGObj) {
+          reportGObj.forEach(function(grp, gi, ga){
+            listHTML += `<li class="group group-${gi}">`;
+            listHTML += `<input id= "group_${gi}" class="input-control" type="checkbox"/>`;
+            listHTML += `<label for="group_${gi}" class="group-check"><span class="input-face"></span></label>`;
+            listHTML += '<ul>';
+            grp.data.forEach(function(obj, ri, ra){
+              listHTML += `<li class="clearfix list list-${ri}">`;
+              listHTML += `<input id= "group_${gi}_${ri}" class="input-control" type="checkbox"/>`;
+              listHTML += `<label for="group_${gi}_${ri}" class="list-check"><span class="input-face"></span></label>`;
+              for (var key in obj) { if (obj.hasOwnProperty(key)) {
+                var t = `${marked('**'+key+'** : '+smartlink(obj[key]))}`;
+                listHTML += t.split('href=').join('target="_blank" href=');
+              }}
+              listHTML += '</li>';
+            });
+            listHTML += '</ul></li>';
+          });
+        } else {
+          reportObj.data.forEach(function(obj, ri, ra){
+            listHTML += `<li class="clearfix list list-${ri}">`;
+            listHTML += `<input id= "list_${ri}" class="input-control" type="checkbox"/>`;
+            listHTML += `<label for="list_${ri}" class="list-check"><span class="input-face"></span></label>`;
+            for (var key in obj) { if (obj.hasOwnProperty(key)) {
+              var t = `${marked('**'+key+'** : '+smartlink(obj[key]))}`;
+              listHTML += t.split('href=').join('target="_blank" href=');
+            }}
+            listHTML += '</li>';
+          });
+        }
+        one('#report .list').innerHTML = listHTML;
+
         /*
         reportObj.meta.fields;
         
