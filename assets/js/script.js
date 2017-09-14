@@ -49,32 +49,38 @@ function polyfillsAreLoaded() {
   };
   /*= MODAL =*/
   w.Modal = function(opts,onClose,callback){
-    var i,_default = { id:"Modal", status:0, className:"Modal", header:"Header", body:"Body goes here" },
-        _on=function(f,u,n){ f.addEventListener?f.addEventListener(u,n):f.attachEvent?f.attachEvent("on"+u,n):0 },
-        _id=function(e,d){ return(d||document).getElementById(e) },
-        close=function(e){ e&&e.parentNode.removeChild(e) },
-        n=Object.assign(_default,opts);
-    close(_id(n.id));
-    if(!_id(n.id)){
-      i=document.createElement("div");
-      i.id=n.id;
-      i.className+=n.id+" "+n.className;
-      i.innerHTML=` `+`
-      <h1 id="`+n.id+`_Header" class="header">`+n.header+`</h1>
-      <div id="`+n.id+`_Body" class="body">
-      <div>`+n.body+`</div>
-      </div>
-      <button id="`+n.id+`_Close" class="close">Close</button>`;
-      document.body.appendChild(i);
-      onClose=onClose||function(){}
-      _on(_id(n.id+"_Close"),"click",function(){
-        if(onClose&&(onClose()!==false)) close(_id(n.id));
-      });
-      _on(document,"keydown",function(e){
-        if((27==e.keyCode)&&onClose&&(onClose()!==false)) close(_id(n.id));
-      });
-      callback&&callback();
-    }
+    var _default = { id:"Modal", status:0, className:"Modal", header:"Header", body:"Body goes here" },
+    _on=function(f,u,n){ f.addEventListener?f.addEventListener(u,n):f.attachEvent?f.attachEvent("on"+u,n):0 },
+    _id=function(e,d){ return(d||document).getElementById(e) },
+    _n=Object.assign(_default,opts),
+    _Modal = {
+      close: function(e){ e=_id(_n.id); e&&e.parentNode.removeChild(e) },
+      init: function(e){
+        _Modal.close();
+        if(!_id(_n.id)){
+          e=document.createElement("div");
+          e.id=_n.id;
+          e.className+=_n.id+" "+_n.className;
+          e.innerHTML=` `+`
+          <h1 id="`+_n.id+`_Header" class="header">`+_n.header+`</h1>
+          <div id="`+_n.id+`_Body" class="body">
+          <div>`+_n.body+`</div>
+          </div>
+          <button id="`+_n.id+`_Close" class="close">Close</button>`;
+          document.body.appendChild(e);
+          onClose=onClose||function(){}
+          _on(_id(_n.id+"_Close"),"click",function(){
+            if(onClose&&(onClose()!==false)) _Modal.close(_id(_n.id));
+          });
+          _on(document,"keydown",function(e){
+            if((27==e.keyCode)&&onClose&&(onClose()!==false)) _Modal.close(_id(_n.id));
+          });
+          callback&&callback();
+        }
+      }
+    };
+    _Modal.init();
+    return _Modal;
   };
 
   NProgress.start();
