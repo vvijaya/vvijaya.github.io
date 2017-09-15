@@ -65,6 +65,7 @@ a.embed {
   =========================================================================== */
 .Modal {
   background-color: $light-alt-color;
+  box-shadow: 0 0 $base-font-size*0.25 $dark-color;
   color: $dark-color;
   &.sticky {
     .header { padding-right: 0; }
