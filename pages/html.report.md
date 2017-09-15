@@ -79,6 +79,22 @@ defer:          |
     overflow: visible;
     height: auto;
   }
+  .Modal.loading #nprogress::after {
+    content: 'Please wait...'
+  }
+  .Modal.loading #nprogress .spinner {
+    top: 50%;
+    left: 50%;
+    right: auto;
+    overflow: visible;
+  }
+  .Modal.loading #nprogress .spinner-icon {
+    width: 10em;
+    height: 10em;
+    border-width: 1em;
+    margin: -50%;
+    opacity: .5;
+  }
 </style>
 
 <div class="step hide">
@@ -143,11 +159,11 @@ defer:          |
           && F.type !== '' ) {
           new Modal({header:'Invalid file', body:'only accept CSV file, .txt based file'});
           return;
-        } return true;
+        }
+        window.loadingModal = new Modal({className:'sticky loading',header:'Loading', body:'<div id="nprogress"><div class="spinner" role="spinner"><div class="spinner-icon"></div></div></div>'});
+        return true;
       }, /*= BEFORE READ =*/
       function (F, C) {
-        var loadingModal = new Modal({className:'sticky',header:'Loading', body:'Please wait'});
-
         window.reportObj = Papa.parse(F.dataTXT, {
           header: true,
           skipEmptyLines: false,
@@ -175,7 +191,7 @@ defer:          |
 
         loadingModal.close();
         one('#report .meta').innerHTML = `
-        This report is ${(!!reportGObj) ? '' : 'not '}a Grouped Report ${(!!reportGObj) ? '(containing '+ reportGObj.length +' group(s)) ' : ''}
+        This is ${(!!reportGObj) ? '' : 'not '}a Grouped Report ${(!!reportGObj) ? '(containing '+ reportGObj.length +' group(s)) ' : ''}
         `;
         one('#report .list').innerHTML = '';
         var listHTML = one('#report .list').innerHTML;
@@ -184,34 +200,42 @@ defer:          |
           return ( marked(`<${str}>`).includes('<a href="') && str.includes('@')) ? `<${str}>`: str;
         };
 
+        var limit = qs2obj.limit * 1 || 100;
+
         if (!!reportGObj) {
           reportGObj.forEach(function(grp, gi, ga){
-            listHTML += `<li class="group group-${gi}">`;
-            listHTML += `<input id= "group_${gi}" class="input-control" type="checkbox"/>`;
-            listHTML += `<label for="group_${gi}" class="group-check"><span class="input-face"></span></label>`;
-            listHTML += '<ul>';
-            grp.data.forEach(function(obj, ri, ra){
+            if (gi < limit){
+              listHTML += `<li class="group group-${gi}">`;
+              listHTML += `<input id= "group_${gi}" class="input-control" type="checkbox"/>`;
+              listHTML += `<label for="group_${gi}" class="group-check"><span class="input-face"></span></label>`;
+              listHTML += '<ul>';
+              grp.data.forEach(function(obj, ri, ra){
+                if (ri < limit){
+                  listHTML += `<li class="clearfix list list-${ri}">`;
+                  listHTML += `<input id= "group_${gi}_${ri}" class="input-control" type="checkbox"/>`;
+                  listHTML += `<label for="group_${gi}_${ri}" class="list-check"><span class="input-face"></span></label>`;
+                  for (var key in obj) { if (obj.hasOwnProperty(key)) {
+                    var t = `${marked('**'+key+'** : '+smartlink(obj[key]))}`;
+                    listHTML += t.split('href=').join('target="_blank" href=');
+                  }}
+                  listHTML += '</li>';
+                }
+              });
+              listHTML += '</ul></li>';
+            }
+          });
+        } else {
+          reportObj.data.forEach(function(obj, ri, ra){
+            if (ri < limit){
               listHTML += `<li class="clearfix list list-${ri}">`;
-              listHTML += `<input id= "group_${gi}_${ri}" class="input-control" type="checkbox"/>`;
-              listHTML += `<label for="group_${gi}_${ri}" class="list-check"><span class="input-face"></span></label>`;
+              listHTML += `<input id= "list_${ri}" class="input-control" type="checkbox"/>`;
+              listHTML += `<label for="list_${ri}" class="list-check"><span class="input-face"></span></label>`;
               for (var key in obj) { if (obj.hasOwnProperty(key)) {
                 var t = `${marked('**'+key+'** : '+smartlink(obj[key]))}`;
                 listHTML += t.split('href=').join('target="_blank" href=');
               }}
               listHTML += '</li>';
-            });
-            listHTML += '</ul></li>';
-          });
-        } else {
-          reportObj.data.forEach(function(obj, ri, ra){
-            listHTML += `<li class="clearfix list list-${ri}">`;
-            listHTML += `<input id= "list_${ri}" class="input-control" type="checkbox"/>`;
-            listHTML += `<label for="list_${ri}" class="list-check"><span class="input-face"></span></label>`;
-            for (var key in obj) { if (obj.hasOwnProperty(key)) {
-              var t = `${marked('**'+key+'** : '+smartlink(obj[key]))}`;
-              listHTML += t.split('href=').join('target="_blank" href=');
-            }}
-            listHTML += '</li>';
+            }
           });
         }
         one('#report .list').innerHTML = listHTML;
@@ -226,24 +250,4 @@ defer:          |
     );
   });
 });</script>
-
-<!--
-leaderboard(728x90)
-banner(468x60)
-half banner(234x60)
-button(125x125)
-skyscraper(120x600)
-wide skyscraper(160x600)
-small rectangle(180x150)
-vertical banner(120x240)
-small square(200x200)
-square(250x250)
-medium rectangle(300x250)
-large rectangle(336x280)
-half page(300x600)
-portrait(300x1050)
-mobile banner(320x50)
-large leaderboard(970x90)
-billboard(970x250)
--->
 ---
