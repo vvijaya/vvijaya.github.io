@@ -48,7 +48,7 @@
     right: 0;
     top: 0;
     &:after{
-      content: '×';
+      content: '\00D7';
       color: #CC0033;
       position: absolute;
       line-height: .8;

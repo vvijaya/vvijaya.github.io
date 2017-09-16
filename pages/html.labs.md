@@ -113,7 +113,6 @@ defer:          |
     removeClass(newImg,'unload');
     addClass(oldImg,'unload');
   };
-
   on(all('.gallery .unload'), 'load', function (data) { removeClass(this,'unload'); });
   on(all('.gallery .prev, .gallery .next'), 'click', function (e) {
     e.preventDefault();
@@ -122,23 +121,24 @@ defer:          |
     hasClass(this,'prev')?updateGallery(e,-1):updateGallery(e,1);
     return false;
   });
-
   var allGallery = all('.gallery');
   while (G = allGallery.pop()) {
-    var B, F, list = [], t = new Swipe();
+    /*
+    */
+    var B, F, list = [];
     try { list = JSON.parse(G.dataset.img) } catch (e) {}
-
+    G.swipable = new Swipe();
     on(G, 'touchstart touchmove',function(G){return function(e){
-      t.invoke(e, {
+      G.swipable.run(e, {
         onRight:function(){e.preventDefault();updateGallery(G,-1)},
         onLeft: function(){e.preventDefault();updateGallery(G, 1)},
       });
     }}(G));
-
+    /*
+    */
     if (G.dataset.caption==='' && !one('.caption', G)) {
       G.appendChild(str2DOM(`<figcaption class="caption"></figcaption>`));
     }
-
     if (G.dataset.bullet==='' && !one('.bullet', G)) {
       F = str2DOM(`<figcaption></figcaption>`);
       for(var i=0; i<list.length ;i++) {
@@ -149,7 +149,6 @@ defer:          |
         F.appendChild(B);
       } G.appendChild(F);
     }
-
     G.dataset.idx = G.dataset.idx || '0';
     updateGallery(G, G.dataset.idx);
   } /*= END OF GALLERY LOOP =*/
@@ -184,8 +183,12 @@ defer:          |
           new Modal({header:'File too big', body:'MAN~~ try smaller file; max 10MB, okay?'});
           return;
         }
-        if ( F.type!=='' ) {
-          new Modal({header:'Invalid file', body:'only CSV file, .txt based file'});
+        if ( F.type !== 'text/csv'
+          && F.type !== 'text/plain'
+          && F.type !== 'application/vnd.ms-excel'
+          && F.type !== 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+          && F.type !== '' ) {
+          new Modal({header:'Invalid file', body:'only accept CSV file, .txt based file'});
           return;
         } return true;
       }, /*= BEFORE READ =*/

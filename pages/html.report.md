@@ -8,10 +8,10 @@ color_rotator:  false
 defer:          |
   <script async="" defer="" src="https://unpkg.com/papaparse"></script>
   <script async="" defer="" src="https://unpkg.com/marked"></script>
+  <script async="" defer="" src="https://unpkg.com/lodash/lodash.min.js"></script>
   <!--
   <script async="" defer="" src="/assets/js/papaparse.min.js"></script>
   <script async="" defer="" src="/assets/js/marked.js"></script>
-  <script async="" defer="" src="https://unpkg.com/lodash/lodash.min.js"></script>
   <script async="" defer="" src="https://cdn.rawgit.com/javve/list.js/master/dist/list.min.js"></script>
   -->
 ---
@@ -35,7 +35,12 @@ defer:          |
     padding: 0;
   }
   #report .list .list{
+    border-top: solid 1px #999;
     border-right: solid 24px transparent;
+    background: #fafafa;
+  }
+  #report .list .list:first-child{
+    border-top: solid 0;
   }
   #report .list .list:nth-child(even){
     background: #eee;
@@ -47,14 +52,17 @@ defer:          |
   }
   #report .list .group:nth-child(even){
     xbackground: #ddd;
-    xborder-left: solid 24px #333;
+    border-left: solid 24px #999;
+  }
+  #report .list li.group ul {
+    overflow: hidden;
   }
   #report p {
     margin: 0 4px;
     text-align: left;
   }
-  #report label.group-check,
-  #report label.list-check {
+  #report label.group-face,
+  #report label.list-face {
     position: absolute;
     cursor: pointer;
     line-height: 0;
@@ -69,15 +77,23 @@ defer:          |
   .input-control[type=radio] + .input-face{
     margin: 0;
   }
-  #report label.group-check { left: -1.25em; }
-  #report label.list-check { right: -1.25em; }
-  #report input[type=checkbox]:checked + label + ul .list {
+  #report label.group-face { left: -1.25em; }
+  #report label.list-face { right: -1.25em; }
+  #report input[type=checkbox].group-ctrl:checked + label + ul .list {
+    border-top: 0;
     overflow: hidden;
     height: 0;
   }
-  #report input[type=checkbox]:checked + label + ul .list:first-child {
+  #report input[type=checkbox].group-ctrl:checked + label + ul .list:first-child {
     overflow: visible;
     height: auto;
+  }
+  #report input[type=checkbox].list-ctrl + label + span.data-list{
+    display: block;
+    max-height: 6em;    
+  }
+  #report input[type=checkbox].list-ctrl:checked + label + span.data-list{
+    max-height: none;
   }
   .Modal.loading #nprogress::after {
     content: 'Please wait...'
@@ -99,7 +115,10 @@ defer:          |
 
 <div class="step hide">
   <h2>1. Prepare CSV File</h2>
-  <span>Clickable, Drag'N'Drop CSV File < 10MB</span>
+  <p><label><span>Swap rows &amp; columns</span>
+    <input id="swap_rows_cols" class="input-control" type="checkbox"/><span class="input-face"></span>
+  </label></p>
+  <p><span>Clickable, Drag'N'Drop CSV File < 10MB</span></p>
   <p><label>
     <input id="dz_ctrl" class="input-control" type="file" multiple="multiple" accept=".csv" title=""/>
     <span id="dz_face" class="input-face"> No File </span>
@@ -160,93 +179,129 @@ defer:          |
           new Modal({header:'Invalid file', body:'only accept CSV file, .txt based file'});
           return;
         }
-        window.loadingModal = new Modal({className:'sticky loading',header:'Loading', body:'<div id="nprogress"><div class="spinner" role="spinner"><div class="spinner-icon"></div></div></div>'});
+        window.reportModal = new Modal({id:'reportModal',className:'sticky loading',header:'Loading', body:'<div id="nprogress"><div class="spinner" role="spinner"><div class="spinner-icon"></div></div></div>'});
         return true;
       }, /*= BEFORE READ =*/
       function (F, C) {
-        window.reportObj = Papa.parse(F.dataTXT, {
-          header: true,
-          skipEmptyLines: false,
-        });
-
-        var firstK = reportObj.meta.fields[0];
-        window.reportGObj = (reportObj.data[0][firstK] === '') ? [] : false;
-
-        if (!!reportGObj) {
-          reportObj.data.forEach( function(rowCSV, index, array){
-            if (rowCSV[firstK] === '') {
-              var t = {
-                meta:{length:0},
-                data:[]
-              };
-              reportGObj.push(t);
-            } else if (reportGObj.length > 0) {
-              reportGObj[reportGObj.length-1].meta.length++;
-              reportGObj[reportGObj.length-1].data.push(rowCSV);
-            }
+        try {
+          if (one("#swap_rows_cols").checked) {
+            F.dataTXT = F.dataTXT.split('\n');
+            F.dataTXT.forEach(function(row, i){
+              F.dataTXT[i] = row.split(',');
+            });
+            F.dataTXT = _.unzip(F.dataTXT);
+            F.dataTXT.forEach(function(row, i){
+              F.dataTXT[i] = row.join(',');
+            });
+            F.dataTXT = F.dataTXT.join('\n');
+          }
+          window.reportObj = Papa.parse(F.dataTXT, {
+            header: true,
+            skipEmptyLines: false,
           });
+          var firstK = reportObj.meta.fields[0];
+          window.reportGObj = (reportObj.data[0][firstK] === '') ? [] : false;
+
+          if (!!reportGObj) {
+            reportObj.data.forEach( function(rowCSV, index, array){
+              if (rowCSV[firstK] === '') {
+                var t = {
+                  meta:{length:0},
+                  data:[]
+                };
+                reportGObj.push(t);
+              } else if (reportGObj.length > 0) {
+                reportGObj[reportGObj.length-1].meta.length++;
+                reportGObj[reportGObj.length-1].data.push(rowCSV);
+              }
+            });
+          }
+
+          goToStep(++step);
+
+          reportModal.close();
+          one('#report .meta').innerHTML = `
+          This is ${(!!reportGObj) ? '' : '<b>NOT</b> '}a Grouped Report ${(!!reportGObj) ? '<i>(containing <b>'+reportGObj.length+'</b> group(s))</i>' : ''} from <b>${reportObj.data.length-(reportGObj.length || 0)}</b> data.<br>
+
+          `;
+          one('#report .list').innerHTML = '';
+          var listHTML = one('#report .list').innerHTML;
+
+          var smartlink = function(str){
+            return ( marked(`<${str}>`).includes('<a href="') && str.includes('@')) ? `<${str}>`: str;
+          };
+
+          var limit = qs2obj.limit * 1 || 100;
+
+          if (!!reportGObj) {
+            reportGObj.forEach(function(grp, gi, ga){
+              if (gi < limit){
+                listHTML += `
+                  <li class="group group-${gi}">
+                  <input id= "group_${gi}" class="group-ctrl input-control" type="checkbox"/>
+                  <label for="group_${gi}" class="group-face"><span class="input-face"></span></label>
+                  <ul>
+                `;
+                grp.data.forEach(function(obj, ri, ra){
+                  if (ri < limit){
+                    listHTML += `
+                      <li class="clearfix list list-${ri}">
+                        <input id= "group_${gi}_${ri}" class="list-ctrl input-control" type="checkbox"/>
+                        <label for="group_${gi}_${ri}" class="list-face"><span class="input-face"></span></label>
+                        <span class="data-list">
+                    `;
+                    for (var key in obj) { if (obj.hasOwnProperty(key)) {
+                      var t = `${marked('**'+key+'** : '+smartlink(obj[key]))}`;
+                      listHTML += t.split('href=').join('target="_blank" href=');
+                    }}
+                    listHTML += `
+                        </span>
+                      </li>
+                    `;
+                  }
+                });
+                listHTML += '</ul></li>';
+              }
+            });
+          } else {
+            listHTML += `
+              <li class="group group-0">
+              <ul>
+            `;
+            reportObj.data.forEach(function(obj, ri, ra){
+              if (ri < limit){
+                listHTML += `
+                  <li class="clearfix list list-${ri}">
+                    <input id= "list_${ri}" class="list-ctrl input-control" type="checkbox"/>
+                    <label for="list_${ri}" class="list-face"><span class="input-face"></span></label>
+                    <span class="data-list">
+                `;
+                for (var key in obj) { if (obj.hasOwnProperty(key)) {
+                  var t = `${marked('**'+key+'** : '+smartlink(obj[key]))}`;
+                  listHTML += t.split('href=').join('target="_blank" href=');
+                }}
+                listHTML += `
+                    </span>
+                  </li>
+                `;
+              }
+            });
+            listHTML += `
+              </ul>
+              </li>
+            `;
+          }
+          one('#report .list').innerHTML = listHTML;
+        } catch(e) {
+          reportModal = new Modal({id:'reportModal',header:'Error', body:`Close this modal to refresh this page<br><br><b>${e}</b>`}, function(){location+='';});
         }
-
-        goToStep(++step);
-
-        loadingModal.close();
-        one('#report .meta').innerHTML = `
-        This is ${(!!reportGObj) ? '' : 'not '}a Grouped Report ${(!!reportGObj) ? '(containing '+ reportGObj.length +' group(s)) ' : ''}
-        `;
-        one('#report .list').innerHTML = '';
-        var listHTML = one('#report .list').innerHTML;
-
-        var smartlink = function(str){
-          return ( marked(`<${str}>`).includes('<a href="') && str.includes('@')) ? `<${str}>`: str;
-        };
-
-        var limit = qs2obj.limit * 1 || 100;
-
-        if (!!reportGObj) {
-          reportGObj.forEach(function(grp, gi, ga){
-            if (gi < limit){
-              listHTML += `<li class="group group-${gi}">`;
-              listHTML += `<input id= "group_${gi}" class="input-control" type="checkbox"/>`;
-              listHTML += `<label for="group_${gi}" class="group-check"><span class="input-face"></span></label>`;
-              listHTML += '<ul>';
-              grp.data.forEach(function(obj, ri, ra){
-                if (ri < limit){
-                  listHTML += `<li class="clearfix list list-${ri}">`;
-                  listHTML += `<input id= "group_${gi}_${ri}" class="input-control" type="checkbox"/>`;
-                  listHTML += `<label for="group_${gi}_${ri}" class="list-check"><span class="input-face"></span></label>`;
-                  for (var key in obj) { if (obj.hasOwnProperty(key)) {
-                    var t = `${marked('**'+key+'** : '+smartlink(obj[key]))}`;
-                    listHTML += t.split('href=').join('target="_blank" href=');
-                  }}
-                  listHTML += '</li>';
-                }
-              });
-              listHTML += '</ul></li>';
-            }
-          });
-        } else {
-          reportObj.data.forEach(function(obj, ri, ra){
-            if (ri < limit){
-              listHTML += `<li class="clearfix list list-${ri}">`;
-              listHTML += `<input id= "list_${ri}" class="input-control" type="checkbox"/>`;
-              listHTML += `<label for="list_${ri}" class="list-check"><span class="input-face"></span></label>`;
-              for (var key in obj) { if (obj.hasOwnProperty(key)) {
-                var t = `${marked('**'+key+'** : '+smartlink(obj[key]))}`;
-                listHTML += t.split('href=').join('target="_blank" href=');
-              }}
-              listHTML += '</li>';
-            }
-          });
-        }
-        one('#report .list').innerHTML = listHTML;
-
         /*
         reportObj.meta.fields;
         
         if (dz.face.innerHTML.indexOf('</div>')<0) { dz.face.innerHTML = '' }
         dz.face.innerHTML+= '<div title="' + F.name + '"> • ' + F.name + '</div>';
         */
-      } /*= AFTER READ =*/
+      }
     );
   });
 });</script>

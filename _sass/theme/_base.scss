@@ -134,7 +134,7 @@ blockquote {
   font-family: $serif-font-family;
   @include relative-font-size(1.25);
   &:before {
-    content: '❝';
+    content: '\275D';
     color: $accent-color;
     position: absolute; left: 50%; line-height: 0.5; opacity: .25;
     @include relative-font-size(10);

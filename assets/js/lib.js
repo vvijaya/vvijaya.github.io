@@ -36,5 +36,5 @@ w.obj2arr=function(f){return Object.keys(f).map(function(k){return f[k]})}
 w.qs2obj=function(f){f=f?f:w.location.search;var r=f.split("&"),v=r.length,a={},t,k,j,i;f={};while(v--&&(t=r[v].split("="))){j=t[1]||'';k=t[0].split("?").join("").split("]").join("[").split("[[").join("[").split("[");try{j=JSON.parse(j.toLowerCase())}catch(e){j='"'+decodeURIComponent(j)+'"'}while(k.length){i=k.pop();if(i!=="")j='{"'+i+'":'+j+'}'}objMerge(f,JSON.parse(j));}return f}
 w.obj2qs=function(f,n){return Object.keys(f).map(function(k){var r=n?n+"["+k+"]":k;return "object"==typeof f[k]?obj2qs(f[k],r):r+"="+f[k]}).join("&")}
 /* runAfterLib */
-w.runAfterLib=function(){try{var a=w.afterLib;while(a.length){var i=a[a.length-1];i&&i();a.pop();}}catch(error){setTimeout(function(){w.runAfterLib();},500);}};w.runAfterLib();
+w.runAfterLib=function(){try{var a=w.afterLib;while(a.length){var i=a[a.length-1];i&&i();a.pop();}}catch(error){setTimeout(function(){console.warn(error);w.runAfterLib();},500);}};w.runAfterLib();
 }(this,document);

@@ -88,7 +88,7 @@ a.embed {
   }
   width: 100%; height: 100%;
   @include media-query($on-md) {
-    width: 90%; height: 80%;
+    width: 90%; height: 80%; border-radius: $base-font-size*0.25;
   }
 }
 
@@ -217,12 +217,12 @@ table.responsive {
         display: block;
         margin: .5em 0;
         &:before {
-          content: '▲';
+          content: '\25b2';
           padding: .5em;
         }
       }
       .down a:before {
-        content: '▼';
+        content: '\25bc';
       }
     }
     @media print {
