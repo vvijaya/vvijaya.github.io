@@ -90,10 +90,10 @@ defer:          |
   #report label.list-face { right: -1.25em; }
   #report input[type=checkbox].group-list-ctrl:checked + label + ul.data-group-list .group,
   #report input[type=checkbox].group-ctrl:checked + label + ul .list {
-    position: absolute;
-    overflow: hidden;
-    height: 0;
-    border-top: 0;
+      position: absolute;
+      right: 0;
+      clip: rect(1px 1px 1px 1px);
+      clip: rect(1px,1px,1px,1px);
   }
   #report input[type=checkbox].group-list-ctrl:checked + label + ul.data-group-list .group:first-child,
   #report input[type=checkbox].group-ctrl:checked + label + ul .list:first-child {
