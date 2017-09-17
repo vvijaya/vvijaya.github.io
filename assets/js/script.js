@@ -1,8 +1,5 @@
-/* global Reflect, NProgress, Modal, one, all, on, str2DOM, wrapDOM, getViewport, isElementInViewport, getScroll, addClass, removeClass, hasClass */
-/* jshint -W079, -W097, -W117 */
-
-"use strict";
-
+/* global Reflect */
+/* jshint -W117 */
 const w = window, cache = w.cache || {},
     noop = () => { },
     runAfterLib = () => {
@@ -22,21 +19,21 @@ class DropZone {
         this.ctrl = ctrl;
         this.face = face;
         let r = 0;
-        const isDone = (F, C, afterRead) => {
+        const isDone = (F, afterRead) => {
                 if (F.dataTXT && F.dataB64) {
-                    C.push(F);
-                    afterRead(F, C);
+                    this.files.push(F);
+                    afterRead(F);
                 }
-            }, readFile = (F, C, beforeRead, afterRead) => {
+            }, readFile = (F, beforeRead, afterRead) => {
 
                 beforeRead = beforeRead || noop;
                 afterRead = afterRead || noop;
-                if (beforeRead(F, C) !== false) {
+                if (beforeRead(F) !== false) {
                     r = new FileReader();
                     r.onload = ((F) => {
                         return (D) => {
                             F.dataTXT = D.target.result;
-                            isDone(F, C, afterRead);
+                            isDone(F, afterRead);
                         };
                     })(F);
                     r.readAsText(F);
@@ -45,7 +42,7 @@ class DropZone {
                     r.onload = ((F) => {
                         return (D) => {
                             F.dataB64 = D.target.result;
-                            isDone(F, C, afterRead);
+                            isDone(F, afterRead);
                         };
                     })(F);
                     r.readAsDataURL(F);
@@ -58,12 +55,12 @@ class DropZone {
             } else
             if (e.type === "drop") {
                 Array.from(e.dataTransfer.files).forEach((file) => {
-                    readFile(file, this.files, beforeRead, afterRead);
+                    readFile(file, beforeRead, afterRead);
                 });
             } else
             if (e.type === "change") {
                 Array.from(e.target.files).forEach((file) => {
-                    readFile(file, this.files, beforeRead, afterRead);
+                    readFile(file, beforeRead, afterRead);
                 });
                 e.target.value = "";
             }
@@ -155,42 +152,42 @@ window.afterLib.push(() => {
     w.DropZone = DropZone;
     w.Modal = Modal;
     w.Swipe = Swipe;
-    NProgress.start();
-    cache.menu = cache.menu || one(".menu");
+    w.NProgress.start();
+    cache.menu = cache.menu || w.one(".menu");
 
     scrollSpy = () => {
-        if (getViewport().w < int("960")) {
-            const st = getScroll().y;
+        if (w.getViewport().w < int("960")) {
+            const st = w.getScroll().y;
 
             if (cache.menu && st > lastScrollTop && st > cache.menu.clientHeight * int("2")) {
-                addClass(cache.menu, "folded");
+                w.addClass(cache.menu, "folded");
             } else {
-                removeClass(cache.menu, "folded");
+                w.removeClass(cache.menu, "folded");
             }
             lastScrollTop = st;
         } else {
-            removeClass(cache.menu, "folded");
+            w.removeClass(cache.menu, "folded");
         }
         lazyLoad();
     };
     scrollSpy();
-    on(window, "scroll resize", scrollSpy);
-    on(all(".row,.flex"), "scroll", scrollSpy);
+    w.on(window, "scroll resize", scrollSpy);
+    w.on(w.all(".row,.flex"), "scroll", scrollSpy);
 
     lazyLoad = () => {
-        const g = all("img.lazyload");
+        const g = w.all("img.lazyload");
         let i = g.length;
 
         while (i--) {
-            if (isElementInViewport(g[i]) && g[i].dataset.src && g[i].src.indexOf("data:image") === int("0")) {
+            if (w.isElementInViewport(g[i]) && g[i].dataset.src && g[i].src.indexOf("data:image") === int("0")) {
                 g[i].src = g[i].dataset.src;
                 Reflect.deleteProperty(g[i].dataset, "src");
-                removeClass(g[i], "lazyload");
+                w.removeClass(g[i], "lazyload");
             }
         }
     };
     lazyLoad();
-    on(w, "hashchange", lazyLoad);
+    w.on(w, "hashchange", lazyLoad);
 
     interactiveMD = () => {
         const cmd = {
@@ -204,14 +201,14 @@ window.afterLib.push(() => {
                     while (loop && (d = d.parentNode)) {
                         if (d.tagName === tag) {
                             loop = false;
-                            addClass(d, className);
-                            if (tag === "TABLE" && hasClass(d, "responsive")) {
-                                tmp = all("tr", d);
-                                addClass(tmp, "row");
-                                tmp = all("td,th", d);
-                                addClass(tmp, `col-sm-1 col-md-1-${tmp[int("0")].parentNode.children.length}`);
-                                tmp = one("thead", d);
-                                addClass(tmp, "hide");
+                            w.addClass(d, className);
+                            if (tag === "TABLE" && w.hasClass(d, "responsive")) {
+                                tmp = w.all("tr", d);
+                                w.addClass(tmp, "row");
+                                tmp = w.all("td,th", d);
+                                w.addClass(tmp, `col-sm-1 col-md-1-${tmp[int("0")].parentNode.children.length}`);
+                                tmp = w.one("thead", d);
+                                w.addClass(tmp, "hide");
                             }
                         }
                     }
@@ -219,24 +216,25 @@ window.afterLib.push(() => {
                 "wrap": (d, j) => {
                     const tag = (j.tag || "").trim().toUpperCase(),
                         className = j.className || "",
+                        attr = j.attr || "",
                         figcaption = j.figcaption || d.alt || d.title || "",
-                        wrapper = tag.length ? str2DOM(`<${tag}></${tag}>`) : d;
+                        wrapper = tag.length ? w.str2DOM(`<${tag} ${attr}></${tag}>`) : d;
 
-                    addClass(wrapper, className);
+                    w.addClass(wrapper, className);
                     if (wrapper !== d) {
-                        wrapDOM(d, wrapper);
+                        w.wrapDOM(d, wrapper);
                         if (tag === "FIGURE" && figcaption.length) {
-                            wrapper.appendChild(str2DOM(`<figcaption>${figcaption}</figcaption>`));
+                            wrapper.appendChild(w.str2DOM(`<figcaption ${attr}>${figcaption}</figcaption>`));
                         }
                     }
                 },
                 "audio": (d, j) => {
                     const src = j.src || d.src || d.href || "",
                         attr = j.attr || "",
-                        audio = str2DOM(`<audio src="${src}" ${attr}></audio>`);
+                        audio = w.str2DOM(`<audio src="${src}" ${attr}></audio>`);
 
                     d.parentNode.insertBefore(audio, d);
-                    on(d, "click", (e) => {
+                    w.on(d, "click", (e) => {
                         e.preventDefault();
                         e = audio.paused ? audio.play() : audio.pause();
 
@@ -246,13 +244,14 @@ window.afterLib.push(() => {
                 "embed": (d, j) => {
                     const src = j.src || d.src || d.href || "",
                         className = j.className || "embed ratio ratio-16-9",
+                        attr = j.attr || "allowfullscreen frameborder='0'",
                         ytsrc = src.toLowerCase().indexOf("youtube") >= int("0") && src.indexOf("?") < int("0") ? "?&autoplay=1&iv_load_policy=3&modestbranding=1&showinfo=0&rel=0&playsinline=1" : "";
 
-                    addClass(d, className);
-                    on(d, "click", (e) => {
+                    w.addClass(d, className);
+                    w.on(d, "click", (e) => {
                         e.preventDefault();
-                        removeClass(d, "embed");
-                        d.parentNode.replaceChild(str2DOM(`<span class="${className}"><iframe src="${src}${ytsrc}" allowfullscreen frameborder="0"></iframe></span>`), d);
+                        w.removeClass(d, "embed");
+                        d.parentNode.replaceChild(w.str2DOM(`<span class="${className}"><iframe src="${src}${ytsrc}" ${attr}></iframe></span>`), d);
 
                         return false;
                     });
@@ -263,7 +262,7 @@ window.afterLib.push(() => {
                         header = j.header || "Header",
                         className = j.className || "";
 
-                    on(d, "click", (e) => {
+                    w.on(d, "click", (e) => {
                         e.preventDefault();
                         e = new Modal({
                             "body": `${body}`,
@@ -275,15 +274,15 @@ window.afterLib.push(() => {
                         return false;
                     });
                 },
-            }, el = all("body [title]");
+            }, el = w.all("body [title]");
         let i = el.length, j = noop, t = noop;
 
         while (i--) {
             try {
                 t = JSON.parse(el[i].title);
                 t = t.pop ? t : [t];
-            } catch (e) {
-                noop();
+            } catch (error) {
+                noop(error);
             }
             while (t.length && (j = t.pop())) {
                 cmd[j[">"]](el[i], j);
@@ -293,29 +292,29 @@ window.afterLib.push(() => {
     };
     interactiveMD();
 
-    on(one(".rotator"), "click", () => {
-        const main = one("main");
+    w.on(w.one(".rotator"), "click", () => {
+        const main = w.one("main");
 
-        addClass(one(".rotator"), "clicked");
-        if (hasClass(main, "red")) {
-            removeClass(main, "red");
-            addClass(main, "green");
-        } else if (hasClass(main, "green")) {
-            removeClass(main, "green");
-            addClass(main, "blue");
-        } else if (hasClass(main, "blue")) {
-            removeClass(main, "blue");
-            addClass(main, "dark");
-        } else if (hasClass(main, "dark")) {
-            removeClass(main, "dark");
+        w.addClass(w.one(".rotator"), "clicked");
+        if (w.hasClass(main, "red")) {
+            w.removeClass(main, "red");
+            w.addClass(main, "green");
+        } else if (w.hasClass(main, "green")) {
+            w.removeClass(main, "green");
+            w.addClass(main, "blue");
+        } else if (w.hasClass(main, "blue")) {
+            w.removeClass(main, "blue");
+            w.addClass(main, "dark");
+        } else if (w.hasClass(main, "dark")) {
+            w.removeClass(main, "dark");
         } else {
-            addClass(main, "red");
+            w.addClass(main, "red");
         }
         setTimeout(() => {
-            removeClass(one(".rotator"), "clicked");
+            w.removeClass(w.one(".rotator"), "clicked");
         }, int("400"));
     });
 
-    NProgress.done();
+    w.NProgress.done();
 });
 runAfterLib();

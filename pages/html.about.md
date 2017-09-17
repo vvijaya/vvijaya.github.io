@@ -3,7 +3,7 @@ permalink:      /about/
 title:          About
 menu_index:     1
 defer:          |
-  <script src="https://cdn.jsdelivr.net/npm/fuse.js" async="" defer=""></script>
+  <script async="" defer="" src="https://unpkg.com/fuse.js/dist/fuse.min.js"></script>
 ---
 # About[](# '{">":"find","tag":"main","className":"green align-center"}')
 
@@ -39,35 +39,4 @@ Timeline (not so accurate, but well, why not)
 </div>
 
 ---
-
-<script>
-afterLib.push(function(){
-  var id=all('[data-id]'),i=id.length;while(i--){id[i].id='X-'+md5(id[i].dataset.id);delete id[i].dataset.id}
-  fetch('https://gunawan.wijaya.cc/api/timeline.json')
-  .then(function(e){return(e.text()||e);})
-  .then(function(e){
-    var list = (JSON.parse(e)),
-        ob = one('#omnibox');
-    ob.removeAttribute('disabled');
-    on(ob, 'input propertychange change', function(e) {
-      if (window.Fuse && this.value.length) {
-        var res = (new Fuse(list, {
-          shouldSort: true,
-          threshold: 0.2,
-          location: 0,
-          distance: 1000,
-          maxPatternLength: 32,
-          minMatchCharLength: 1,
-          keys: [
-            { weight: 0.7, name: 'date' },
-            { weight: 0.6, name: 'md' },
-            { weight: 0.5, name: 'detail.uri' }
-          ]
-        }).search(this.value)), i = res.length;
-        addClass(all('.card-list .card[id]'),'hide');
-        while (i--) { removeClass(one('#X-'+md5(res[i].date)),'hide'); }
-      } else { removeClass(all('.card-list .card[id]'),'hide'); }
-    }); /*= omnibox changed =*/
-  });
-});
-</script>
+<script async="" defer="" src="{{ "/assets/js/html.about.js" | absolute_url }}"></script>

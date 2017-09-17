@@ -230,6 +230,7 @@ table {
   padding: 0 $spacing-unit;
   & & { padding: 0; }
   @extend %clearfix;
+  &.full { max-width: 100%!important; }
 }
 
 /* a11y
