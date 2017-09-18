@@ -8,6 +8,11 @@
   p > &, div > & { margin: -2px 0px; }
   &:focus, &:active { border-color: #36f; box-shadow: 0 0 3px #36f; }
 }
+.input-control:disabled + label .input-face,
+.input-control:disabled + .input-face,
+.input-control:disabled + label {
+  opacity: .25;
+}
 label { display: inline-block; max-width: 100%; }
 optgroup { font-size: small; }
 fieldset { border: solid 1px #ccc; min-width: inherit; border-radius: 3px; padding: 0 1em; }
