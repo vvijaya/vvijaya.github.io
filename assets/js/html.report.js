@@ -3,9 +3,11 @@ window.afterLib.push(() => {
     const w = window,
         int = (i) => {
             return Number(i);
-        }, str = (i) => {
+        },
+        str = (i) => {
             return String(i);
-        }, flipAxis = (csv, delimiter = ",", linebreak = "\n") => {
+        },
+        flipAxis = (csv, delimiter = ",", linebreak = "\n") => {
             csv = csv.split(linebreak);
             csv.forEach((row, i) => {
                 csv[i] = row.split(delimiter);
@@ -21,27 +23,17 @@ window.afterLib.push(() => {
         smartlink = (str) => {
             return w.marked(`<${str}>`).includes("<a href=") && str.includes("@") ? `<${str}>` : str;
         },
-        listener = () => {
-            w.on(w.one("#full_container"), "change", () => {
-                w.toggleClass(w.one(".container"), "full");
-            });
-            w.on(w.all(".swap-rows-cols"), "change", (e) => {
-                e = e.target || e.srcElement || e;
-                let outHTML = e.checked ? {"flip": true} : {},
-                    F = w.dz.files[w.dz.filenames[e.dataset.reportId]];
-                outHTML = drawReport(F, outHTML);
-                w.one(`#report_${e.dataset.reportId}`).innerHTML = outHTML;
-                listener();
-            });
-        },
         drawReport = (F, opts) => {
-            let outHTML = "", limit = int("100"), report = F.reportObj, reportG = F.reportGObj;
+            let outHTML = "",
+                limit = int("100"),
+                report = F.reportObj,
+                reportG = F.reportGObj;
 
             limit = w.qs2obj.limit ? w.qs2obj.limit : limit;
             report = opts && opts.flip ? F.reportObjFlip : report;
-            reportG = opts && opts.flip ? F.reportGObjFlip :reportG;
+            reportG = opts && opts.flip ? F.reportGObjFlip : reportG;
 
-            outHTML += `<div>`;
+            outHTML += "<div>";
             outHTML += "<span class='data-meta'>";
             outHTML += w.marked(`**${F.name}** <br> _containing **${reportG.length}** group(s)_
                 from **${reportG.length > int("1") ? report.data.length - reportG.length : report.data.length}** data.
@@ -51,7 +43,7 @@ window.afterLib.push(() => {
                 <p></p>
                 <input id= 'swap_rows_cols_${w.md5(F.name)}' class='swap-rows-cols input-control' type='checkbox'
                     data-report-id='${w.md5(F.name)}'
-                    ${opts && opts.flip ? "checked='checked'": ""}
+                    ${opts && opts.flip ? "checked='checked'" : ""}
                     ${F.reportObjFlip ? "" : "disabled='disabled'"}/>
                 <label for='swap_rows_cols_${w.md5(F.name)}' class='swap-rows-cols '>
                     <span class='input-face'></span>
@@ -108,6 +100,19 @@ window.afterLib.push(() => {
             outHTML += "</ul></div>";
 
             return outHTML;
+        },
+        listener = () => {
+            w.on(w.one("#full_container"), "change", () => {
+                w.toggleClass(w.one(".container"), "full");
+            });
+            w.on(w.all(".swap-rows-cols"), "change", (e) => {
+                e = e.target || e.srcElement || e;
+                let outHTML = e.checked ? {"flip": true} : {};
+
+                outHTML = drawReport(w.dz.files[w.dz.filenames[e.dataset.reportId]], outHTML);
+                w.one(`#report_${e.dataset.reportId}`).innerHTML = outHTML;
+                listener();
+            });
         };
 
     w.processor = (F) => {
@@ -117,11 +122,13 @@ window.afterLib.push(() => {
             }
             w.dz.face.innerHTML += `<div title="${F.name}"> • ${F.name}</div>`;
 
-            let firstK = 0, gid = 0, papaConfig = {
+            const papaConfig = {
                 "header": true,
                 "dynamicTyping": true,
                 "skipEmptyLines": true,
             };
+            let firstK = 0,
+                gid = 0;
 
             F.reportObj = w.Papa.parse(F.dataTXT, papaConfig);
             firstK = F.reportObj.meta.fields[int("0")];
@@ -143,9 +150,9 @@ window.afterLib.push(() => {
             F.dataTXTFlip = flipAxis(F.dataTXT, F.reportObj.delimiter, F.reportObj.linebreak);
 
             F.reportObjFlip = w.Papa.parse(F.dataTXTFlip, papaConfig);
-            if (_.uniq(F.reportObjFlip.meta.fields).length === F.reportObjFlip.meta.fields.length){
+            if (w._.uniq(F.reportObjFlip.meta.fields).length === F.reportObjFlip.meta.fields.length) {
                 firstK = F.reportObjFlip.meta.fields[int("0")];
-                gid = 0;
+                gid = int("0");
                 F.reportGObjFlip = [];
                 F.reportObjFlip.data.forEach((rowCSV) => {
                     if (rowCSV[firstK] === "") {
@@ -164,7 +171,7 @@ window.afterLib.push(() => {
                 F.reportObjFlip = false;
                 F.reportGObjFlip = false;
             }
-            
+
             w.reportModal.close();
             w.removeClass(w.one(".step.hide"), "hide");
 
@@ -175,9 +182,8 @@ window.afterLib.push(() => {
                     w.one(`#report_${w.md5(file.name)}`).innerHTML = drawReport(file);
                 }
                 w.one("#report").innerHTML += `<div id='report_${w.md5(F.name)}' class='report'>${drawReport(file)}</div>`;
+                listener();
             });
-
-            listener(F);
         } catch (error) {
             console.warn(error);
             w.reportModal = new w.Modal({

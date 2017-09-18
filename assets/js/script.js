@@ -1,6 +1,7 @@
 /* global Reflect */
 /* jshint -W117 */
-const w = window, cache = w.cache || {},
+const w = window,
+    cache = w.cache || {},
     noop = () => { },
     runAfterLib = () => {
         return window.runAfterLib && window.runAfterLib();
@@ -24,7 +25,8 @@ class DropZone {
                     this.files.push(F);
                     afterRead(F);
                 }
-            }, readFile = (F, beforeRead, afterRead) => {
+            },
+            readFile = (F, beforeRead, afterRead) => {
 
                 beforeRead = beforeRead || noop;
                 afterRead = afterRead || noop;
@@ -88,7 +90,9 @@ class Modal {
                 return (d || document).getElementById(e);
             },
             x_on = (f, u, n) => {
-                return f.addEventListener ? f.addEventListener(u, n) : f.attachEvent ? f.attachEvent(`on${u}`, n) : false;
+                const attach = f.attachEvent ? f.attachEvent(`on${u}`, n) : false;
+
+                return f.addEventListener ? f.addEventListener(u, n) : attach;
             };
 
         this.close = () => {
@@ -135,7 +139,8 @@ class Swipe {
     }
     omega (e) {
         if (this.xA && this.yA) {
-            let xB = this.xA - e.touches[int("0")].clientX, yB = this.yA - e.touches[int("0")].clientY;
+            let xB = this.xA - e.touches[int("0")].clientX,
+                yB = this.yA - e.touches[int("0")].clientY;
 
             if (Math.abs(xB) < Math.abs(yB)) {
                 yB = yB > int("0") ? this.onUp() : this.onDown();
@@ -274,8 +279,11 @@ window.afterLib.push(() => {
                         return false;
                     });
                 },
-            }, el = w.all("body [title]");
-        let i = el.length, j = noop, t = noop;
+            },
+            el = w.all("body [title]");
+        let i = el.length,
+            j = noop,
+            t = noop;
 
         while (i--) {
             try {
