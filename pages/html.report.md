@@ -10,6 +10,7 @@ defer:          |
   <script async="" defer="" src="https://unpkg.com/marked/marked.min.js"></script>
   <script async="" defer="" src="https://unpkg.com/fuse.js/dist/fuse.min.js"></script>
   <script async="" defer="" src="https://unpkg.com/riot/riot+compiler.min.js"></script>
+  <script async="" defer="" src="https://unpkg.com/blueimp-md5/js/md5.min.js"></script>
   <script async="" defer="" src="https://unpkg.com/papaparse/papaparse.min.js"></script>
 ---
 # Interactive Reporting Tools[](# '{">":"find","tag":"main","className":"align-center"}')
@@ -43,8 +44,7 @@ defer:          |
 </div>
 
 ---
-<script>
-window.afterLib.push(() => {
+<script>defer.push(() => {
   const mount = (data) => {
     setTimeout(() => {
       try {

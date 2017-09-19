@@ -4,6 +4,8 @@ title:          About
 menu_index:     1
 defer:          |
   <script async="" defer="" src="https://unpkg.com/fuse.js/dist/fuse.min.js"></script>
+  <script async="" defer="" src="https://unpkg.com/blueimp-md5/js/md5.min.js"></script>
+  
 ---
 # About[](# '{">":"find","tag":"main","className":"green align-center"}')
 

@@ -1,10 +1,11 @@
-/* global Reflect */
-window.afterLib.push(() => {
-    const w = window, ob = w.one("#omnibox"), details = [];
+window.defer.push(() => {
+    const w = window,
+        ob = w.one("#omnibox"),
+        details = [];
 
     w.all("[data-id]").forEach((dataID) => {
         dataID.id = `X-${w.md5(dataID.dataset.id)}`;
-        Reflect.deleteProperty(dataID.dataset, "id");
+        w.Reflect.deleteProperty(dataID.dataset, "id");
     });
 
     fetch("https://gunawan.wijaya.cc/api/timeline.json").then((data) => {

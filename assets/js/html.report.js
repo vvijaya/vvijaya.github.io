@@ -1,5 +1,4 @@
-/* global Reflect */
-window.afterLib.push(() => {
+window.defer.push(() => {
     const w = window,
         int = (i) => {
             return Number(i);
@@ -87,7 +86,7 @@ window.afterLib.push(() => {
                             `;
                             outHTML += w.marked(`**_Row #${++ri} × ${Object.keys(obj).length} data(s)_**`);
                             for (const key in obj) {
-                                if (Reflect.has(obj, key)) {
+                                if (w.Reflect.has(obj, key)) {
                                     outHTML += w.marked(`**${smartlink(key)}** : ${smartlink(obj[key])}`).split("href=").join("target='_blank' href=");
                                 }
                             }

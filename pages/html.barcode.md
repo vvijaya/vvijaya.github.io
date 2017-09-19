@@ -20,7 +20,7 @@ defer:          |
 
 <span id="barcode"><svg></svg></span>
 
-<script>afterLib.push(function(){
+<script>defer.push(function(){
     JsBarcode("#barcode svg", qs2obj().val || 8886001038011);
 });</script>
 ---

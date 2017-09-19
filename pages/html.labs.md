@@ -85,7 +85,7 @@ defer:          |
   </figure></div>
 </div>
 </div>
-<script>afterLib.push(function(){
+<script>defer.push(function(){
   window.updateGallery = function (G, idx = 1) {
     var list = JSON.parse(G.dataset.img), src,
         caption = G.dataset.caption==='',
@@ -161,7 +161,7 @@ defer:          |
   <input id="dz_ctrl" class="input-control" type="file" multiple="multiple" accept=".csv" title=""/>
   <span id="dz_face" class="input-face"> No File </span>
 </label></p>
-<script>afterLib.push(function(){
+<script>defer.push(function(){
   window.dz = new DropZone(one('#dz_ctrl'), one('#dz_face'));
   on([dz.ctrl, dz.face], 'drop dragover dragend dragleave change', function (e) {
     dz.fileHandler(

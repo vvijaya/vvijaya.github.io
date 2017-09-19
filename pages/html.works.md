@@ -4,6 +4,7 @@ title:          Works
 menu_index:     2
 defer:          |
   <script async="" defer="" src="https://unpkg.com/fuse.js/dist/fuse.min.js"></script>
+  <script async="" defer="" src="https://unpkg.com/blueimp-md5/js/md5.min.js"></script>
 ---
 
 # Works[](# '{">":"find","tag":"main","className":"blue align-center"}')
