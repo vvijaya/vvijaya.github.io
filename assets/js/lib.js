@@ -419,7 +419,7 @@
     };
 
     /* # runDefer */
-    w.runDefer = (delay, a = noop, i = noop) => {
+    w.runDefer = (delay = 500, a = noop, i = noop) => {
         try {
             a = w.defer;
             while (a.length) {
