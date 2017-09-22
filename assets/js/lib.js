@@ -419,7 +419,7 @@
     };
 
     /* # runDefer */
-    w.runDefer = (delay = 500, a = noop, i = noop) => {
+    w.runDefer = (delay = 500, retry = 0, maxRetry = 99, a = noop, i = noop) => {
         try {
             a = w.defer;
             while (a.length) {
@@ -428,10 +428,17 @@
                 a.pop();
             }
         } catch (error) {
+            if (retry >= maxRetry) {
+                return console.warn(`${String(retry).padStart(3)} > MAX`);
+            }
             setTimeout(() => {
-                w.runDefer(delay, console.warn(error.message));
+                w.runDefer(delay, ++retry, ((retry, error) => {
+                    console.warn(`${String(retry).padStart(3)} > ${error.message}`);
+                })(retry, error));
             }, delay);
         }
+
+        return noop();
     };
     tmp = w.runDefer(500);
 
