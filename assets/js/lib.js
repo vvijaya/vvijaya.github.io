@@ -517,20 +517,20 @@
                         className = j.className || "",
                         attr = j.attr || "",
                         figcaption = j.figcaption || d.alt || d.title || "",
-                        wrapper = tag.length ? w.str2DOM(`<${tag} ${attr}></${tag}>`) : d;
+                        wrapper = tag.length ? w.stringToDOM(`<${tag} ${attr}></${tag}>`) : d;
 
                     w.addClass(wrapper, className);
                     if (wrapper !== d) {
                         w.wrapDOM(d, wrapper);
                         if (tag === "FIGURE" && figcaption.length) {
-                            wrapper.appendChild(w.str2DOM(`<figcaption ${attr}>${figcaption}</figcaption>`));
+                            wrapper.appendChild(w.stringToDOM(`<figcaption ${attr}>${figcaption}</figcaption>`));
                         }
                     }
                 },
                 "audio": (d, j) => {
                     const src = j.src || d.src || d.href || "",
                         attr = j.attr || "",
-                        audio = w.str2DOM(`<audio src="${src}" ${attr}></audio>`);
+                        audio = w.stringToDOM(`<audio src="${src}" ${attr}></audio>`);
 
                     d.parentNode.insertBefore(audio, d);
                     w.on(d, "click", (e) => {
@@ -550,7 +550,7 @@
                     w.on(d, "click", (e) => {
                         e.preventDefault();
                         w.removeClass(d, "embed");
-                        d.parentNode.replaceChild(w.str2DOM(`<span class="${className}"><iframe src="${src}${ytsrc}" ${attr}></iframe></span>`), d);
+                        d.parentNode.replaceChild(w.stringToDOM(`<span class="${className}"><iframe src="${src}${ytsrc}" ${attr}></iframe></span>`), d);
 
                         return false;
                     });
