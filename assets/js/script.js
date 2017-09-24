@@ -1,41 +1,30 @@
 window.defer.push(() => {
-    const w = window,
-        cache = w.cache || {},
-        noop = () => { },
-        int = (i) => {
-            return Number(i);
-        };
+    const w = window;
     let lastScrollTop = 0,
-        scrollSpy = noop;
-
+        scrollSpy = () => { };
 
     w.NProgress.start();
-    cache.menu = cache.menu || w.one(".menu");
-
     scrollSpy = () => {
-        if (w.getViewport().w < int("960")) {
+        if (w.getViewport().w < 960) {
             const st = w.getScroll().y;
 
-            if (cache.menu && st > lastScrollTop && st > cache.menu.clientHeight * int("2")) {
-                w.addClass(cache.menu, "folded");
+            if (w.one(".menu") && st > lastScrollTop && st > w.one(".menu").clientHeight * 2) {
+                w.addClass(w.one(".menu"), "folded");
             } else {
-                w.removeClass(cache.menu, "folded");
+                w.removeClass(w.one(".menu"), "folded");
             }
             lastScrollTop = st;
         } else {
-            w.removeClass(cache.menu, "folded");
+            w.removeClass(w.one(".menu"), "folded");
         }
         w.lazyLoad();
     };
     scrollSpy();
-    w.on(window, "scroll resize", scrollSpy);
+    w.on(w, "scroll resize", scrollSpy);
     w.on(w.all(".row,.flex"), "scroll", scrollSpy);
-
     w.lazyLoad();
     w.on(w, "hashchange", w.lazyLoad);
-
     w.interactiveMD();
-
     w.on(w.one(".rotator"), "click", () => {
         const main = w.one("main");
 
@@ -56,8 +45,10 @@ window.defer.push(() => {
         }
         setTimeout(() => {
             w.removeClass(w.one(".rotator"), "clicked");
-        }, int("400"));
+        }, 400);
     });
-
     w.NProgress.done();
 });
+if (window.runDefer) {
+    window.runDefer();
+}

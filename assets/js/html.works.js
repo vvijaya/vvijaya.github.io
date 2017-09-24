@@ -52,3 +52,6 @@ window.defer.push(() => {
         });
     });
 });
+if (window.runDefer) {
+    window.runDefer();
+}

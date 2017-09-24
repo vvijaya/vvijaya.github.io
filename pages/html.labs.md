@@ -85,74 +85,6 @@ defer:          |
   </figure></div>
 </div>
 </div>
-<script>defer.push(function(){
-  window.updateGallery = function (G, idx = 1) {
-    var list = JSON.parse(G.dataset.img), src,
-        caption = G.dataset.caption==='',
-        last = list.length-1, oldImg, newImg;
-    idx = (idx===1*idx) ? idx+(1*G.dataset.idx || 0) : (1*idx || 0);
-    idx = (idx < 0) ? last : (idx>last) ? 0 : idx;
-    src = list[1*G.dataset.idx];
-    src = src.src?src.src:src;
-    oldImg = one('img[src="'+src+'"]', G) || one('img', G);
-    src = list[idx];
-    caption = caption ? (src.caption?src.caption:' ') : false;
-    if (caption) one('.caption', G).innerHTML = caption;
-    src = src.src?src.src:src;
-    newImg = one('img[src="'+src+'"]', G);
-    if (!newImg) {
-      newImg = str2DOM(`<img alt="Gallery image" class="ease waitload unload">`);
-      newImg.src = src; oldImg.parentNode.appendChild(newImg);
-      addClass(oldImg,'waitload');
-      on(newImg, 'load', function (oldImg,newImg) { return function (data) {
-        removeClass([oldImg,newImg],'waitload');
-      } }(oldImg,newImg));
-    } G.dataset.idx = idx;
-    removeClass(all('.bullet', G), 'hover');
-    addClass(one('.bullet[data-idx="'+idx+'"]', G), 'hover');
-    removeClass(newImg,'unload');
-    addClass(oldImg,'unload');
-  };
-  on(all('.gallery .unload'), 'load', function (data) { removeClass(this,'unload'); });
-  on(all('.gallery .prev, .gallery .next'), 'click', function (e) {
-    e.preventDefault();
-    e=this;
-    while(!hasClass(e,'gallery')&&(e=e.parentNode)) {};
-    hasClass(this,'prev')?updateGallery(e,-1):updateGallery(e,1);
-    return false;
-  });
-  var allGallery = all('.gallery');
-  while (G = allGallery.pop()) {
-    /*
-    */
-    var B, F, list = [];
-    try { list = JSON.parse(G.dataset.img) } catch (e) {}
-    G.swipable = new Swipe();
-    on(G, 'touchstart touchmove',function(G){return function(e){
-      G.swipable.run(e, {
-        onRight:function(){e.preventDefault();updateGallery(G,-1)},
-        onLeft: function(){e.preventDefault();updateGallery(G, 1)},
-      });
-    }}(G));
-    /*
-    */
-    if (G.dataset.caption==='' && !one('.caption', G)) {
-      G.appendChild(str2DOM(`<figcaption class="caption"></figcaption>`));
-    }
-    if (G.dataset.bullet==='' && !one('.bullet', G)) {
-      F = str2DOM(`<figcaption></figcaption>`);
-      for(var i=0; i<list.length ;i++) {
-        B = str2DOM(`<span class="bullet" data-idx="`+i+`"></span>`);
-        on(B, 'click', function (G,i) {return function (e) {
-          e.preventDefault(); updateGallery(G, i+'');
-        }}(G,i));
-        F.appendChild(B);
-      } G.appendChild(F);
-    }
-    G.dataset.idx = G.dataset.idx || '0';
-    updateGallery(G, G.dataset.idx);
-  } /*= END OF GALLERY LOOP =*/
-});</script>
 <style>
   #dz_face.hover { border-color: #36f; background: #cdf; }
 </style>
@@ -161,44 +93,6 @@ defer:          |
   <input id="dz_ctrl" class="input-control" type="file" multiple="multiple" accept=".csv" title=""/>
   <span id="dz_face" class="input-face"> No File </span>
 </label></p>
-<script>defer.push(function(){
-  window.dz = new DropZone(one('#dz_ctrl'), one('#dz_face'));
-  on([dz.ctrl, dz.face], 'drop dragover dragend dragleave change', function (e) {
-    dz.fileHandler(
-      (function (e) {
-        e.preventDefault();
-        if (e.type === 'dragover') {addClass(dz.face,'hover')} else
-        if (e.type === 'dragend') {removeClass(dz.face,'hover')} else
-        if (e.type === 'dragleave') {removeClass(dz.face,'hover')} else
-        if (e.type === 'drop') {removeClass(dz.face,'hover')}
-        return e;
-      })(e), /*= EVENT HANDLER =*/
-      function (F, C) {
-        var r = C.length;
-        while (r--) { if (C[r].name == F.name) {
-          new Modal({header:'Duplicate', body:'Oh boy, there’s a duplicate file, try renaming first'});
-          return;
-        }}
-        if ( F.size > 10e6 ) {
-          new Modal({header:'File too big', body:'MAN~~ try smaller file; max 10MB, okay?'});
-          return;
-        }
-        if ( F.type !== 'text/csv'
-          && F.type !== 'text/plain'
-          && F.type !== 'application/vnd.ms-excel'
-          && F.type !== 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-          && F.type !== '' ) {
-          new Modal({header:'Invalid file', body:'only accept CSV file, .txt based file'});
-          return;
-        } return true;
-      }, /*= BEFORE READ =*/
-      function (F, C) {
-        if (dz.face.innerHTML.indexOf('</div>')<0) { dz.face.innerHTML = '' }
-        dz.face.innerHTML+= '<div title="' + F.name + '"> • ' + F.name + '</div>';
-      } /*= AFTER READ =*/
-    );
-  });
-});</script>
 
 <form class="card align-left">
   <fieldset>
@@ -314,6 +208,7 @@ defer:          |
     </label></p>
   </fieldset>
 </form>
+<script async="" defer="" src="{{ "/assets/js/html.labs.js" | absolute_url }}"></script>
 <!--
 leaderboard(728x90)
 banner(468x60)

@@ -1,11 +1,5 @@
 window.defer.push(() => {
     const w = window,
-        int = (i) => {
-            return Number(i);
-        },
-        str = (i) => {
-            return String(i);
-        },
         flipAxis = (csv, delimiter = ",", linebreak = "\n") => {
             csv = csv.split(linebreak);
             csv.forEach((row, i) => {
@@ -24,7 +18,7 @@ window.defer.push(() => {
         },
         drawReport = (F, opts) => {
             let outHTML = "",
-                limit = int("100"),
+                limit = 100,
                 report = F.reportObj,
                 reportG = F.reportGObj;
 
@@ -35,7 +29,7 @@ window.defer.push(() => {
             outHTML += "<div>";
             outHTML += "<span class='data-meta'>";
             outHTML += w.marked(`**${F.name}** <br> _containing **${reportG.length}** group(s)_
-                from **${reportG.length > int("1") ? report.data.length - reportG.length : report.data.length}** data.
+                from **${reportG.length > 1 ? report.data.length - reportG.length : report.data.length}** data.
             `);
             outHTML += "</span>";
             outHTML += `
@@ -64,7 +58,7 @@ window.defer.push(() => {
                 if (gi < limit) {
                     outHTML += `
                         <li class='group group-${gi}'>
-                        <span class='group-meta'><b><i>Group #${++grp.meta.id || int("1")} × ${grp.data.length} row(s)</i></b></span>
+                        <span class='group-meta'><b><i>Group #${++grp.meta.id || 1} × ${grp.data.length} row(s)</i></b></span>
                         <input id= 'group_${gi}_${w.md5(F.name)}' class='group-ctrl input-control' type='checkbox'/>
                         <label for='group_${gi}_${w.md5(F.name)}' class='group-face'>
                             <span> Show 1st row only.</span>
@@ -116,7 +110,7 @@ window.defer.push(() => {
 
     w.processor = (F) => {
         try {
-            if (w.dz.face.innerHTML.indexOf("</div>") < int("0")) {
+            if (w.dz.face.innerHTML.indexOf("</div>") < 0) {
                 w.dz.face.innerHTML = "";
             }
             w.dz.face.innerHTML += `<div title="${F.name}"> • ${F.name}</div>`;
@@ -130,7 +124,7 @@ window.defer.push(() => {
                 gid = 0;
 
             F.reportObj = w.Papa.parse(F.dataTXT, papaConfig);
-            firstK = F.reportObj.meta.fields[int("0")];
+            [firstK] = F.reportObj.meta.fields;
             F.reportGObj = [];
             F.reportObj.data.forEach((rowCSV) => {
                 if (rowCSV[firstK] === "") {
@@ -140,8 +134,8 @@ window.defer.push(() => {
                         },
                         "data": []
                     });
-                } else if (F.reportGObj.length > int("0")) {
-                    F.reportGObj[F.reportGObj.length - int("1")].data.push(rowCSV);
+                } else if (F.reportGObj.length > 0) {
+                    F.reportGObj[F.reportGObj.length - 1].data.push(rowCSV);
                 }
             });
             F.reportGObj = F.reportGObj.length ? F.reportGObj : [F.reportObj];
@@ -150,8 +144,8 @@ window.defer.push(() => {
 
             F.reportObjFlip = w.Papa.parse(F.dataTXTFlip, papaConfig);
             if (w._.uniq(F.reportObjFlip.meta.fields).length === F.reportObjFlip.meta.fields.length) {
-                firstK = F.reportObjFlip.meta.fields[int("0")];
-                gid = int("0");
+                [firstK] = F.reportObjFlip.meta.fields;
+                gid = 0;
                 F.reportGObjFlip = [];
                 F.reportObjFlip.data.forEach((rowCSV) => {
                     if (rowCSV[firstK] === "") {
@@ -161,8 +155,8 @@ window.defer.push(() => {
                             },
                             "data": []
                         });
-                    } else if (F.reportGObjFlip.length > int("0")) {
-                        F.reportGObjFlip[F.reportGObjFlip.length - int("1")].data.push(rowCSV);
+                    } else if (F.reportGObjFlip.length > 0) {
+                        F.reportGObjFlip[F.reportGObjFlip.length - 1].data.push(rowCSV);
                     }
                 });
                 F.reportGObjFlip = F.reportGObjFlip.length ? F.reportGObjFlip : [F.reportObjFlip];
@@ -190,7 +184,7 @@ window.defer.push(() => {
                 "header": "Error",
                 "body": `Close this modal to refresh this page<br><br><b>${error}</b>`
             }, () => {
-                str(location);
+                String(w.location);
             });
         }
     };
@@ -229,7 +223,7 @@ window.defer.push(() => {
 
                     return false;
                 }
-                if (F.size > int("10e6")) {
+                if (F.size > 10e6) {
                     F.modal = new w.Modal({
                         "header": "File too big",
                         "body": "MAN~~ try smaller file; max 10MB, okay?"
@@ -261,3 +255,6 @@ window.defer.push(() => {
         );
     });
 });
+if (window.runDefer) {
+    window.runDefer();
+}
