@@ -16,34 +16,28 @@ defer:          |
 # Interactive Reporting Tools[](# '{">":"find","tag":"main","className":"align-center"}')
 
 ---
-<link rel="stylesheet" type="text/css" href="{{ "/assets/css/html.report.css" | absolute_url }}">
 
-<div class="step">
-  <h2>1. Prepare CSV File</h2>
-
-  <p><span>Clickable, Drag'N'Drop CSV File < 10MB</span></p>
-
-  <p><label>
-    <input id="dz_ctrl" class="input-control" type="file" multiple="multiple" accept=".csv" title=""/>
-    <span id="dz_face" class="input-face"> No File </span>
-  </label></p>
-</div>
-
-<div class="step"><br><hr>
-  <h2>2. Review Data</h2>
-
-  <p><label><input id='full_container' class='input-control' type='checkbox'/><span class='input-face'></span>
-  <span>Full container</span></label></p>
-
-  <!-- <p><label>
-  <button class="step-back">◁ Back</button>
-  <button class="step-next">Next ▷</button>
-  </label></p> -->
-
-  <div id="report" data-is="report"></div>
-</div>
+<div id="report" data-is="report"></div>
 
 ---
+<style>
+.Modal.loading #nprogress::after {
+    content: 'Please wait...'
+}
+.Modal.loading #nprogress .spinner {
+    top: 50%;
+    left: 50%;
+    right: auto;
+    overflow: visible;
+}
+.Modal.loading #nprogress .spinner-icon {
+    width: 10em;
+    height: 10em;
+    border-width: 1em;
+    margin: -50%;
+    opacity: .5;
+}
+</style>
 <script>defer.push(() => {
   const mount = (data) => {
     setTimeout(() => {
@@ -53,16 +47,15 @@ defer:          |
         window.one("[defer-script-and-style]").innerHTML += data;
         window.riot.mount("*");
       }catch(error){
-        console.warn(error); mount(data);
+        console.warn(`MOUNT>${error.message}`); mount(data);
       }
     }, 100);
   };
-
   fetch("{{ '/assets/js/html.report.tag' | absolute_url }}")
   .then((data) => data.text())
   .then((data) => mount(data))
   .catch((error) => {
-    console.warn(error); mount(data);
+    console.warn(`FETCH>${error.message}`); mount(data);
   });
 });
 </script>

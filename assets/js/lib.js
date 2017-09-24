@@ -1,53 +1,52 @@
-((w, d, h = d.documentElement, noop = () => { }, tmp = noop) => {
+((w, d, h = d.documentElement, noop = () => { }, tmp = 0, Reflect = w.Reflect) => {
     w.DropZone = class DropZone {
         constructor (ctrl, face) {
             this.files = [];
             this.ctrl = ctrl;
             this.face = face;
-            let r = 0;
-            const isDone = (F, afterRead) => {
+            const isDone = (F, omega) => {
                     if (F.dataTXT && F.dataB64) {
                         this.files.push(F);
-                        afterRead(F);
+                        omega(F);
                     }
                 },
-                readFile = (F, beforeRead, afterRead) => {
+                readFile = (F, alpha, omega) => {
+                    let r = 0;
 
-                    beforeRead = beforeRead || noop;
-                    afterRead = afterRead || noop;
-                    if (beforeRead(F) !== false) {
+                    alpha = alpha || noop;
+                    omega = omega || noop;
+                    if (alpha(F, this.files) !== false) {
                         r = new FileReader();
                         r.onload = ((F) => {
                             return (D) => {
                                 F.dataTXT = D.target.result;
-                                isDone(F, afterRead);
+                                isDone(F, omega);
                             };
                         })(F);
                         r.readAsText(F);
-
                         r = new FileReader();
                         r.onload = ((F) => {
                             return (D) => {
                                 F.dataB64 = D.target.result;
-                                isDone(F, afterRead);
+                                isDone(F, omega);
                             };
                         })(F);
                         r.readAsDataURL(F);
                     }
                 };
 
-            this.fileHandler = (e, beforeRead, afterRead) => {
+            this.fileHandler = (e, alpha, omega) => {
                 if (e.type === "dragend") {
                     e.dataTransfer.clearData();
                 } else
                 if (e.type === "drop") {
-                    Array.from(e.dataTransfer.files).forEach((file) => {
-                        readFile(file, beforeRead, afterRead);
+                    [...e.dataTransfer.files].forEach((file) => {
+                        readFile(file, alpha, omega);
                     });
                 } else
                 if (e.type === "change") {
-                    Array.from(e.target.files).forEach((file) => {
-                        readFile(file, beforeRead, afterRead);
+                    [...e.target.files].forEach((file) => {
+                        readFile(file, alpha, omega);
                     });
                     e.target.value = "";
                 }
@@ -56,32 +55,26 @@
     };
     w.Modal = class Modal {
         constructor (opts, onClose, callback) {
-            opts = Object.assign({
-                "id": `Modal_${new Date().getTime()}`,
-                "status": 0,
-                "className": "",
-                "header": "Header",
-                "body": "Body goes here",
-                "onClose": onClose || noop,
-                "callback": callback || noop,
-            }, opts);
-            Object.assign(this, opts);
-
             const dom = document.createElement("div"),
-                destroy = (dom) => {
+                rm = (dom) => {
                     return dom ? dom.parentNode.removeChild(dom) : dom;
                 },
-                findById = (e, d) => {
-                    return (d || document).getElementById(e);
+                on = (f, u, func) => {
+                    tmp = f.addEventListener ? f.addEventListener(u, func) : noop;
+                    tmp = f.attachEvent ? f.attachEvent(`on${u}`, func) : noop;
                 },
-                x_on = (f, u, n) => {
-                    const attach = f.attachEvent ? f.attachEvent(`on${u}`, n) : false;
-
-                    return f.addEventListener ? f.addEventListener(u, n) : attach;
+                $ = (e, d) => {
+                    return (d || document).getElementById(e);
                 };
 
+            this.id = opts ? opts.id : `Modal_${new Date().getTime()}`;
+            this.className = opts ? opts.className : "";
+            this.header = opts ? opts.header : "Header";
+            this.body = opts ? opts.body : "Body goes here";
+            this.onClose = onClose || noop;
+            this.callback = callback || noop;
             this.close = () => {
-                destroy(findById(this.id));
+                rm($(this.id));
             };
             this.close();
             dom.id = `${this.id}`;
@@ -95,12 +88,12 @@
             `;
             document.body.appendChild(dom);
 
-            x_on(findById(`${this.id}_Close`), "click", () => {
-                this.onClose = this.onClose() === false ? this.onClose : destroy(dom);
+            on($(`${this.id}_Close`), "click", () => {
+                this.onClose = this.onClose() === false ? this.onClose : rm(dom);
             });
-            x_on(document, "keydown", (e) => {
+            on(document, "keydown", (e) => {
                 if (e.keyCode === 27) {
-                    this.onClose = this.onClose() === false ? this.onClose : destroy(dom);
+                    this.onClose = this.onClose() === false ? this.onClose : rm(dom);
                 }
             });
             this.callback();
@@ -108,33 +101,31 @@
     };
     w.Swipe = class Swipe {
         run (e, opts) {
-            opts = Object.assign({
-                "onUp": noop,
-                "onDown": noop,
-                "onLeft": noop,
-                "onRight": noop,
-            }, opts);
-            Object.assign(this, opts);
-            e = e && e.type === "touchstart" ? this.alpha(e) : e;
-            e = e && e.type === "touchmove" ? this.omega(e) : e;
-        }
-        alpha (e) {
-            this.xA = e.touches[0].clientX;
-            this.yA = e.touches[0].clientY;
-        }
-        omega (e) {
-            if (this.xA && this.yA) {
-                let xB = this.xA - e.touches[0].clientX,
-                    yB = this.yA - e.touches[0].clientY;
+            const alpha = (e) => {
+                    this.xA = e.touches[0].clientX;
+                    this.yA = e.touches[0].clientY;
+                },
+                omega = (e) => {
+                    if (this.xA && this.yA) {
+                        let xB = this.xA - e.touches[0].clientX,
+                            yB = this.yA - e.touches[0].clientY;
 
-                if (Math.abs(xB) < Math.abs(yB)) {
-                    yB = yB > 0 ? this.onUp() : this.onDown();
-                } else {
-                    xB = xB > 0 ? this.onLeft() : this.onRight();
-                }
-                w.Reflect.deleteProperty(this, "xA");
-                w.Reflect.deleteProperty(this, "yA");
-            }
+                        if (Math.abs(xB) < Math.abs(yB)) {
+                            yB = yB > 0 ? this.onUp() : this.onDown();
+                        } else {
+                            xB = xB > 0 ? this.onLeft() : this.onRight();
+                        }
+                        Reflect.deleteProperty(this, "xA");
+                        Reflect.deleteProperty(this, "yA");
+                    }
+                };
+
+            this.onUp = opts.onUp || noop;
+            this.onDown = opts.onDown || noop;
+            this.onLeft = opts.onLeft || noop;
+            this.onRight = opts.onRight || noop;
+            e = e && e.type === "touchstart" ? alpha(e) : e;
+            e = e && e.type === "touchmove" ? omega(e) : e;
         }
     };
 
@@ -142,7 +133,8 @@
         if (arr && func) {
             if (arr.nodeName || arr === w) {
                 arr = [arr];
-            } else if (arr.push || arr.forEach) {
+            } else
+            if (arr.push || arr.forEach) {
                 noop();
             }
             arr.forEach((i) => func(i));
@@ -159,7 +151,7 @@
 
     /* Node & DOM */
     w.one = (str, dom = d) => dom.querySelector(str);
-    w.all = (str, dom = d) => Array.from(dom.querySelectorAll(str));
+    w.all = (str, dom = d) => [...dom.querySelectorAll(str)];
     w.fadeout = (dom, delay = 40) => {
         w.eachNode(dom, (i) => {
             i.style.opacity = i.style.opacity === "" ? 1 : i.style.opacity;
@@ -187,7 +179,7 @@
         });
     };
     w.hasClass = (dom, str) => {
-        return RegExp(` ${str} `).test(` ${dom.className} `);
+        return new RegExp(` ${str} `).test(` ${dom.className} `);
     };
     w.eachNodeAndString = (dom, str, func) => {
         w.eachNode(dom, (f) => {
@@ -211,15 +203,17 @@
             tmp = w.hasClass(f, u) ? w.removeClass(f, u) : w.addClass(f, u);
         });
     };
+    //eslint-disable-next-line
+    let psv = false; try { w.addEventListener("test", null, Object.defineProperty({}, "passive", { "get": () => { psv = {"passive": true};} }));} catch (e) {}
     w.off = (dom, evt, func) => {
         w.eachNodeAndString(dom, evt, (f, u) => {
-            tmp = f.removeEventListener ? f.removeEventListener(u, func) : noop;
+            tmp = f.removeEventListener ? f.removeEventListener(u, func, psv) : noop;
             tmp = f.detachEvent ? f.detachEvent(`on${u}`, func) : noop;
         });
     };
     w.on = (dom, evt, func) => {
         w.eachNodeAndString(dom, evt, (f, u) => {
-            tmp = f.addEventListener ? f.addEventListener(u, func) : noop;
+            tmp = f.addEventListener ? f.addEventListener(u, func, psv) : noop;
             tmp = f.attachEvent ? f.attachEvent(`on${u}`, func) : noop;
         });
     };
@@ -232,33 +226,200 @@
         "h": w.innerHeight || h.clientHeight || d.body.clientHeight || 0,
     });
     w.isElementInViewport = (dom, r = dom.getBoundingClientRect()) => r.top >= 0 && r.left >= 0 && r.bottom <= w.getViewport().h && r.right <= w.getViewport().w;
-    w.wrapDOM = (ref, wrap) => {
-        ref.parentNode.insertBefore(wrap, ref);
-        wrap.appendChild(ref);
-    };
 
-    /* Injection */
-    w.jsonp = (url, r = d.createElement("script")) => {
-        d.head.appendChild(r);
-        r.src = url;
-        r.parentNode.removeChild(r);
-    };
-    w.addCSS = (css, r = d.createElement("style")) => {
-        d.head.appendChild(r);
-        r.appendChild(d.createTextNode(css));
-    };
-    w.str2DOM = (str, r = d.createElement("div")) => {
-        r.innerHTML = str;
+    /* XML, DOM, JSON & Injection Helper */
+    w.xmlToJSON = (xml, opt) => {
 
-        return r.firstChild;
-    };
+        /* # modified to es6 method from https://github.com/metatribal/xmlToJSON */
+        let vResult = {},
+            vAttribs = {},
+            vContent = {},
+            oAttrib = null,
+            attribName = "",
+            nLength = 0,
+            sCollectedTxt = "",
+            tmp = 0;
 
-    /* Object */
-    w.objMerge = (a, b) => {
+        const options = {
+
+            /* # extract cdata and merge with text */
+                "mergeCDATA": true,
+
+                /* # convert truthy attributes to boolean, etc */
+                "grokAttr": true,
+
+                /* # convert truthy text/attr to boolean, etc */
+                "grokText": true,
+
+                /* # collapse multiple spaces to single space */
+                "normalize": true,
+
+                /* # include namespaces as attribute in output */
+                "xmlns": true,
+
+                /* # tag name for namespace objects */
+                "namespaceKey": "@NS",
+
+                /* # tag name for text nodes */
+                "textKey": "@TEXT",
+
+                /* # tag name for attribute values */
+                "valueKey": "@VALUE",
+
+                /* # tag for attr groups */
+                "attrKey": "@ATTR",
+
+                /* # tag for cdata nodes (ignored if mergeCDATA is true) */
+                "cdataKey": "@CDATA",
+
+                /* # if false, key is used as prefix to name, set prefix to "" to merge children and attrs. */
+                "attrsAsObject": true,
+
+                /* # remove namespace prefixes from attributes */
+                "stripAttrPrefix": true,
+
+                /* # for elements of same name in diff namespaces, you can enable namespaces and access the nskey property */
+                "stripElemPrefix": true,
+
+                /* # force children into arrays */
+                "childrenAsArray": false,
+            },
+            grokType = (sValue) => {
+                if (/^\s*$/.test(sValue)) {
+                    return null;
+                }
+                if (/^(?:true|false)$/i.test(sValue)) {
+                    return sValue.toLowerCase() === "true";
+                }
+                if (isFinite(sValue)) {
+                    return parseFloat(sValue);
+                }
+
+                return sValue;
+            },
+            isArray = (n) => n.constructor === Array,
+            prefixMatch = new RegExp(/(?!xmlns)^.*:/),
+            trimMatch = new RegExp(/^\s+|\s+$/g),
+            parseAttr = () => {
+                if (xml.attributes && xml.attributes.length > 0) {
+                    vAttribs = {};
+                    for (nLength; nLength < xml.attributes.length; nLength++) {
+                        oAttrib = xml.attributes.item(nLength);
+                        vContent = {};
+                        attribName = "";
+                        tmp = oAttrib.name;
+                        attribName = options.stripAttrPrefix ? tmp.replace(prefixMatch, "") : tmp;
+                        tmp = oAttrib.value.replace(trimMatch, "");
+                        vContent[options.valueKey] = options.grokAttr ? grokType(tmp) : tmp;
+                        if (options.xmlns && oAttrib.namespaceURI) {
+                            vContent[options.namespaceKey] = oAttrib.namespaceURI;
+                        }
+                        if (options.attrsAsObject) {
+                            vAttribs[attribName] = vContent;
+                        } else {
+                            vResult[options.attrKey + attribName] = vContent;
+                        }
+                    }
+                    if (options.attrsAsObject) {
+                        vResult[options.attrKey] = vAttribs;
+                    }
+                }
+            },
+            iterate = () => {
+                if (xml.hasChildNodes()) {
+                    for (let oNode, sProp, vContent, nItem = 0; nItem < xml.childNodes.length; nItem++) {
+                        oNode = xml.childNodes.item(nItem);
+                        if (oNode.nodeType === 4) {
+
+                            /* # nodeType is "CDATASection" (4) */
+                            if (options.mergeCDATA) {
+                                sCollectedTxt += oNode.nodeValue;
+                            } else
+                            if (Reflect.has(vResult, options.cdataKey)) {
+                                tmp = vResult[options.cdataKey];
+                                vResult[options.cdataKey] = isArray(tmp) ? tmp : [tmp];
+                                vResult[options.cdataKey].push(oNode.nodeValue);
+                            } else
+                            if (options.childrenAsArray) {
+                                vResult[options.cdataKey] = [oNode.nodeValue];
+                            } else {
+                                vResult[options.cdataKey] = oNode.nodeValue;
+                            }
+                        } else
+                        if (oNode.nodeType === 3) {
+
+                            /* # nodeType is "Text" (3) */
+                            sCollectedTxt += oNode.nodeValue;
+                        } else
+                        if (oNode.nodeType === 1) {
+
+                            /* # nodeType is "Element" (1) */
+                            vResult = nLength === 0 ? {} : vResult;
+                            vContent = w.xmlToJSON(oNode);
+                            sProp = options.stripElemPrefix ? oNode.nodeName.replace(prefixMatch, "") : oNode.nodeName;
+                            if (Reflect.has(vResult, sProp)) {
+                                vResult[sProp] = isArray(vResult[sProp]) ? vResult[sProp] : [vResult[sProp]];
+                                vResult[sProp].push(vContent);
+                            } else {
+                                vResult[sProp] = options.childrenAsArray ? [vContent] : vContent;
+                                nLength++;
+                            }
+                        }
+                    }
+                } else if (!sCollectedTxt) {
+                    vResult[options.textKey] = options.childrenAsArray ? [null] : null;
+                }
+            },
+            normalize = () => {
+                if (sCollectedTxt) {
+                    if (options.grokText) {
+                        tmp = grokType(sCollectedTxt.replace(trimMatch, ""));
+                        vResult[options.textKey] = tmp !== null && typeof tmp !== "undefined" ? tmp : vResult[options.textKey];
+                    } else if (options.normalize) {
+                        vResult[options.textKey] = sCollectedTxt.replace(trimMatch, "").replace(/\s+/g, " ");
+                    } else {
+                        vResult[options.textKey] = sCollectedTxt.replace(trimMatch, "");
+                    }
+                }
+            };
+
+
+            /* # initialize options */
+        for (const key in opt) {
+            if (Reflect.has(opt, key)) {
+                options[key] = opt[key];
+            }
+        }
+
+
+        /* # parse namespace information */
+        if (options.xmlns && xml.namespaceURI) {
+            vResult[options.namespaceKey] = xml.namespaceURI;
+        }
+
+        parseAttr();
+        iterate();
+        normalize();
+
+        return vResult;
+    };
+    w.xmlToString = (xml) => {
+        return xml.xml ? xml.xml : new XMLSerializer().serializeToString(xml);
+    };
+    w.stringToXML = (str) => {
+        return new DOMParser().parseFromString(str, "text/xml");
+    };
+    w.stringToDOM = (str, r = d.createElement("div")) => {
+        return (r.innerHTML = str) ? r.firstChild : noop();
+    };
+    w.stringToXMLToJSON = (str) => {
+        return w.xmlToJSON(w.stringToXML(str));
+    };
+    w.deepMerge = (a, b) => {
         for (const p in b) {
-            if (w.Reflect.has(b, p)) {
+            if (Reflect.has(b, p)) {
                 try {
-                    a[p] = b[p].constructor === Object ? w.objMerge(a[p], b[p]) : a[p] = b[p];
+                    a[p] = b[p].constructor === Object ? w.deepMerge(a[p], b[p]) : a[p] = b[p];
                 } catch (e) {
                     a[p] = b[p];
                 }
@@ -267,7 +428,7 @@
 
         return a;
     };
-    w.qs2obj = (f = w.location.search) => {
+    w.queryStringToJSON = (str = w.location.search) => {
         let r = noop,
             v = noop,
             t = noop,
@@ -275,9 +436,9 @@
             j = noop,
             i = noop;
 
-        r = f.split("&");
+        r = str.split("&");
         v = r.length;
-        f = {};
+        str = {};
         while (v-- && (t = r[v].split("="))) {
             j = t[1] || "";
             k = t[0].split("?").join("").split("]").join("[").split("[[").join("[").split("[");
@@ -290,25 +451,39 @@
                 i = k.pop();
                 j = i === "" ? j : `{"${i}":${j}}`;
             }
-            w.objMerge(f, JSON.parse(j));
+            w.deepMerge(str, JSON.parse(j));
         }
 
-        return f;
+        return str;
     };
-    w.obj2qs = (f, n) => {
-        return Object.keys(f).map((k) => {
-            const r = n ? `${n}[${k}]` : k;
+    w.jsonToQueryString = (json, n) => {
+        return Object.keys(json).map((key) => {
+            tmp = n ? `${n}[${key}]` : key;
 
-            return typeof f[k] === "object" ? w.obj2qs(f[k], r) : `${r}=${f[k]}`;
+            return typeof json[key] === "object" ? w.jsonToQueryString(json[key], tmp) : `${tmp}=${json[key]}`;
         }).join("&");
     };
+    w.wrapDOM = (ref, wrap) => {
+        ref.parentNode.insertBefore(wrap, ref);
+        wrap.appendChild(ref);
+    };
+    w.jsonp = (url, r = d.createElement("script")) => {
+        d.head.appendChild(r);
+        r.src = url;
+        r.parentNode.removeChild(r);
+    };
+    w.addCSS = (css, r = d.createElement("style")) => {
+        d.head.appendChild(r);
+        r.appendChild(d.createTextNode(css));
+    };
 
-    /* # Helper */
+
+    /* Misc */
     w.lazyLoad = ($ = "img.lazyload", className = "lazyload") => {
         w.all($).forEach((img) => {
             if (w.isElementInViewport(img) && img.dataset.src && img.src.indexOf("data:image") === 0) {
                 img.src = img.dataset.src;
-                w.Reflect.deleteProperty(img.dataset, "src");
+                Reflect.deleteProperty(img.dataset, "src");
                 w.removeClass(img, className);
             }
         });
@@ -419,7 +594,7 @@
     };
 
     /* # runDefer */
-    w.runDefer = (delay = 500, a = noop, i = noop) => {
+    w.runDefer = (delay = 500, retry = 0, maxRetry = 99, a = noop, i = noop) => {
         try {
             a = w.defer;
             while (a.length) {
@@ -428,10 +603,17 @@
                 a.pop();
             }
         } catch (error) {
+            if (retry >= maxRetry) {
+                return console.warn(`${String(retry).padStart(3)} > MAX`);
+            }
             setTimeout(() => {
-                w.runDefer(delay, console.warn(error.message));
+                w.runDefer(delay, ++retry, ((retry, error) => {
+                    console.warn(`${String(retry).padStart(3)} > ${error.message}`);
+                })(retry, error));
             }, delay);
         }
+
+        return noop();
     };
     tmp = w.runDefer(500);
 
