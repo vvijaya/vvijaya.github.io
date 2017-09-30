@@ -203,15 +203,15 @@
             tmp = w.hasClass(f, u) ? w.removeClass(f, u) : w.addClass(f, u);
         });
     };
-    //eslint-disable-next-line
-    let psv = false; try { w.addEventListener("test", null, Object.defineProperty({}, "passive", { "get": () => { psv = {"passive": true};} }));} catch (e) {}
-    w.off = (dom, evt, func) => {
+    // eslint-disable-next-line
+    let _psv = false; try { w.addEventListener("test", null, Object.defineProperty({}, "passive", { "get": () => { _psv = {"passive": true};} }));} catch (e) {}
+    w.off = (dom, evt, func, psv = _psv) => {
         w.eachNodeAndString(dom, evt, (f, u) => {
             tmp = f.removeEventListener ? f.removeEventListener(u, func, psv) : noop;
             tmp = f.detachEvent ? f.detachEvent(`on${u}`, func) : noop;
         });
     };
-    w.on = (dom, evt, func) => {
+    w.on = (dom, evt, func, psv = _psv) => {
         w.eachNodeAndString(dom, evt, (f, u) => {
             tmp = f.addEventListener ? f.addEventListener(u, func, psv) : noop;
             tmp = f.attachEvent ? f.attachEvent(`on${u}`, func) : noop;
