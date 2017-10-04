@@ -54,7 +54,7 @@
         }
     };
     w.Modal = class Modal {
-        constructor (opts, onClose, callback) {
+        constructor (opts, onClose = noop, callback = noop) {
             const dom = d.createElement("div"),
                 rm = (dom) => {
                     return dom ? dom.parentNode.removeChild(dom) : dom;
@@ -75,15 +75,15 @@
             this.className = opts ? opts.className : "";
             this.header = opts ? opts.header : "Header";
             this.body = opts ? opts.body : "Body goes here";
-            this.onClose = onClose || noop;
-            this.callback = callback || noop;
+            this.onClose = onClose;
+            this.callback = callback;
             this.close = (hasRun = false) => {
-                if (hasRun) {
-                    this.onClose = this.onClose() === false ? this.onClose : rm($(this.id));
-                    off(d, "keydown", w.eKbd);
-                } else {
-                    rm($(this.id));
+                if (hasRun && (this.onClose === false || this.onClose() === false)) {
+                    return;
                 }
+                off(d, "keydown", w.eKbd);
+                Reflect.deleteProperty(w, "eKbd");
+                rm($(this.id));
             };
             this.close();
             dom.id = `${this.id}`;
@@ -96,11 +96,11 @@
             <button id="${this.id}_Close" class="close">Close</button>
             `;
             d.body.appendChild(dom);
-            w.eKbd = w.eKbd || ((e) => {
+            w.eKbd = (e) => {
                 if (e.keyCode === 27) {
                     this.close(true);
                 }
-            });
+            };
             on(d, "keydown", w.eKbd);
             on($(`${this.id}_Close`), "click", () => {
                 this.close(true);
@@ -142,9 +142,6 @@
         if (arr && func) {
             if (arr.nodeName || arr === w) {
                 arr = [arr];
-            } else
-            if (arr.push || arr.forEach) {
-                noop();
             }
             arr.forEach((i) => func(i));
         }
