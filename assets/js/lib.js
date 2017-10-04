@@ -55,7 +55,7 @@
     };
     w.Modal = class Modal {
         constructor (opts, onClose, callback) {
-            const dom = document.createElement("div"),
+            const dom = d.createElement("div"),
                 rm = (dom) => {
                     return dom ? dom.parentNode.removeChild(dom) : dom;
                 },
@@ -63,8 +63,12 @@
                     tmp = f.addEventListener ? f.addEventListener(u, func) : noop;
                     tmp = f.attachEvent ? f.attachEvent(`on${u}`, func) : noop;
                 },
-                $ = (e, d) => {
-                    return (d || document).getElementById(e);
+                off = (f, u, func) => {
+                    tmp = f.removeEventListener ? f.removeEventListener(u, func) : noop;
+                    tmp = f.detachEvent ? f.detachEvent(`on${u}`, func) : noop;
+                },
+                $ = (e, $) => {
+                    return ($ || d).getElementById(e);
                 };
 
             this.id = opts ? opts.id : `Modal_${new Date().getTime()}`;
@@ -73,8 +77,13 @@
             this.body = opts ? opts.body : "Body goes here";
             this.onClose = onClose || noop;
             this.callback = callback || noop;
-            this.close = () => {
-                rm($(this.id));
+            this.close = (hasRun = false) => {
+                if (hasRun) {
+                    this.onClose = this.onClose() === false ? this.onClose : rm($(this.id));
+                    off(d, "keydown", w.eKbd);
+                } else {
+                    rm($(this.id));
+                }
             };
             this.close();
             dom.id = `${this.id}`;
@@ -86,15 +95,15 @@
                 </div>
             <button id="${this.id}_Close" class="close">Close</button>
             `;
-            document.body.appendChild(dom);
-
-            on($(`${this.id}_Close`), "click", () => {
-                this.onClose = this.onClose() === false ? this.onClose : rm(dom);
-            });
-            on(document, "keydown", (e) => {
+            d.body.appendChild(dom);
+            w.eKbd = w.eKbd || ((e) => {
                 if (e.keyCode === 27) {
-                    this.onClose = this.onClose() === false ? this.onClose : rm(dom);
+                    this.close(true);
                 }
+            });
+            on(d, "keydown", w.eKbd);
+            on($(`${this.id}_Close`), "click", () => {
+                this.close(true);
             });
             this.callback();
         }
