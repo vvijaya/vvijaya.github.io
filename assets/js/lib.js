@@ -226,6 +226,26 @@
         "h": w.innerHeight || h.clientHeight || d.body.clientHeight || 0,
     });
     w.isElementInViewport = (dom, r = dom.getBoundingClientRect()) => r.top >= 0 && r.left >= 0 && r.bottom <= w.getViewport().h && r.right <= w.getViewport().w;
+    w.b64EncodeUnicode = (str, cb) => {
+        try {
+            return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, (match, p1) => {
+                return String.fromCharCode(`0x${p1}`);
+            }));
+        } catch (e) {
+            return cb(str);
+        }
+    };
+    w.b64DecodeUnicode = (str, cb) => {
+        try {
+            return decodeURIComponent(atob(str).split("").map((c) => {
+                c = `00${c.charCodeAt(0).toString(16)}`.slice(-2);
+
+                return `%${c}`;
+            }).join(""));
+        } catch (e) {
+            return cb(str);
+        }
+    };
 
     /* XML, DOM, JSON & Injection Helper */
     w.xmlToJSON = (xml, opt) => {
