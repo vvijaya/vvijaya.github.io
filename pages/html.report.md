@@ -51,7 +51,7 @@ defer:          |
       }
     }, 100);
   };
-  fetch("{{ '/assets/js/html.report.tag' | absolute_url }}")
+  fetch("{{ '/assets/js/html.report.html' | absolute_url }}")
   .then((data) => data.text())
   .then((data) => mount(data))
   .catch((error) => {

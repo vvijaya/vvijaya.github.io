@@ -36,26 +36,26 @@
                 };
 
             this.fileHandler = (e, alpha, omega) => {
-                if (e.type === "dragend") {
+                if (e.type === 'dragend') {
                     e.dataTransfer.clearData();
                 } else
-                if (e.type === "drop") {
+                if (e.type === 'drop') {
                     [...e.dataTransfer.files].forEach((file) => {
                         readFile(file, alpha, omega);
                     });
                 } else
-                if (e.type === "change") {
+                if (e.type === 'change') {
                     [...e.target.files].forEach((file) => {
                         readFile(file, alpha, omega);
                     });
-                    e.target.value = "";
+                    e.target.value = '';
                 }
             };
         }
     };
     w.Modal = class Modal {
         constructor (opts, onClose = noop, callback = noop) {
-            const dom = d.createElement("div"),
+            const dom = d.createElement('div'),
                 rm = (dom) => {
                     return dom ? dom.parentNode.removeChild(dom) : dom;
                 },
@@ -72,28 +72,28 @@
                 };
 
             this.id = opts ? opts.id : `Modal_${new Date().getTime()}`;
-            this.className = opts ? opts.className : "";
-            this.header = opts ? opts.header : "Header";
-            this.body = opts ? opts.body : "Body goes here";
+            this.className = opts ? opts.className : '';
+            this.header = opts ? opts.header : 'Header';
+            this.body = opts ? opts.body : 'Body goes here';
             this.onClose = onClose;
             this.callback = callback;
             this.close = (hasRun = false) => {
                 if (hasRun && (this.onClose === false || this.onClose() === false)) {
                     return;
                 }
-                off(d, "keydown", w.eKbd);
-                Reflect.deleteProperty(w, "eKbd");
+                off(d, 'keydown', w.eKbd);
+                Reflect.deleteProperty(w, 'eKbd');
                 rm($(this.id));
             };
             this.close();
             dom.id = `${this.id}`;
             dom.className = `Modal ${this.className}`;
             dom.innerHTML = `
-            <h1 id="${this.id}_Header" class="header">${this.header}</h1>
-                <div id="${this.id}_Body" class="body">
+            <h1 id='${this.id}_Header' class='header'>${this.header}</h1>
+                <div id='${this.id}_Body' class='body'>
                     <div>${this.body}</div>
                 </div>
-            <button id="${this.id}_Close" class="close">Close</button>
+            <button id='${this.id}_Close' class='close'>Close</button>
             `;
             d.body.appendChild(dom);
             w.eKbd = (e) => {
@@ -101,8 +101,8 @@
                     this.close(true);
                 }
             };
-            on(d, "keydown", w.eKbd);
-            on($(`${this.id}_Close`), "click", () => {
+            on(d, 'keydown', w.eKbd);
+            on($(`${this.id}_Close`), 'click', () => {
                 this.close(true);
             });
             this.callback();
@@ -124,8 +124,8 @@
                         } else {
                             xB = xB > 0 ? this.onLeft() : this.onRight();
                         }
-                        Reflect.deleteProperty(this, "xA");
-                        Reflect.deleteProperty(this, "yA");
+                        Reflect.deleteProperty(this, 'xA');
+                        Reflect.deleteProperty(this, 'yA');
                     }
                 };
 
@@ -133,8 +133,8 @@
             this.onDown = opts.onDown || noop;
             this.onLeft = opts.onLeft || noop;
             this.onRight = opts.onRight || noop;
-            e = e && e.type === "touchstart" ? alpha(e) : e;
-            e = e && e.type === "touchmove" ? omega(e) : e;
+            e = e && e.type === 'touchstart' ? alpha(e) : e;
+            e = e && e.type === 'touchmove' ? omega(e) : e;
         }
     };
 
@@ -146,11 +146,11 @@
             arr.forEach((i) => func(i));
         }
     };
-    w.eachString = (arr, func, n = " ") => {
+    w.eachString = (arr, func, n = ' ') => {
         if (arr && func) {
             arr = arr.split ? arr.split(n) : arr;
             arr.forEach((i) => {
-                tmp = i === "" ? noop : func(i);
+                tmp = i === '' ? noop : func(i);
             });
         }
     };
@@ -160,7 +160,7 @@
     w.all = (str, dom = d) => [...dom.querySelectorAll(str)];
     w.fadeout = (dom, delay = 40) => {
         w.eachNode(dom, (i) => {
-            i.style.opacity = i.style.opacity === "" ? 1 : i.style.opacity;
+            i.style.opacity = i.style.opacity === '' ? 1 : i.style.opacity;
             if (i.style.opacity > 0) {
                 setTimeout(() => {
                     i.style.opacity -= 0.1;
@@ -173,7 +173,7 @@
     };
     w.fadein = (dom, delay = 40) => {
         w.eachNode(dom, (i) => {
-            i.style.opacity = i.style.opacity === "" ? 0 : i.style.opacity;
+            i.style.opacity = i.style.opacity === '' ? 0 : i.style.opacity;
             if (i.style.opacity < 1) {
                 setTimeout(() => {
                     i.style.opacity -= -0.1;
@@ -201,7 +201,7 @@
     };
     w.removeClass = (dom, str) => {
         w.eachNodeAndString(dom, str, (f, u) => {
-            tmp = f.classList ? f.classList.remove(u) : f.className = f.className.split(u).join("");
+            tmp = f.classList ? f.classList.remove(u) : f.className = f.className.split(u).join('');
         });
     };
     w.toggleClass = (dom, str) => {
@@ -210,7 +210,7 @@
         });
     };
     // eslint-disable-next-line
-    let _psv = false; try { w.addEventListener("test", null, Object.defineProperty({}, "passive", { "get": () => { _psv = {"passive": true};} }));} catch (e) {}
+    let _psv = false; try { w.addEventListener('test', null, Object.defineProperty({}, 'passive', { 'get': () => { _psv = {'passive': true};} }));} catch (e) {}
     w.off = (dom, evt, func, psv = _psv) => {
         w.eachNodeAndString(dom, evt, (f, u) => {
             tmp = f.removeEventListener ? f.removeEventListener(u, func, psv) : noop;
@@ -224,12 +224,12 @@
         });
     };
     w.getScroll = () => ({
-        "x": w.scrollX || w.scrollLeft || 0,
-        "y": w.scrollY || w.scrollTop || 0,
+        'x': w.scrollX || w.scrollLeft || 0,
+        'y': w.scrollY || w.scrollTop || 0,
     });
     w.getViewport = () => ({
-        "w": w.innerWidth || h.clientWidth || d.body.clientWidth || 0,
-        "h": w.innerHeight || h.clientHeight || d.body.clientHeight || 0,
+        'w': w.innerWidth || h.clientWidth || d.body.clientWidth || 0,
+        'h': w.innerHeight || h.clientHeight || d.body.clientHeight || 0,
     });
     w.isElementInViewport = (dom, r = dom.getBoundingClientRect()) => r.top >= 0 && r.left >= 0 && r.bottom <= w.getViewport().h && r.right <= w.getViewport().w;
     w.b64EncodeUnicode = (str, cb) => {
@@ -243,11 +243,11 @@
     };
     w.b64DecodeUnicode = (str, cb) => {
         try {
-            return decodeURIComponent(atob(str).split("").map((c) => {
+            return decodeURIComponent(atob(str).split('').map((c) => {
                 c = `00${c.charCodeAt(0).toString(16)}`.slice(-2);
 
                 return `%${c}`;
-            }).join(""));
+            }).join(''));
         } catch (e) {
             return cb(str);
         }
@@ -261,61 +261,61 @@
             vAttribs = {},
             vContent = {},
             oAttrib = null,
-            attribName = "",
+            attribName = '',
             nLength = 0,
-            sCollectedTxt = "",
+            sCollectedTxt = '',
             tmp = 0;
 
         const options = {
 
             /* # extract cdata and merge with text */
-                "mergeCDATA": true,
+                'mergeCDATA': true,
 
                 /* # convert truthy attributes to boolean, etc */
-                "grokAttr": true,
+                'grokAttr': true,
 
                 /* # convert truthy text/attr to boolean, etc */
-                "grokText": true,
+                'grokText': true,
 
                 /* # collapse multiple spaces to single space */
-                "normalize": true,
+                'normalize': true,
 
                 /* # include namespaces as attribute in output */
-                "xmlns": true,
+                'xmlns': true,
 
                 /* # tag name for namespace objects */
-                "namespaceKey": "@NS",
+                'namespaceKey': '@NS',
 
                 /* # tag name for text nodes */
-                "textKey": "@TEXT",
+                'textKey': '@TEXT',
 
                 /* # tag name for attribute values */
-                "valueKey": "@VALUE",
+                'valueKey': '@VALUE',
 
                 /* # tag for attr groups */
-                "attrKey": "@ATTR",
+                'attrKey': '@ATTR',
 
                 /* # tag for cdata nodes (ignored if mergeCDATA is true) */
-                "cdataKey": "@CDATA",
+                'cdataKey': '@CDATA',
 
-                /* # if false, key is used as prefix to name, set prefix to "" to merge children and attrs. */
-                "attrsAsObject": true,
+                /* # if false, key is used as prefix to name, set prefix to '' to merge children and attrs. */
+                'attrsAsObject': true,
 
                 /* # remove namespace prefixes from attributes */
-                "stripAttrPrefix": true,
+                'stripAttrPrefix': true,
 
                 /* # for elements of same name in diff namespaces, you can enable namespaces and access the nskey property */
-                "stripElemPrefix": true,
+                'stripElemPrefix': true,
 
                 /* # force children into arrays */
-                "childrenAsArray": false,
+                'childrenAsArray': false,
             },
             grokType = (sValue) => {
                 if (/^\s*$/.test(sValue)) {
                     return null;
                 }
                 if (/^(?:true|false)$/i.test(sValue)) {
-                    return sValue.toLowerCase() === "true";
+                    return sValue.toLowerCase() === 'true';
                 }
                 if (isFinite(sValue)) {
                     return parseFloat(sValue);
@@ -332,10 +332,10 @@
                     for (nLength; nLength < xml.attributes.length; nLength++) {
                         oAttrib = xml.attributes.item(nLength);
                         vContent = {};
-                        attribName = "";
+                        attribName = '';
                         tmp = oAttrib.name;
-                        attribName = options.stripAttrPrefix ? tmp.replace(prefixMatch, "") : tmp;
-                        tmp = oAttrib.value.replace(trimMatch, "");
+                        attribName = options.stripAttrPrefix ? tmp.replace(prefixMatch, '') : tmp;
+                        tmp = oAttrib.value.replace(trimMatch, '');
                         vContent[options.valueKey] = options.grokAttr ? grokType(tmp) : tmp;
                         if (options.xmlns && oAttrib.namespaceURI) {
                             vContent[options.namespaceKey] = oAttrib.namespaceURI;
@@ -357,7 +357,7 @@
                         oNode = xml.childNodes.item(nItem);
                         if (oNode.nodeType === 4) {
 
-                            /* # nodeType is "CDATASection" (4) */
+                            /* # nodeType is 'CDATASection' (4) */
                             if (options.mergeCDATA) {
                                 sCollectedTxt += oNode.nodeValue;
                             } else
@@ -374,15 +374,15 @@
                         } else
                         if (oNode.nodeType === 3) {
 
-                            /* # nodeType is "Text" (3) */
+                            /* # nodeType is 'Text' (3) */
                             sCollectedTxt += oNode.nodeValue;
                         } else
                         if (oNode.nodeType === 1) {
 
-                            /* # nodeType is "Element" (1) */
+                            /* # nodeType is 'Element' (1) */
                             vResult = nLength === 0 ? {} : vResult;
                             vContent = w.xmlToJSON(oNode);
-                            sProp = options.stripElemPrefix ? oNode.nodeName.replace(prefixMatch, "") : oNode.nodeName;
+                            sProp = options.stripElemPrefix ? oNode.nodeName.replace(prefixMatch, '') : oNode.nodeName;
                             if (Reflect.has(vResult, sProp)) {
                                 vResult[sProp] = isArray(vResult[sProp]) ? vResult[sProp] : [vResult[sProp]];
                                 vResult[sProp].push(vContent);
@@ -399,12 +399,12 @@
             normalize = () => {
                 if (sCollectedTxt) {
                     if (options.grokText) {
-                        tmp = grokType(sCollectedTxt.replace(trimMatch, ""));
-                        vResult[options.textKey] = tmp !== null && typeof tmp !== "undefined" ? tmp : vResult[options.textKey];
+                        tmp = grokType(sCollectedTxt.replace(trimMatch, ''));
+                        vResult[options.textKey] = tmp !== null && typeof tmp !== 'undefined' ? tmp : vResult[options.textKey];
                     } else if (options.normalize) {
-                        vResult[options.textKey] = sCollectedTxt.replace(trimMatch, "").replace(/\s+/g, " ");
+                        vResult[options.textKey] = sCollectedTxt.replace(trimMatch, '').replace(/\s+/g, ' ');
                     } else {
-                        vResult[options.textKey] = sCollectedTxt.replace(trimMatch, "");
+                        vResult[options.textKey] = sCollectedTxt.replace(trimMatch, '');
                     }
                 }
             };
@@ -433,9 +433,9 @@
         return xml.xml ? xml.xml : new XMLSerializer().serializeToString(xml);
     };
     w.stringToXML = (str) => {
-        return new DOMParser().parseFromString(str, "text/xml");
+        return new DOMParser().parseFromString(str, 'text/xml');
     };
-    w.stringToDOM = (str, r = d.createElement("div")) => {
+    w.stringToDOM = (str, r = d.createElement('div')) => {
         return (r.innerHTML = str) ? r.firstChild : noop();
     };
     w.stringToXMLToJSON = (str) => {
@@ -462,20 +462,20 @@
             j = noop,
             i = noop;
 
-        r = str.split("&");
+        r = str.split('&');
         v = r.length;
         str = {};
-        while (v-- && (t = r[v].split("="))) {
-            j = t[1] || "";
-            k = t[0].split("?").join("").split("]").join("[").split("[[").join("[").split("[");
+        while (v-- && (t = r[v].split('='))) {
+            j = t[1] || '';
+            k = t[0].split('?').join('').split(']').join('[').split('[[').join('[').split('[');
             try {
                 j = JSON.parse(j.toLowerCase());
             } catch (e) {
-                j = `"${decodeURIComponent(j)}"`;
+                j = `'${decodeURIComponent(j)}'`;
             }
             while (k.length) {
                 i = k.pop();
-                j = i === "" ? j : `{"${i}":${j}}`;
+                j = i === '' ? j : `{'${i}':${j}}`;
             }
             w.deepMerge(str, JSON.parse(j));
         }
@@ -486,39 +486,39 @@
         return Object.keys(json).map((key) => {
             tmp = n ? `${n}[${key}]` : key;
 
-            return typeof json[key] === "object" ? w.jsonToQueryString(json[key], tmp) : `${tmp}=${json[key]}`;
-        }).join("&");
+            return typeof json[key] === 'object' ? w.jsonToQueryString(json[key], tmp) : `${tmp}=${json[key]}`;
+        }).join('&');
     };
     w.wrapDOM = (ref, wrap) => {
         ref.parentNode.insertBefore(wrap, ref);
         wrap.appendChild(ref);
     };
-    w.jsonp = (url, r = d.createElement("script")) => {
+    w.jsonp = (url, r = d.createElement('script')) => {
         d.head.appendChild(r);
         r.src = url;
         r.parentNode.removeChild(r);
     };
-    w.addCSS = (css, r = d.createElement("style")) => {
+    w.addCSS = (css, r = d.createElement('style')) => {
         d.head.appendChild(r);
         r.appendChild(d.createTextNode(css));
     };
 
 
     /* Misc */
-    w.lazyLoad = ($ = "img.lazyload", className = "lazyload") => {
+    w.lazyLoad = ($ = 'img.lazyload', className = 'lazyload') => {
         w.all($).forEach((img) => {
-            if (w.isElementInViewport(img) && img.dataset.src && img.src.indexOf("data:image") === 0) {
+            if (w.isElementInViewport(img) && img.dataset.src && img.src.indexOf('data:image') === 0) {
                 img.src = img.dataset.src;
-                Reflect.deleteProperty(img.dataset, "src");
+                Reflect.deleteProperty(img.dataset, 'src');
                 w.removeClass(img, className);
             }
         });
     };
     w.interactiveMD = () => {
         const cmd = {
-                "find": (d, j) => {
-                    const tag = (j.tag || "").trim().toUpperCase(),
-                        className = j.className || "";
+                'find': (d, j) => {
+                    const tag = (j.tag || '').trim().toUpperCase(),
+                        className = j.className || '';
                     let loop = true,
                         tmp = 0;
 
@@ -527,72 +527,72 @@
                         if (d.tagName === tag) {
                             loop = false;
                             w.addClass(d, className);
-                            if (tag === "TABLE" && w.hasClass(d, "responsive")) {
-                                tmp = w.all("tr", d);
-                                w.addClass(tmp, "row");
-                                tmp = w.all("td,th", d);
+                            if (tag === 'TABLE' && w.hasClass(d, 'responsive')) {
+                                tmp = w.all('tr', d);
+                                w.addClass(tmp, 'row');
+                                tmp = w.all('td,th', d);
                                 w.addClass(tmp, `col-sm-1 col-md-1-${tmp[0].parentNode.children.length}`);
-                                tmp = w.one("thead", d);
-                                w.addClass(tmp, "hide");
+                                tmp = w.one('thead', d);
+                                w.addClass(tmp, 'hide');
                             }
                         }
                     }
                 },
-                "wrap": (d, j) => {
-                    const tag = (j.tag || "").trim().toUpperCase(),
-                        className = j.className || "",
-                        attr = j.attr || "",
-                        figcaption = j.figcaption || d.alt || d.title || "",
+                'wrap': (d, j) => {
+                    const tag = (j.tag || '').trim().toUpperCase(),
+                        className = j.className || '',
+                        attr = j.attr || '',
+                        figcaption = j.figcaption || d.alt || d.title || '',
                         wrapper = tag.length ? w.stringToDOM(`<${tag} ${attr}></${tag}>`) : d;
 
                     w.addClass(wrapper, className);
                     if (wrapper !== d) {
                         w.wrapDOM(d, wrapper);
-                        if (tag === "FIGURE" && figcaption.length) {
+                        if (tag === 'FIGURE' && figcaption.length) {
                             wrapper.appendChild(w.stringToDOM(`<figcaption ${attr}>${figcaption}</figcaption>`));
                         }
                     }
                 },
-                "audio": (d, j) => {
-                    const src = j.src || d.src || d.href || "",
-                        attr = j.attr || "",
-                        audio = w.stringToDOM(`<audio src="${src}" ${attr}></audio>`);
+                'audio': (d, j) => {
+                    const src = j.src || d.src || d.href || '',
+                        attr = j.attr || '',
+                        audio = w.stringToDOM(`<audio src='${src}' ${attr}></audio>`);
 
                     d.parentNode.insertBefore(audio, d);
-                    w.on(d, "click", (e) => {
+                    w.on(d, 'click', (e) => {
                         e.preventDefault();
                         e = audio.paused ? audio.play() : audio.pause();
 
                         return false;
                     });
                 },
-                "embed": (d, j) => {
-                    const src = j.src || d.src || d.href || "",
-                        className = j.className || "embed ratio ratio-16-9",
-                        attr = j.attr || "allowfullscreen frameborder='0'",
-                        ytsrc = src.toLowerCase().indexOf("youtube") >= 0 && src.indexOf("?") < 0 ? "?&autoplay=1&iv_load_policy=3&modestbranding=1&showinfo=0&rel=0&playsinline=1" : "";
+                'embed': (d, j) => {
+                    const src = j.src || d.src || d.href || '',
+                        className = j.className || 'embed ratio ratio-16-9',
+                        attr = j.attr || 'allowfullscreen frameborder="0"',
+                        ytsrc = src.toLowerCase().indexOf('youtube') >= 0 && src.indexOf('?') < 0 ? '?&autoplay=1&iv_load_policy=3&modestbranding=1&showinfo=0&rel=0&playsinline=1' : '';
 
                     w.addClass(d, className);
-                    w.on(d, "click", (e) => {
+                    w.on(d, 'click', (e) => {
                         e.preventDefault();
-                        w.removeClass(d, "embed");
-                        d.parentNode.replaceChild(w.stringToDOM(`<span class="${className}"><iframe src="${src}${ytsrc}" ${attr}></iframe></span>`), d);
+                        w.removeClass(d, 'embed');
+                        d.parentNode.replaceChild(w.stringToDOM(`<span class='${className}'><iframe src='${src}${ytsrc}' ${attr}></iframe></span>`), d);
 
                         return false;
                     });
                 },
-                "modal": (d, j) => {
-                    const src = j.src || d.src || d.href || "",
-                        body = j.body || d.innerHTML || "Body",
-                        header = j.header || "Header",
-                        className = j.className || "";
+                'modal': (d, j) => {
+                    const src = j.src || d.src || d.href || '',
+                        body = j.body || d.innerHTML || 'Body',
+                        header = j.header || 'Header',
+                        className = j.className || '';
 
-                    w.on(d, "click", (e) => {
+                    w.on(d, 'click', (e) => {
                         e.preventDefault();
                         e = new w.Modal({
-                            "body": `${body}`,
-                            "header": `<a target="_blank" href="${src}">${header}</a>`,
-                            "className": `${className}`,
+                            'body': `${body}`,
+                            'header': `<a target='_blank' href='${src}'>${header}</a>`,
+                            'className': `${className}`,
                         });
                         w.lazyLoad();
 
@@ -600,7 +600,7 @@
                     });
                 },
             },
-            el = w.all("body [title]");
+            el = w.all('body [title]');
         let i = el.length,
             j = noop,
             t = noop;
@@ -613,8 +613,8 @@
                 noop(error);
             }
             while (t.length && (j = t.pop())) {
-                cmd[j[">"]](el[i], j);
-                el[i].title = "";
+                cmd[j['>']](el[i], j);
+                el[i].title = '';
             }
         }
     };
