@@ -54,7 +54,7 @@
         }
     };
     w.Modal = class Modal {
-        constructor (opts, onClose = noop, callback = noop) {
+        constructor (opts = {}, onClose = noop, callback = noop) {
             const dom = d.createElement('div'),
                 rm = (dom) => {
                     return dom ? dom.parentNode.removeChild(dom) : dom;
@@ -71,12 +71,12 @@
                     return ($ || d).getElementById(e);
                 };
 
-            this.id = opts ? opts.id : `Modal_${new Date().getTime()}`;
-            this.className = opts ? opts.className : '';
-            this.header = opts ? opts.header : 'Header';
-            this.body = opts ? opts.body : 'Body goes here';
-            this.onClose = onClose;
-            this.callback = callback;
+            this.id = opts.id || `Modal_${new Date().getTime()}`;
+            this.className = opts.className || '';
+            this.header = opts.header || 'Header';
+            this.body = opts.body || 'Body goes here';
+            this.onClose = opts.onClose || onClose;
+            this.callback = opts.callback || callback;
             this.close = (hasRun = false) => {
                 if (hasRun && (this.onClose === false || this.onClose() === false)) {
                     return;
