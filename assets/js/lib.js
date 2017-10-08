@@ -471,11 +471,11 @@
             try {
                 j = JSON.parse(j.toLowerCase());
             } catch (e) {
-                j = `'${decodeURIComponent(j)}'`;
+                j = `"${decodeURIComponent(j)}"`;
             }
             while (k.length) {
                 i = k.pop();
-                j = i === '' ? j : `{'${i}':${j}}`;
+                j = i === '' ? j : `{"${i}":${j}}`;
             }
             w.deepMerge(str, JSON.parse(j));
         }
