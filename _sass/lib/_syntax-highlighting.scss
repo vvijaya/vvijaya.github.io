@@ -63,3 +63,24 @@
   .vi    { color: #008080 } // Name.Variable.Instance
   .il    { color: #099 } // Literal.Number.Integer.Long
 }
+/* Style override Highlight
+=========================================================================== */
+.highlight pre,
+pre.highlight {
+    margin: 0 -#{$spacing-unit};
+    border-radius: 0;
+    @include media-query($on-md) {
+        margin: $spacing-unit;
+        border-radius: 3px;
+    }
+    @extend %vertical-rhythm;
+}
+figure.highlight {
+    &,
+    &>*:first-child {
+        box-shadow: none;
+    }
+    background: transparent;
+    padding: 0;
+    margin: 0;
+}

@@ -564,7 +564,7 @@
                         e = audio.paused ? audio.play() : audio.pause();
 
                         return false;
-                    });
+                    }, false);
                 },
                 'embed': (d, j) => {
                     const src = j.src || d.src || d.href || '',
@@ -579,7 +579,7 @@
                         d.parentNode.replaceChild(w.stringToDOM(`<span class='${className}'><iframe src='${src}${ytsrc}' ${attr}></iframe></span>`), d);
 
                         return false;
-                    });
+                    }, false);
                 },
                 'modal': (d, j) => {
                     const src = j.src || d.src || d.href || '',
@@ -597,7 +597,7 @@
                         w.lazyLoad();
 
                         return false;
-                    });
+                    }, false);
                 },
             },
             el = w.all('body [title]');
