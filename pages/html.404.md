@@ -5,19 +5,26 @@ header:         false
 footer:         false
 color_rotator:  false
 ---
-# 404 (Not Found)[](# '{">":"find","tag":"main","className":"align-center"}')
+# 404[](# '{">":"find","tag":"main","className":"align-center"}')
+
+## (Not Found)
 
 ---
 
-Oops - it seems you're a little lost here little fellas<br>
-Since you're here, BEHOLD! this majestic dickbutt.
+It seems you're a little lost in here, fellas
 
-![dickbutt][img] [][uri]
+Do you want to go back to [Home]({{ "/" | absolute_url }})?
 
-Enough of this majestic dickbutt? back to [home]({{ "/" | absolute_url }})
+**BUT WAIT!** Since you're here, BEHOLD!
+
+[![dickbutt][img]][uri]
 
 ---
 
-## AOA | four-OH-four
-[img]: https://gunawan.wijaya.cc/assets/images/dickbutt.gif '{">":"wrap","tag":"figure","figcaption":"dickbutt"}'
-[uri]: https://gunawan.wijaya.cc/assets/sounds/dickbutt.mp3 '[{">":"audio","attr":"loop autoplay"},{">":"wrap","className":"hide"}]'
+### four-OH-four
+
+okay, what are you looking for??<br>
+you are already at the bottom
+
+[img]: https://gunawan.wijaya.cc/assets/images/dickbutt.gif '{">":"wrap","tag":"figure","figcaption":"click the dickbutt"}'
+[uri]: https://gunawan.wijaya.cc/assets/sounds/dickbutt.mp3 '[{">":"audio","attr":"loop"}]'
