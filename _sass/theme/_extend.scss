@@ -38,7 +38,6 @@ a.embed {
 table.responsive {
     .avatar img,
     .closeup img {
-        border-radius: 15%;
         padding: 1em;
         width: 200px;
         border: solid 2px;
@@ -51,7 +50,6 @@ table.responsive {
 
 .card {
     max-width: 400px;
-    border-radius: 3px;
     margin: $spacing-unit auto;
     &.black,&.white {
         background-color: $dark-color;

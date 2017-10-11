@@ -67,19 +67,12 @@
 =========================================================================== */
 .highlight pre,
 pre.highlight {
-    margin: 0 -#{$spacing-unit};
-    border-radius: 0;
+    margin: #{$spacing-unit} -#{$spacing-unit};
     @include media-query($on-md) {
         margin: $spacing-unit;
-        border-radius: 3px;
     }
-    @extend %vertical-rhythm;
 }
 figure.highlight {
-    &,
-    &>*:first-child {
-        box-shadow: none;
-    }
     background: transparent;
     padding: 0;
     margin: 0;

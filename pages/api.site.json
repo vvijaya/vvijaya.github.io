@@ -1,0 +1,5 @@
+---
+layout:         compress
+permalink:      /api/site.json
+---
+{{ site | jsonify }}
