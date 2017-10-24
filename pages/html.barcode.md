@@ -6,21 +6,29 @@ header:         false
 footer:         false
 color_rotator:  false
 defer:          |
-  <script async="" defer="" src="https://unpkg.com/jsbarcode/dist/JsBarcode.all.min.js"></script>
 ---
 # Barcode Generator[](# '{">":"find","tag":"main","className":"align-center"}')
 
 ---
 <style>
-  #barcode{
-    display: inline-block;
-    line-height: 0;
-  }
+    #barcode{
+        display: inline-block;
+        line-height: 0;
+    }
 </style>
 
-<span id="barcode"><svg></svg></span>
+<img id="barcode"/>
 
-<script>defer.push(function(){
-    JsBarcode("#barcode svg", qs2obj().val || 8886001038011);
-});</script>
+<script>
+((w) => {
+    w.defer.push(() => {
+        if (!(w.queryStringToJSON && w.queryStringToJSON().val)) {
+            w.location.search = '?val=8886001038011'
+        }
+        w.JsBarcode("#barcode", w.queryStringToJSON().val);
+    });
+})(window);
+</script>
+<script async="" defer="" src="{{ "/assets/js/JsBarcode.all.min.js" | absolute_url }}"></script>
+
 ---
