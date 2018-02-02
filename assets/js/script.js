@@ -1,54 +1,55 @@
+/* eslint require-jsdoc: 0 */
 window.defer.push(() => {
-    const w = window;
+    const w = window
     let lastScrollTop = 0,
-        scrollSpy = () => { };
+        scrollSpy = () => { }
 
-    w.NProgress.start();
+    w.NProgress.start()
     scrollSpy = () => {
         if (w.getViewport().w < 960) {
-            const st = w.getScroll().y;
+            const st = w.getScroll().y
 
             if (w.one('.menu') && st > lastScrollTop && st > w.one('.menu').clientHeight * 2) {
-                w.addClass(w.one('.menu'), 'folded');
+                w.addClass(w.one('.menu'), 'folded')
             } else {
-                w.removeClass(w.one('.menu'), 'folded');
+                w.removeClass(w.one('.menu'), 'folded')
             }
-            lastScrollTop = st;
+            lastScrollTop = st
         } else {
-            w.removeClass(w.one('.menu'), 'folded');
+            w.removeClass(w.one('.menu'), 'folded')
         }
-        w.lazyLoad();
-    };
-    scrollSpy();
-    w.on(w, 'scroll resize', scrollSpy);
-    w.on(w.all('.row,.flex'), 'scroll', scrollSpy);
-    w.lazyLoad();
-    w.on(w, 'hashchange', w.lazyLoad);
-    w.interactiveMD();
+        w.lazyLoad()
+    }
+    scrollSpy()
+    w.on(w, 'scroll resize', scrollSpy)
+    w.on(w.all('.row,.flex'), 'scroll', scrollSpy)
+    w.lazyLoad()
+    w.on(w, 'hashchange', w.lazyLoad)
+    w.interactiveMD()
     w.on(w.one('.rotator'), 'click', () => {
-        const main = w.one('main');
+        const main = w.one('main')
 
-        w.addClass(w.one('.rotator'), 'clicked');
+        w.addClass(w.one('.rotator'), 'clicked')
         if (w.hasClass(main, 'red')) {
-            w.removeClass(main, 'red');
-            w.addClass(main, 'green');
+            w.removeClass(main, 'red')
+            w.addClass(main, 'green')
         } else if (w.hasClass(main, 'green')) {
-            w.removeClass(main, 'green');
-            w.addClass(main, 'blue');
+            w.removeClass(main, 'green')
+            w.addClass(main, 'blue')
         } else if (w.hasClass(main, 'blue')) {
-            w.removeClass(main, 'blue');
-            w.addClass(main, 'dark');
+            w.removeClass(main, 'blue')
+            w.addClass(main, 'dark')
         } else if (w.hasClass(main, 'dark')) {
-            w.removeClass(main, 'dark');
+            w.removeClass(main, 'dark')
         } else {
-            w.addClass(main, 'red');
+            w.addClass(main, 'red')
         }
         setTimeout(() => {
-            w.removeClass(w.one('.rotator'), 'clicked');
-        }, 400);
-    });
-    w.NProgress.done();
-});
+            w.removeClass(w.one('.rotator'), 'clicked')
+        }, 400)
+    })
+    w.NProgress.done()
+})
 if (window.runDefer) {
-    window.runDefer();
+    window.runDefer()
 }
