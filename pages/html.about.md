@@ -23,8 +23,8 @@ CONS: weak against kryptonite and those piercing eyes of yours.
 
 Timeline (not so accurate, but well, why not)
 
-[Avatar]: https://gunawan.wijaya.cc/assets/images/avatar.jpg '{">":"wrap","tag":"span","className":"block avatar"}'
-[Close Up]: https://gunawan.wijaya.cc/assets/images/closeup.jpg '{">":"wrap","tag":"span","className":"block closeup"}'
+[Avatar]: https://gunawan.wijaya.cc/assets/images/avatar.jpg '{">":"wrap","tag":"span","className":"block avatar embed ratio trans"}'
+[Close Up]: https://gunawan.wijaya.cc/assets/images/closeup.jpg '{">":"wrap","tag":"span","className":"block closeup embed ratio trans"}'
 
 <div class="card-list">
   <div class="card white no-print">

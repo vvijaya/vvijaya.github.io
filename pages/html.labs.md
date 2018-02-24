@@ -118,10 +118,10 @@ defer:          |
       <input class="" type="text"/>
     </label></p>
     <p><label><span>email:</span>
-      <input class="" type="email"/>
+      <input class="" type="email" autocomplete="email"/>
     </label></p>
     <p><label><span>password:</span>
-      <input class="" type="password"/>
+      <input class="" type="password" autocomplete="current-password"/>
     </label></p>
     <p><label><span>tel:</span>
       <input class="" type="tel"/>

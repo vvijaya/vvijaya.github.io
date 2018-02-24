@@ -6,6 +6,8 @@ header:         false
 footer:         false
 color_rotator:  false
 defer:          |
+  <script async="" defer="" src="https://unpkg.com/jsbarcode/dist/JsBarcode.all.min.js"></script>
+
 ---
 # Barcode Generator[](# '{">":"find","tag":"main","className":"align-center"}')
 
@@ -22,13 +24,13 @@ defer:          |
 <script>
 ((w) => {
     w.defer.push(() => {
-        if (!(w.queryStringToJSON && w.queryStringToJSON().val)) {
+        const qs = w.queryStringToObject(w.location.search.substr(1));
+        if (!(qs && qs.val)) {
             w.location.search = '?val=8886001038011'
         }
-        w.JsBarcode("#barcode", w.queryStringToJSON().val);
+        w.JsBarcode("#barcode", qs.val);
     });
 })(window);
 </script>
-<script async="" defer="" src="{{ "/assets/js/JsBarcode.all.min.js" | absolute_url }}"></script>
 
 ---

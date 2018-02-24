@@ -99,7 +99,7 @@
         "no-buffer-constructor": "error",
         "no-caller": "error",
         "no-catch-shadow": "error",
-        "no-console": "off",
+        "no-console": "warn",
         "no-confusing-arrow": "error",
         "no-continue": "error",
         "no-div-regex": "error",
@@ -197,14 +197,19 @@
             "error",
             {
                 "consistent": true,
-                "minProperties": 2
+                "multiline": true
             }
         ],
         "object-curly-spacing": [
             "error",
             "always"
         ],
-        "object-property-newline": "error",
+        "object-property-newline": [
+            "error",
+            {
+                "allowMultiplePropertiesPerLine": true
+            }
+        ],
         "object-shorthand": "off",
         "one-var": "off",
         "one-var-declaration-per-line": "error",

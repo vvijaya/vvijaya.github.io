@@ -1,6 +1,6 @@
 window.defer.push(() => {
     const w = window,
-        ob = w.one('#omnibox')
+        omnibox = w.one('#omnibox')
 
     w.all('[data-id]').forEach((dataID) => {
         dataID.id = `X-${w.md5(dataID.dataset.id)}`
@@ -9,9 +9,9 @@ window.defer.push(() => {
     fetch('https://gunawan.wijaya.cc/api/timeline.json')
         .then((data) => data.json())
         .then((data) => {
-            ob.removeAttribute('disabled')
-            w.on(ob, 'input propertychange change', () => {
-                if (w.Fuse && ob.value.length) {
+            omnibox.removeAttribute('disabled')
+            w.on(omnibox, 'input propertychange change', () => {
+                if (w.Fuse && omnibox.value.length) {
                     const result = new w.Fuse(data, {
                         shouldSort: true,
                         threshold: 0.2,
@@ -29,7 +29,7 @@ window.defer.push(() => {
                             weight: 0.5,
                             name: 'detail.uri'
                         }]
-                    }).search(ob.value)
+                    }).search(omnibox.value)
 
                     w.addClass(w.all('.card-list .card[id]'), 'hide')
                     result.forEach((single) => {
@@ -38,7 +38,7 @@ window.defer.push(() => {
                 } else {
                     w.removeClass(w.all('.card-list .card[id]'), 'hide')
                 }
-            })
+            }, false)
         })
 })
 if (window.runDefer) {

@@ -62,10 +62,10 @@
             color: $r-color;
             @include relative-font-size(4);
             background-color: inherit;
-            height: $base-font-size;
-            width: $base-font-size;
+            height: $base-font-size*4;
+            width: $base-font-size*4;
             position: absolute;
-            line-height: .8;
+            line-height: 1;
             right: 0;
             top: 0;
         }

@@ -1,6 +1,6 @@
 window.defer.push(() => {
     const w = window,
-        ob = w.one('#omnibox'),
+        omnibox = w.one('#omnibox'),
         details = []
 
     w.all('[data-id]').forEach((dataID) => {
@@ -17,9 +17,9 @@ window.defer.push(() => {
                 })
             })
 
-            ob.removeAttribute('disabled')
-            w.on(ob, 'input propertychange change', () => {
-                if (window.Fuse && ob.value.length) {
+            omnibox.removeAttribute('disabled')
+            w.on(omnibox, 'input propertychange change', () => {
+                if (window.Fuse && omnibox.value.length) {
                     const result = new w.Fuse(details, {
                         'shouldSort': true,
                         'threshold': 0.2,
@@ -40,7 +40,7 @@ window.defer.push(() => {
                             'weight': 0.4,
                             'name': 'live'
                         }]
-                    }).search(ob.value)
+                    }).search(omnibox.value)
 
                     w.addClass(w.all('.work-list .work[id]'), 'col-sm-0 col-md-0')
                     result.forEach((single) => {
