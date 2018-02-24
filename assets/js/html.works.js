@@ -21,24 +21,25 @@ window.defer.push(() => {
             w.on(omnibox, 'input propertychange change', () => {
                 if (window.Fuse && omnibox.value.length) {
                     const result = new w.Fuse(details, {
-                        'shouldSort': true,
-                        'threshold': 0.2,
-                        'location': 0,
-                        'distance': 4000,
-                        'maxPatternLength': 32,
-                        'minMatchCharLength': 1,
-                        'keys': [{
-                            'weight': 0.7,
-                            'name': 'title'
+                        shouldSort: true,
+                        tokenize: true,
+                        threshold: 0.2,
+                        location: 0,
+                        distance: 4000,
+                        maxPatternLength: 32,
+                        minMatchCharLength: 1,
+                        keys: [{
+                            weight: 0.7,
+                            name: 'title'
                         }, {
-                            'weight': 0.6,
-                            'name': 'desc'
+                            weight: 0.6,
+                            name: 'desc'
                         }, {
-                            'weight': 0.5,
-                            'name': 'uri'
+                            weight: 0.5,
+                            name: 'uri'
                         }, {
-                            'weight': 0.4,
-                            'name': 'live'
+                            weight: 0.4,
+                            name: 'live'
                         }]
                     }).search(omnibox.value)
 

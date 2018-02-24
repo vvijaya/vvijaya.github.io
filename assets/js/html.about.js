@@ -14,9 +14,7 @@ window.defer.push(() => {
                 if (w.Fuse && omnibox.value.length) {
                     const result = new w.Fuse(data, {
                         shouldSort: true,
-                        threshold: 0.2,
-                        location: 0,
-                        distance: 1000,
+                        tokenize: true,
                         maxPatternLength: 32,
                         minMatchCharLength: 1,
                         keys: [{
