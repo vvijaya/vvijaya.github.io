@@ -36,12 +36,12 @@ a.embed {
 /* OVERRIDE Interactive Markdown
 =========================================================================== */
 table.responsive {
-    .avatar img,
-    .closeup img {
-        padding: 1em;
-        width: 200px;
-        border: solid 2px;
-        margin-bottom: $spacing-unit;
+    .avatar, .closeup {
+        img {
+            padding: 1em;
+            border: solid 2px;
+            margin-bottom: $spacing-unit;
+        }
     }
     .avatar img {
         border-radius: 50%;
@@ -51,6 +51,10 @@ table.responsive {
 .card {
     max-width: 400px;
     margin: $spacing-unit auto;
+    &.photo { max-width: 200px; }
+    @include media-query($on-md) {
+        &.photo { max-width: 400px; }
+    }
     &.black,&.white {
         background-color: $dark-color;
         border: solid 1px $dark-alt-color;

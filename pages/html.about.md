@@ -13,7 +13,7 @@ defer:          |
 
 90's boy, half normal, half stupid, yet still alive — 🌏 🦄 ⚡️ 🔥 ✨ 🐉
 
-|[](# '{">":"find","tag":"table","className":"responsive card"}')|
+|[](# '{">":"find","tag":"table","className":"responsive card photo"}')|
 |:---:|:---:|
 | ![Avatar][Avatar]Figure 1.1 — Avatar | ![Close Up][Close Up]Figure 1.2 — Close Up |
 
@@ -23,8 +23,8 @@ CONS: weak against kryptonite and those piercing eyes of yours.
 
 Timeline (not so accurate, but well, why not)
 
-[Avatar]: https://gunawan.wijaya.cc/assets/images/avatar.jpg '{">":"wrap","tag":"span","className":"block avatar embed ratio trans"}'
-[Close Up]: https://gunawan.wijaya.cc/assets/images/closeup.jpg '{">":"wrap","tag":"span","className":"block closeup embed ratio trans"}'
+[Avatar]: https://gunawan.wijaya.cc/assets/images/avatar.jpg '{">":"wrap","tag":"span","className":"block avatar embed ratio"}'
+[Close Up]: https://gunawan.wijaya.cc/assets/images/closeup.jpg '{">":"wrap","tag":"span","className":"block closeup embed ratio"}'
 
 <div class="card-list">
   <div class="card white no-print">
