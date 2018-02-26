@@ -2,7 +2,7 @@ window.defer.push(() => {
     window.NativeUtils.merge(window, window.NativeUtils)
     const w = window
 
-    w.dz = new w.DropZone(w.one('#dz_ctrl'), w.one('#dz_face'))
+    w.dz = new w.DropZone(w.oneDOM('#dz_ctrl'), w.oneDOM('#dz_face'))
     w.on([w.dz.ctrl, w.dz.face], 'drop dragover dragend dragleave change', (e) => {
         w.dz.fileHandler(
             ((e) => {
@@ -71,15 +71,15 @@ window.defer.push(() => {
         idx = idx > last ? 0 : idx
         src = list[Number(G.dataset.idx)]
         src = src.src ? src.src : src
-        oldImg = w.one(`img[src='${src}']`, G) || w.one('img', G)
+        oldImg = w.oneDOM(`img[src='${src}']`, G) || w.oneDOM('img', G)
         src = list[idx]
         w.tmp = src.caption ? src.caption : ' '
         caption = caption ? w.tmp : false
         if (caption) {
-            w.one('.caption', G).innerHTML = caption
+            w.oneDOM('.caption', G).innerHTML = caption
         }
         src = src.src ? src.src : src
-        newImg = w.one(`img[src='${src}']`, G)
+        newImg = w.oneDOM(`img[src='${src}']`, G)
         if (!newImg) {
             newImg = w.stringToDOM('<img alt="Gallery image" class="ease waitload unload">')
             newImg.src = src
@@ -94,17 +94,17 @@ window.defer.push(() => {
             })(oldImg, newImg))
         }
         G.dataset.idx = idx
-        w.removeClass(w.all('.bullet', G), 'hover')
-        w.addClass(w.one(`.bullet[data-idx='${idx}']`, G), 'hover')
+        w.removeClass(w.allDOM('.bullet', G), 'hover')
+        w.addClass(w.oneDOM(`.bullet[data-idx='${idx}']`, G), 'hover')
         w.removeClass(newImg, 'unload')
         w.addClass(oldImg, 'unload')
     }
-    w.on(w.all('.gallery .unload'), 'load', (e) => {
+    w.on(w.allDOM('.gallery .unload'), 'load', (e) => {
         w.removeClass(e.target, 'unload')
 
         return false
     })
-    w.on(w.all('.gallery .prev, .gallery .next'), 'click', (e) => {
+    w.on(w.allDOM('.gallery .prev, .gallery .next'), 'click', (e) => {
         let G = e.target
 
         while (!w.hasClass(G, 'gallery')) {
@@ -114,7 +114,7 @@ window.defer.push(() => {
 
         return false
     })
-    w.all('.gallery').forEach((G) => {
+    w.allDOM('.gallery').forEach((G) => {
         let B = 0,
             F = 0,
             list = []
@@ -142,10 +142,10 @@ window.defer.push(() => {
             }
         })(G))
 
-        if (G.dataset.caption === '' && !w.one('.caption', G)) {
+        if (G.dataset.caption === '' && !w.oneDOM('.caption', G)) {
             G.appendChild(w.stringToDOM('<figcaption class="caption"></figcaption>'))
         }
-        if (G.dataset.bullet === '' && !w.one('.bullet', G)) {
+        if (G.dataset.bullet === '' && !w.oneDOM('.bullet', G)) {
             F = w.stringToDOM('<figcaption></figcaption>')
             list.forEach((j, i) => {
                 B = w.stringToDOM(`<span class="bullet" data-idx="${i}"></span>`)

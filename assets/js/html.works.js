@@ -1,10 +1,10 @@
 window.defer.push(() => {
     window.NativeUtils.merge(window, window.NativeUtils)
     const w = window,
-        omnibox = w.one('#omnibox'),
+        omnibox = w.oneDOM('#omnibox'),
         details = []
 
-    w.all('[data-id]').forEach((dataID) => {
+    w.allDOM('[data-id]', (dataID) => {
         dataID.id = `X-${w.md5(dataID.dataset.id)}`
         w.Reflect.deleteProperty(dataID.dataset, 'id')
     })
@@ -44,12 +44,12 @@ window.defer.push(() => {
                         }]
                     }).search(omnibox.value)
 
-                    w.addClass(w.all('.work-list .work[id]'), 'col-sm-0 col-md-0')
+                    w.addClass(w.allDOM('.work-list .work[id]'), 'col-sm-0 col-md-0')
                     result.forEach((single) => {
-                        w.removeClass(w.one(`#X-${w.md5(single.uri)}`), 'col-sm-0 col-md-0')
+                        w.removeClass(w.oneDOM(`#X-${w.md5(single.uri)}`), 'col-sm-0 col-md-0')
                     })
                 } else {
-                    w.removeClass(w.all('.work-list .work[id]'), 'col-sm-0 col-md-0')
+                    w.removeClass(w.allDOM('.work-list .work[id]'), 'col-sm-0 col-md-0')
                 }
             })
         })

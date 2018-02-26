@@ -101,15 +101,15 @@ window.defer.push(() => {
             return outHTML
         },
         listener = () => {
-            w.on(w.one('#full_container'), 'change', () => {
-                w.toggleClass(w.one('.container'), 'full')
+            w.on(w.oneDOM('#full_container'), 'change', () => {
+                w.toggleClass(w.oneDOM('.container'), 'full')
             })
-            w.on(w.all('.swap-rows-cols'), 'change', (e) => {
+            w.on(w.allDOM('.swap-rows-cols'), 'change', (e) => {
                 e = e.target || e.srcElement || e
                 let outHTML = e.checked ? { flip: true } : {}
 
                 outHTML = drawReport(w.dz.files[w.dz.filenames[e.dataset.reportId]], outHTML)
-                w.one(`#report_${e.dataset.reportId}`).innerHTML = outHTML
+                w.oneDOM(`#report_${e.dataset.reportId}`).innerHTML = outHTML
                 listener()
             })
         }
@@ -172,15 +172,15 @@ window.defer.push(() => {
             }
 
             w.reportModal.close()
-            w.removeClass(w.one('.step.hide'), 'hide')
+            w.removeClass(w.oneDOM('.step.hide'), 'hide')
 
             w.dz.filenames = {}
             w.dz.files.forEach((file, index) => {
                 w.dz.filenames[w.md5(file.name)] = index
-                if (w.one(`#report_${w.md5(file.name)}`)) {
-                    w.one(`#report_${w.md5(file.name)}`).innerHTML = drawReport(file)
+                if (w.oneDOM(`#report_${w.md5(file.name)}`)) {
+                    w.oneDOM(`#report_${w.md5(file.name)}`).innerHTML = drawReport(file)
                 }
-                w.one('#report').innerHTML += `<div id='report_${w.md5(F.name)}' class='report'>
+                w.oneDOM('#report').innerHTML += `<div id='report_${w.md5(F.name)}' class='report'>
                 ${drawReport(file)}
                 </div>`
                 listener()
@@ -197,7 +197,7 @@ window.defer.push(() => {
         }
     }
 
-    w.dz = new w.DropZone(w.one('#dz_ctrl'), w.one('#dz_face'))
+    w.dz = new w.DropZone(w.oneDOM('#dz_ctrl'), w.oneDOM('#dz_face'))
     w.on([w.dz.ctrl, w.dz.face], 'drop dragover dragend dragleave change', (e) => {
         w.dz.fileHandler(
             ((e) => {

@@ -7,30 +7,30 @@ window.defer.push(() => {
 
     w.NProgress.start()
     scrollSpy = () => {
-        if (w.getViewport().w < 960) {
-            const st = w.getScroll().y
+        if (w.getViewportDimension().w < 960) {
+            const st = w.getScrollPosition().y
 
-            if (w.one('.menu') && st > lastScrollTop && st > w.one('.menu').clientHeight * 2) {
-                w.addClass(w.one('.menu'), 'folded')
+            if (w.oneDOM('.menu') && st > lastScrollTop && st > w.oneDOM('.menu').clientHeight * 2) {
+                w.addClass(w.oneDOM('.menu'), 'folded')
             } else {
-                w.removeClass(w.one('.menu'), 'folded')
+                w.removeClass(w.oneDOM('.menu'), 'folded')
             }
             lastScrollTop = st
         } else {
-            w.removeClass(w.one('.menu'), 'folded')
+            w.removeClass(w.oneDOM('.menu'), 'folded')
         }
         w.lazyLoad()
     }
     scrollSpy()
     w.on(w, 'scroll resize', scrollSpy)
-    w.on(w.all('.row,.flex'), 'scroll', scrollSpy)
+    w.on(w.allDOM('.row,.flex'), 'scroll', scrollSpy)
     w.lazyLoad()
     w.on(w, 'hashchange', w.lazyLoad)
     w.interactiveMD()
-    w.on(w.one('.rotator'), 'click', () => {
-        const main = w.one('main')
+    w.on(w.oneDOM('.rotator'), 'click', () => {
+        const main = w.oneDOM('main')
 
-        w.addClass(w.one('.rotator'), 'clicked')
+        w.addClass(w.oneDOM('.rotator'), 'clicked')
         if (w.hasClass(main, 'red')) {
             w.removeClass(main, 'red')
             w.addClass(main, 'green')
@@ -46,7 +46,7 @@ window.defer.push(() => {
             w.addClass(main, 'red')
         }
         setTimeout(() => {
-            w.removeClass(w.one('.rotator'), 'clicked')
+            w.removeClass(w.oneDOM('.rotator'), 'clicked')
         }, 400)
     })
     w.NProgress.done()

@@ -1,9 +1,9 @@
 window.defer.push(() => {
     window.NativeUtils.merge(window, window.NativeUtils)
     const w = window,
-        omnibox = w.one('#omnibox')
+        omnibox = w.oneDOM('#omnibox')
 
-    w.all('[data-id]').forEach((dataID) => {
+    w.eachDOM('[data-id]', (dataID) => {
         dataID.id = `X-${w.md5(dataID.dataset.id)}`
         w.Reflect.deleteProperty(dataID.dataset, 'id')
     })
@@ -32,7 +32,7 @@ window.defer.push(() => {
 
                     w.addClass(w.all('.card-list .card[id]'), 'hide')
                     result.forEach((single) => {
-                        w.removeClass(w.one(`#X-${w.md5(single.date)}`), 'hide')
+                        w.removeClass(w.oneDOM(`#X-${w.md5(single.date)}`), 'hide')
                     })
                 } else {
                     w.removeClass(w.all('.card-list .card[id]'), 'hide')
