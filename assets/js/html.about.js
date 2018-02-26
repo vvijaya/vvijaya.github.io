@@ -1,4 +1,5 @@
 window.defer.push(() => {
+    window.NativeUtils.merge(window, window.NativeUtils)
     const w = window,
         omnibox = w.one('#omnibox')
 

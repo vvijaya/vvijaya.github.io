@@ -1,5 +1,6 @@
 /* eslint require-jsdoc: 0 */
 window.defer.push(() => {
+    window.NativeUtils.merge(window, window.NativeUtils)
     const w = window,
         flipAxis = (csv, delimiter = ',', linebreak = '\n') => {
             csv = csv.split(linebreak)
@@ -185,7 +186,7 @@ window.defer.push(() => {
                 listener()
             })
         } catch (error) {
-            console.warn(error)
+            // console.warn(error)
             w.reportModal = new w.Modal({
                 id: 'reportModal',
                 header: 'Error',

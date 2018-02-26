@@ -1,5 +1,6 @@
 /* eslint require-jsdoc: 0 */
 window.defer.push(() => {
+    window.NativeUtils.merge(window, window.NativeUtils)
     const w = window
     let lastScrollTop = 0,
         scrollSpy = () => { }

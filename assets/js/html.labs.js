@@ -1,4 +1,5 @@
 window.defer.push(() => {
+    window.NativeUtils.merge(window, window.NativeUtils)
     const w = window
 
     w.dz = new w.DropZone(w.one('#dz_ctrl'), w.one('#dz_face'))
@@ -121,7 +122,7 @@ window.defer.push(() => {
         try {
             list = JSON.parse(G.dataset.img)
         } catch (e) {
-            console.warn(e.message)
+            // console.warn(e.message)
         }
         G.swipable = new w.Swipe()
         w.on(G, 'touchstart touchmove', ((G) => {
