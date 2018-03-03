@@ -1,13 +1,10 @@
----
-permalink:      /keybase.txt
----
 ==================================================================
 https://keybase.io/gunawanwijaya
 --------------------------------------------------------------------
 
 I hereby claim:
 
-  * I am an admin of https://wijaya.cc
+  * I am an admin of https://gunawan.wijaya.cc
   * I am gunawanwijaya (https://keybase.io/gunawanwijaya) on keybase.
   * I have a public key ASBGclk7k6eNtMSqqkkMiywXLlt8ymjz_bkHGtMK9jmlcAo
 
@@ -23,13 +20,13 @@ To do so, I am signing this object:
       "username": "gunawanwijaya"
     },
     "merkle_root": {
-      "ctime": 1520071489,
-      "hash": "d4d0ad7986e3b3ca384ce08c27f3729727e19425419214a33cd6aea819e5b5478dbe222b4dbc9fbeb851cc74a47a776802406cd77d6f8222c1f9c6e811ec0174",
-      "hash_meta": "16bfd9466ed8a83362afc4a6c47d3135a32aaa62720d4be92a0f134ae8d88adc",
-      "seqno": 2179502
+      "ctime": 1520072158,
+      "hash": "3c55bddde0b6f29422f5243df428d60661923ebe0ba40e0157b3325020de0b8e174f3c95cff98caae0f26957a3735b470ec821d8a173dfcf963b4b3cf2d512b1",
+      "hash_meta": "8fa735f41260a8fce560f204872f0f0275bd9a105235fa908e30373e761b2302",
+      "seqno": 2179510
     },
     "service": {
-      "hostname": "wijaya.cc",
+      "hostname": "gunawan.wijaya.cc",
       "protocol": "https:"
     },
     "type": "web_service_binding",
@@ -39,13 +36,20 @@ To do so, I am signing this object:
     "name": "keybase.io go client",
     "version": "1.0.44"
   },
-  "ctime": 1520071538,
+  "ctime": 1520072334,
   "expire_in": 504576000,
-  "prev": "53e623a71c7dc9d414e1f1e034986022fab35bf07acc06f2714438bc67ba1eb5",  "seqno": 7,
+  "prev": "f1ff9e5405acfcd96ad2b6e92f784c4fdf484bc5dbe899729f51b76d6ea98f5d",
+  "seqno": 8,
   "tag": "signature"
 }
 
 which yields the signature:
 
-hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEgRnJZO5OnjbTEqqpJDIssFy5bfMpo8/25BxrTCvY5pXAKp3BheWxvYWTFA0Z7ImJvZHkiOnsia2V5Ijp7ImVsZGVzdF9raWQiOiIwMTIwNDY3MjU5M2I5M2E3OGRiNGM0YWFhYTQ5MGM4YjJjMTcyZTViN2NjYTY4ZjNmZGI5MDcxYWQzMGFmNjM5YTU3MDBhIiwiaG9zdCI6ImtleWJhc2UuaW8iLCJraWQiOiIwMTIwNDY3MjU5M2I5M2E3OGRiNGM0YWFhYTQ5MGM4YjJjMTcyZTViN2NjYTY4ZjNmZGI5MDcxYWQzMGFmNjM5YTU3MDBhIiwidWlkIjoiMzlmZjgyN2FiMzM3NGEyOTFjMDRlMzMwMWQ2ODVjMTkiLCJ1c2VybmFtZSI6Imd1bmF3YW53aWpheWEifSwibWVya2xlX3Jvb3QiOnsiY3RpbWUiOjE1MjAwNzE0ODksImhhc2giOiJkNGQwYWQ3OTg2ZTNiM2NhMzg0Y2UwOGMyN2YzNzI5NzI3ZTE5NDI1NDE5MjE0YTMzY2Q2YWVhODE5ZTViNTQ3OGRiZTIyMmI0ZGJjOWZiZWI4NTFjYzc0YTQ3YTc3NjgwMjQwNmNkNzdkNmY4MjIyYzFmOWM2ZTgxMWVjMDE3NCIsImhhc2hfbWV0YSI6IjE2YmZkOTQ2NmVkOGE4MzM2MmFmYzRhNmM0N2QzMTM1YTMyYWFhNjI3MjBkNGJlOTJhMGYxMzRhZThkODhhZGMiLCJzZXFubyI6MjE3OTUwMn0sInNlcnZpY2UiOnsiaG9zdG5hbWUiOiJ3aWpheWEuY2MiLCJwcm90b2NvbCI6Imh0dHBzOiJ9LCJ0eXBlIjoid2ViX3NlcnZpY2VfYmluZGluZyIsInZlcnNpb24iOjF9LCJjbGllbnQiOnsibmFtZSI6ImtleWJhc2UuaW8gZ28gY2xpZW50IiwidmVyc2lvbiI6IjEuMC40NCJ9LCJjdGltZSI6MTUyMDA3MTUzOCwiZXhwaXJlX2luIjo1MDQ1NzYwMDAsInByZXYiOiI1M2U2MjNhNzFjN2RjOWQ0MTRlMWYxZTAzNDk4NjAyMmZhYjM1YmYwN2FjYzA2ZjI3MTQ0MzhiYzY3YmExZWI1Iiwic2Vxbm8iOjcsInRhZyI6InNpZ25hdHVyZSJ9o3NpZ8RAHvu2qF7zx/eoVWklfav8f7hSRj2iQFjnQyULwfhfMXPvBsp0wzs0Um9Z5kpwUrOdrB6RnEERoFFf1iWS+iCKAqhzaWdfdHlwZSCkaGFzaIKkdHlwZQildmFsdWXEINFQqvbpa53CD+9IGrQ0Pw6pNw0LekLpzX/odf0VcICPo3RhZ80CAqd2ZXJzaW9uAQ==And finally, I am proving ownership of this host by posting orappending to this document.View my publicly-auditable identity here: https://keybase.io/gunawanwijaya
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEgRnJZO5OnjbTEqqpJDIssFy5bfMpo8/25BxrTCvY5pXAKp3BheWxvYWTFA057ImJvZHkiOnsia2V5Ijp7ImVsZGVzdF9raWQiOiIwMTIwNDY3MjU5M2I5M2E3OGRiNGM0YWFhYTQ5MGM4YjJjMTcyZTViN2NjYTY4ZjNmZGI5MDcxYWQzMGFmNjM5YTU3MDBhIiwiaG9zdCI6ImtleWJhc2UuaW8iLCJraWQiOiIwMTIwNDY3MjU5M2I5M2E3OGRiNGM0YWFhYTQ5MGM4YjJjMTcyZTViN2NjYTY4ZjNmZGI5MDcxYWQzMGFmNjM5YTU3MDBhIiwidWlkIjoiMzlmZjgyN2FiMzM3NGEyOTFjMDRlMzMwMWQ2ODVjMTkiLCJ1c2VybmFtZSI6Imd1bmF3YW53aWpheWEifSwibWVya2xlX3Jvb3QiOnsiY3RpbWUiOjE1MjAwNzIxNTgsImhhc2giOiIzYzU1YmRkZGUwYjZmMjk0MjJmNTI0M2RmNDI4ZDYwNjYxOTIzZWJlMGJhNDBlMDE1N2IzMzI1MDIwZGUwYjhlMTc0ZjNjOTVjZmY5OGNhYWUwZjI2OTU3YTM3MzViNDcwZWM4MjFkOGExNzNkZmNmOTYzYjRiM2NmMmQ1MTJiMSIsImhhc2hfbWV0YSI6IjhmYTczNWY0MTI2MGE4ZmNlNTYwZjIwNDg3MmYwZjAyNzViZDlhMTA1MjM1ZmE5MDhlMzAzNzNlNzYxYjIzMDIiLCJzZXFubyI6MjE3OTUxMH0sInNlcnZpY2UiOnsiaG9zdG5hbWUiOiJndW5hd2FuLndpamF5YS5jYyIsInByb3RvY29sIjoiaHR0cHM6In0sInR5cGUiOiJ3ZWJfc2VydmljZV9iaW5kaW5nIiwidmVyc2lvbiI6MX0sImNsaWVudCI6eyJuYW1lIjoia2V5YmFzZS5pbyBnbyBjbGllbnQiLCJ2ZXJzaW9uIjoiMS4wLjQ0In0sImN0aW1lIjoxNTIwMDcyMzM0LCJleHBpcmVfaW4iOjUwNDU3NjAwMCwicHJldiI6ImYxZmY5ZTU0MDVhY2ZjZDk2YWQyYjZlOTJmNzg0YzRmZGY0ODRiYzVkYmU4OTk3MjlmNTFiNzZkNmVhOThmNWQiLCJzZXFubyI6OCwidGFnIjoic2lnbmF0dXJlIn2jc2lnxECSiPfzf0RKzW+ARLWsPUy1+t38hrtiYD4TlmYsokXBU2+moNSc9QzZV+F4xWvfAMNa95MsyRmKeA+NJm+6PKIPqHNpZ190eXBlIKRoYXNogqR0eXBlCKV2YWx1ZcQgjsQEvwXlNK237Gf85XO4jiBDk4zsUUxEsHy+85xxPlGjdGFnzQICp3ZlcnNpb24B
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/gunawanwijaya
+
 ==================================================================
