@@ -27,8 +27,7 @@ excerpt_separator:    <!--more-->
 limit_posts:          12
 # permalink:            pretty # /:categories/:year/:month/:day/:title/
 # permalink:            /:title/
-#permalink:            /:year/:month/:day/:slug/
-permalink:            /:slug
+permalink:            /:year/:month/:day/:slug/
 show_drafts:          false
 unpublished:          false
 detach:               false
