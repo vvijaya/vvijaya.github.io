@@ -30,12 +30,12 @@ window.defer.push(() => {
                         }]
                     }).search(omnibox.value)
 
-                    w.addClass(w.all('.card-list .card[id]'), 'hide')
+                    w.addClass(w.allDOM('.card-list .card[id]'), 'hide')
                     result.forEach((single) => {
                         w.removeClass(w.oneDOM(`#X-${w.md5(single.date)}`), 'hide')
                     })
                 } else {
-                    w.removeClass(w.all('.card-list .card[id]'), 'hide')
+                    w.removeClass(w.allDOM('.card-list .card[id]'), 'hide')
                 }
             }, false)
         })

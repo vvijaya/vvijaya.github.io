@@ -4,7 +4,7 @@ window.defer.push(() => {
         omnibox = w.oneDOM('#omnibox'),
         details = []
 
-    w.allDOM('[data-id]', (dataID) => {
+    w.eachDOM('[data-id]', (dataID) => {
         dataID.id = `X-${w.md5(dataID.dataset.id)}`
         w.Reflect.deleteProperty(dataID.dataset, 'id')
     })
