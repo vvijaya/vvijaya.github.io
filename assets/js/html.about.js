@@ -16,6 +16,9 @@ window.defer.push(() => {
                     const result = new w.Fuse(data, {
                         shouldSort: true,
                         tokenize: true,
+                        threshold: 0.2,
+                        location: 0,
+                        distance: 4000,
                         maxPatternLength: 32,
                         minMatchCharLength: 1,
                         keys: [{
