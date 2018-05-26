@@ -1,0 +1,310 @@
+- ###########################
+  date  : Dec 1991
+  md    : |
+    Born in this world 🌎, naked
+- ###########################
+  date  : Dec 1991 — Jun 1995
+  md    : |
+    Fooling around, eat 🍴, sleep 😴 💤, poop 💩
+- ###########################
+  date  : Jun 1995 — Jun 1997
+  md    : |
+    Kindergarten
+- ###########################
+  date  : Jun 1997 — Jun 2003
+  md    : |
+    Primary School
+- ###########################
+  date  : Jun 2003 — Jun 2006
+  md    : |
+    Secondary School
+- ###########################
+  date  : Jun 2006 — Jun 2009
+  md    : |
+    High School
+- ###########################
+  date  : Aug 2009
+  md    : |
+    Enroll in [STTS](http://www.stts.edu)<br>
+    Major of Computer Science
+
+    Student ID #209115864
+- ###########################
+  date  : May 2012 — Sep 2012
+  md    : |
+    Web Developer
+
+    @ [Kata - Ayo Membaca](http://kata-ayomembaca.com)
+
+    @ [Expert Tour & Travel Agency](http://expert-tourandtravel.com)
+  detail:
+    - #######################
+      uri   : http://kata-ayomembaca.com
+      title : Kata — Ayo Membaca!
+      img   : /assets/images/portfolio/kata-ayomembaca.com.jpg
+      live  : up
+      desc  : |
+        2012 — freelance
+
+        One of my very first project as freelancer on web stuff. The project is
+        a company profile for preschool education that teach kids to read and
+        spell (not magic or witchcraft!). The owner is requesting a rework for
+        this project on early 2015 after I leave the project.
+    - #######################
+      uri   : http://expert-tourandtravel.com
+      title : Expert Tour & Travel Agency
+      img   : /assets/images/portfolio/expert-tourandtravel.com.jpg
+      live  : up
+      desc  : |
+        2012 — freelance
+
+        Yet another one of the very first project. Got this project from my
+        relatives to make a company profile and customer service conversation
+        using Yahoo! Messenger, yup, YM is a thing back then, with custom
+        button user can see a specific user is active or not. On early 2015
+        this project is also asked for a rework.
+- ###########################
+  date  : Sep 2012 — Nov 2012
+  md    : |
+    Internship
+  detail:
+    - uri   : http://padmaresortbali.com
+    - uri   : http://discoverykartikaplaza.com
+- ###########################
+  date  : Mar 2013 — Sep 2013
+  md    : |
+    Final Project<br>
+    “Home Automation System using Raspberry Pi”
+- ###########################
+  date  : Nov 2013
+  md    : |
+    Happily graduated from [STTS](http://www.stts.edu)
+
+    Gunawan Wijaya, S.Kom.
+- ###########################
+  date  : Nov 2013 — May 2014
+  md    : |
+    Web Developer
+
+    @ [PT. Agung Greenland Property](http://agunggreenland.com)
+- ###########################
+  date  : May 2014 — Jan 2015
+  md    : |
+    Web Developer
+
+    @ [PT. Omnia Media](http://pt-om.com)
+  detail:
+    - uri   : http://be-barefoot.com
+    - uri   : http://ubudio.spot-bite.com
+    - uri   : http://capodieci.spot-bite.com
+    - uri   : http://omniascribes.spot-bite.com
+    - uri   : http://wedoamazingvideos.spot-bite.com
+    - #######################
+      uri   : http://spotbyte.com
+      title : Spotbyte
+      img   : /assets/images/portfolio/spotbyte.com.jpg
+      live  : up
+      desc  : |
+        2014 — PT. Omnia Media
+
+        Spotbyte is one of company subsidiary office, focus on SEO and Web
+        Development process. The mission is to redesign a company profile
+        website that the prior is looks old and no fun. Then team decided to
+        make a new theme flavor, that is one-page scroll website, quite cool
+        but complicated. I dare you to try it.
+    - #######################
+      uri   : http://buddyguard.spot-bite.com
+      title : Buddyguard
+      img   : /assets/images/portfolio/buddyguard.spot-bite.com.jpg
+      live  : up
+      desc  : |
+        2014 — PT. Omnia Media
+
+        Buddyguard is a company that sells the Anti Mosquito kindof stuff, what
+        is weird that in this project, they request to add a minigame that can
+        grant user a promotional code. Just a simple clicking game. At first,
+        its lagging, like hell, my co-worker ask why not use a game engine?
+        what the hell, that's too overkill dude. In the end, yet another
+        abandoned project.
+    - #######################
+      uri   : http://wijaya.cc/vtb
+      title : Venice Taxi Booking
+      img   : /assets/images/portfolio/wijaya.cc+vtb.jpg
+      live  : down
+      desc  : |
+        2014 — PT. Omnia Media
+
+        This time I learned a little stuff about design and usability, been
+        working with designer open up my mind to a certain degree. This project
+        is a mockup for booking a water taxi based on Venice (since my boss is
+        an Italian), design process is quite intriguing tho but in the end boss
+        said to abandon this one. &#35;SAD
+    - #######################
+      uri   : http://toon-dentistry.com
+      title : Toon Dentistry
+      img   : /assets/images/portfolio/toon-dentistry.com.jpg
+      live  : down
+      desc  : |
+        2014 — PT. Omnia Media
+
+        This is a funny project, also weird. My boss want to sell a product, a
+        mini video player with some interactive button to play a certain movie
+        animation. The story about how to do something with dentist. The
+        requirement is a shopping cart, ability to choose animation and picture
+        , etc. After the website is ready, the product is still always on
+        prototype phase, so yes, you can guess. Yet another abandoned project.
+    - #######################
+      uri   : http://massimobali.com
+      title : Massimo Bali
+      img   : /assets/images/portfolio/massimobali.com.jpg
+      live  : up
+      desc  : |
+        2014 — PT. Omnia Media
+
+        This time serving a client, he is a restaurant owner in Bali, an
+        Italian, friends with boss, want to revamp the homepage of their lovely
+        restaurant, putting a lot of effort and patience (you know, everyday my
+        eyes is looking at CALAMARI E GAMBERI and GRAN FUSILLI AI QUATTRO
+        FORMAGGI E CRUDO — holy mother of God).
+    - #######################
+      uri   : http://purimas-lombok.com
+      title : Purimas Lombok
+      img   : /assets/images/portfolio/purimas-lombok.com+preview+dev.jpg
+      live  : up
+      desc  : |
+        2014 — PT. Omnia Media
+
+        The client is a villa owner in Lombok, he want a nice video of his
+        place and luxury looking website, so the basic update is fullpage video
+        background on the home screen, different image on certain pages. This
+        one, the logic is quite simple but required much attention to detail
+        and so many test, some best practice is in mobile decided to use still
+        image instead of video, also not all menu is shown on mobile. After a
+        while they want to stop using video as background.
+- ###########################
+  date  : Jan 2015 — Sep 2015
+  md    : |
+    Job hunt & freelance
+  detail:
+    - #######################
+      uri   : http://wijaya.cc/client/jombang
+      title : Client — Jombang
+      img   : /assets/images/portfolio/wijaya.cc+client+jombang.jpg
+      live  : down
+      desc  : |
+        2015 — freelance
+
+        Got this project also from my relatives, the owner, friends of my
+        relatives is considering to integrate the shop and warehouse, he sells
+        imported machine, any kind of machine. This project were using a simple
+        POST and GET request to render data with a lot of Javascript function.
+    - #######################
+      uri   : http://wijaya.cc/client/210180193
+      title : Client — Student of STTS
+      img   : /assets/images/portfolio/wijaya.cc+client+210180193.jpg
+      live  : down
+      desc  : |
+        2015 — freelance
+
+        This is kind of illegal project, well at that time I need a lot, lot,
+        lot of monies. My friend and I got an offer from underclassman, stating
+        that he needs a help for his final project. THANK GOD, he dropout of
+        college and the project is abandoned. Cool Javascript function on this
+        project is ability to tag a specific location on the image, that
+        placing the tag (square on the figure above) consistent and accurate to
+        the image on any screen size.
+- ###########################
+  date  : Sep 2015 — Jan 2016
+  md    : |
+    Web Developer
+
+    @ [VI8E Interactive Pte Ltd](http://vi8e.com)
+  detail:
+    - uri   : http://www.courtexcellenceconference.com
+    - #######################
+      uri   : http://wijaya.cc/hb/invitation
+      title : VI8E — Portal of Singapore
+      img   : /assets/images/portfolio/wijaya.cc+hb+invitation.jpg
+      live  : down
+      desc  : |
+        2015 — VI8E Interactive Pte Ltd
+
+        This project is a simple application to show Instagram post with
+        hashtags &#35;SingaporeInvites. At first, boss want to make portal like
+        — <http://yoursingapore.com> — and this time I learned about public
+        API, user access and how to work with usage limit
+    - #######################
+      uri   : http://probation.gunawan.vi9e.com
+      title : Giant Online E-Commerce
+      img   : /assets/images/portfolio/probation.gunawan.vi9e.com.jpg
+      live  : down
+      desc  : |
+        2015 — VI8E Interactive Pte Ltd
+
+        The task is to create a new skin for Giant Singapore Online Shopping
+        Mall — <http://giantonline.com.sg> — based on yii framework using the
+        reference from themeforest, the skin will be break on certain category,
+        might have a sub-category and have shopping cart functionality. Problem
+        is the database take a long time to read, also nesting list on mobile
+        view and category header.
+- ###########################
+  date  : Jan 2016 — Current
+  md    : |
+    Analyst Programmer
+
+    @ [Maven Lab Pte Ltd](http://www.mavenlab.com)
+  detail:
+    - #######################
+      uri   : http://beantherecountthat.sg
+      title : Bean There Count That
+      img   : /assets/images/portfolio/beantherecountthat.sg.jpg
+      live  : up
+      desc  : |
+        2016 — Maven Lab Pte Ltd
+
+        On this project, my task is to provide a logic on homescreen 3x3 tiles
+        flipping animation. Actually a quite simple jQuery function to flip 3
+        tiles, but the request often changed, communication between client and
+        company and developer is quite complicated. Now, everything seems fine.
+    - #######################
+      uri   : http://cpib.gov.sg
+      title : Corrupt Practices Investigation Bureau
+      img   : /assets/images/portfolio/cpib.gov.sg.jpg
+      live  : up
+      desc  : |
+        2016 — Maven Lab Pte Ltd
+
+        This time, my task is to update some logic on mailing service, not
+        visible from usual activity. Using Drupal 7 and manage user is quite
+        interesting for me, building a logic and stuff make me feels so much
+        smarter (well this is just a feeling guys, not actual smarter). BTW
+        this project is a government project, any violation might be ended in
+        federal issue, so no kidding this time.
+    - #######################
+      uri   : http://pmo.gov.sg
+      title : Prime Minister's Office
+      img   : /assets/images/portfolio/pmo.gov.sg.jpg
+      live  : up
+      desc  : |
+        2016 — Maven Lab Pte Ltd
+
+        Prime Minister's Office Singapore (PMO) is one of government project
+        that managed by company, using Drupal, and Bootstrap theme. This
+        project is a pretty big, the company outsource some part of it, like
+        design and debug. working as a team is important and working time
+        management is required.
+    - #######################
+      uri   : http://www.nccs.gov.sg/competition/nccc2016
+      title : National Climate Change Competition
+      img   : /assets/images/portfolio/nccs.gov.sg+competition+NCCC2016.jpg
+      live  : up
+      desc  : |
+        2016 — Maven Lab Pte Ltd
+
+        National Climate Change Competition (NCCS) is another project of
+        Singapore government. The task is to make minisite for 2016 competition
+        period, need to log the user YouTube videos and able to choose between
+        competition and announcement period. Working great any screen size and
+        using lightbox to highlight videos, not to mention the nice color
+        composition (kudos to the designer).
+#############################

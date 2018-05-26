@@ -1,0 +1,77 @@
+# Welcome to Jekyll!
+#
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
+#
+# YAML guide
+# https://stackoverflow.com/a/21699210/4729477
+#
+########################################
+title:                Gunawan Wijaya
+email:                gunawan@wijaya.cc
+description:          |
+  Hi there, my name is Gunawan, spelled goo - nah - one.
+  I do many things, from Front End to Big Spoon.
+baseurl:              "" # the subpath of your site, e.g. /blog
+url:                  https://gunawan.wijaya.cc # the base hostname & protocol for your site, e.g. http://example.com
+repository:           gunawanwijaya/gunawanwijaya.github.io
+########################################
+excerpt_separator:    <!--more-->
+limit_posts:          24
+# permalink:            pretty # /:categories/:year/:month/:day/:title/
+# permalink:            /:title/
+permalink:            /:year/:month/:day/:slug/
+show_drafts:          false
+unpublished:          false
+detach:               false
+future:               false
+verbose:              true
+safe:                 true
+########################################
+defaults:
+  - scope: { path: "" }
+    values: { layout: compress }
+  - type: pages
+    scope: { path: pages }
+    values: { layout: index, author: Gunawan Wijaya }
+  - type: posts
+    scope: { path: _posts }
+    values: { layout: index, author: Gunawan Wijaya }
+  - type: posts
+    scope: { path: _drafts }
+    values: { layout: index, author: Gunawan Wijaya }
+########################################
+sass:
+  style: compressed
+########################################
+plugins:
+  - jekyll-coffeescript
+  - jekyll-commonmark-ghpages
+  - jekyll-feed
+  - jekyll-gist
+  - jekyll-github-metadata
+  - jekyll-paginate
+  - jekyll-redirect-from
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-avatar
+  - jemoji
+  - jekyll-mentions
+  - jekyll-relative-links
+  - jekyll-optional-front-matter
+  - jekyll-readme-index
+  - jekyll-default-layout
+  - jekyll-titles-from-headings
+  - jekyll-include-cache
+  - jekyll-octicons
+  # - jekyll-remote-theme
+  - jekyll-admin
+########################################
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - package.json
+  - package-lock.json
+  - node_modules/
+  - src/
+########################################

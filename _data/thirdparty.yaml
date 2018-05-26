@@ -1,0 +1,7 @@
+########################################
+analytics:
+  google:             UA-67065348-1
+  mixpanel:           8104be8963c319b2d6aef0fd2da80da3
+  yandex:             44827765
+disqus:
+  shortname:          wijaya-cc
