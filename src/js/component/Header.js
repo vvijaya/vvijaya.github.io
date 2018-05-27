@@ -1,6 +1,4 @@
 const { Component } = require("hyperhtml/cjs");
-const app = require("hyperhtml-app")();
-const Link = require("./Link");
 const List = require("./List");
 
 module.exports = class Header extends Component {
@@ -18,13 +16,7 @@ module.exports = class Header extends Component {
         style="${{ background: "#f009" }}"
       >${List.for({
         tag: "UL",
-        listItems: "saya mau makan nasi goreng".split(" ").map(x => ({
-          item: Link.for({
-            href: `/${x}`,
-            text: `/${x}`,
-            click: () => app.navigate(`/${x}`)
-          })
-        })),
+        listItems: this.state.listItems,
         listStyle: { display: "inline-block", margin: 0, padding: 0 },
         listItemStyle: { display: "inline-block" }
       })}</header>

@@ -5,6 +5,8 @@ date:       2018-03-13
 tags:       career teamwork
 #categories: works
 ---
+# Build a Great Product (1)
+
 Hi there, this is only a gist on how to build a great product taken from the
 perspective of team management especially tech team
 

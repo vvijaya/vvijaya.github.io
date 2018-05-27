@@ -4,18 +4,25 @@ const { Component } = require("hyperhtml/cjs");
 const ArrowPad = require("../component/ArrowPad");
 const Clock = require("../component/Clock");
 const Header = require("../component/Header");
+const Link = require("../component/Link");
 const result = require("../helper/result");
+const app = require("hyperhtml-app")();
 
 const _root = document.getElementById("root");
-const { log } = console;
+const { log: clog } = console;
 const fetchTimeline = {
-  html: fetch("https://gunawan.wijaya.cc/api/timeline.json")
-    .then(b => b.json())
-    .then(b => JSON.stringify(b, null, 2)),
+  html: "dope",
   placeholder: "Loading..."
 };
 
-_root.addEventListener("awesome", e => log(e.detail.text()));
+_root.addEventListener("awesome", e => clog(e.detail.text()));
+
+// xhtml:
+//   fetch("https://gunawan.wijaya.cc/api/timeline.json")
+//     .then(b => b.json())
+//     .then(b => JSON.stringify(b, null, 2))
+//     .catch(b => b) || "dope",
+
 // d.body.addEventListener(
 //   "mousemove",
 //   require("../helper/throttle")(e => log(e), 500)
@@ -30,7 +37,7 @@ _root.addEventListener("awesome", e => log(e.detail.text()));
 //     .then(marked)
 // }}</div> -->
 
-module.exports = class PageHome extends Component {
+module.exports = class Home extends Component {
   constructor(args) {
     super().props = args;
   }
@@ -55,7 +62,15 @@ module.exports = class PageHome extends Component {
 
   render() {
     return this.html`
-      ${Header.for({})}
+      ${Header.for({
+        listItems: "saya mau makan nasi goreng".split(" ").map(x => ({
+          item: Link.for({
+            href: `/${x}/`,
+            text: `${x}`,
+            click: () => app.navigate(`/${x}/`)
+          })
+        }))
+      })}
       <p style="${{ whiteSpace: "nowrap" }}">${fetchTimeline}</p>
       ${ArrowPad.for({ action: "love" })}
       ${Clock.for({ date: new Date() })}

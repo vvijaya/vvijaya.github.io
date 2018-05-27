@@ -1,12 +1,6 @@
 ---
 permalink:      /labs/
-title:          Labs
 menu_index:     -1
-defer:          |
-  <script src="https://cdn.jsdelivr.net/npm/papaparse" async="" defer=""></script>
----
-# Labs[](# '{">":"find","tag":"main","className":"align-center"}')
-
 ---
 <style>
 .gallery { margin: 0 -16px; position: relative; padding: 0 0 16px; }
@@ -46,7 +40,7 @@ defer:          |
   background: #ccc;
 }
 </style>
-## Swipeable Gallery
+<h2>Swipeable Gallery</h2>
 <div style="margin: 0 -16px;">
 <div class="row align-left">
   <div class=" col-sm-1 col-md-1-2"><figure class="gallery" data-bullet data-caption data-idx="2" data-img='[
@@ -228,4 +222,3 @@ mobile banner(320x50)
 large leaderboard(970x90)
 billboard(970x250)
 -->
----
