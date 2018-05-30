@@ -5,27 +5,23 @@
   "repository": "null",
   "main": "./src/index.html",
   "scripts": {
-    "prune": "rm -rf ./.cache && rm -rf ./src.* && rm -rf ./index.html && rm -rf ./404.html && rm -rf ./_layouts/index.html",
-    "prestart": "npm run prune",
-    "prebuild": "npm run prune",
-    "start": "parcel ./src/index.html --public-url / -d ./",
-    "build": "parcel build ./src/index.html --public-url / -d ./",
-    "postbuild": "cp ./index.html ./404.html && cp ./index.html ./_layouts/index.html && npm run serve:jekyll",
-    "serve:serve": "serve -n -s ./",
-    "serve:jekyll": "bundle exec jekyll serve",
+    "prestart": "rm -rf ./.cache && rm -rf ./src.*",
+    "start": "parcel build ./src/index.html --public-url / -d ./",
+    "poststart": "mv ./index.html ./_layouts/index.html",
+    "serve": "bundle exec jekyll serve",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "null",
   "license": "ISC",
   "devDependencies": {
+    "node-sass": "^4.9.0",
     "parcel-bundler": "^1.8.1",
-    "serve": "^6.5.8"
+    "serve": "^7.0.1"
   },
   "dependencies": {
-    "hyperhtml": "^2.10.1",
+    "hyperhtml": "^2.10.2",
     "hyperhtml-app": "^0.2.1",
-    "marked": "^0.4.0",
     "normalize.css": "^8.0.0"
   }
 }

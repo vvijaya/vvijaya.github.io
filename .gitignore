@@ -1,6 +1,6 @@
 .cache
 .sass-cache
 .jekyll-metadata
-
-node_modules/*
-_site/*
+package-lock.json
+node_modules
+_site

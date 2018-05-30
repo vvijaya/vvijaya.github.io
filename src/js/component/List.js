@@ -1,14 +1,21 @@
 const { Component } = require("hyperhtml/cjs");
+// const { log: clog } = console;
 
 class ListItem extends Component {
   constructor(args) {
     super().props = args;
+    this.setState(this.props);
   }
+
   get defaultState() {
-    return Object.assign({}, this.props);
+    return {
+      listItemStyle: {}
+    };
   }
 
   render() {
+    // clog("LI", this.state.listItemStyle);
+
     return this.html`
       <li style="${this.state.listItemStyle}">${this.state.item}</li>
     `;
@@ -18,20 +25,33 @@ class ListItem extends Component {
 module.exports = class List extends Component {
   constructor(args) {
     super().props = args;
+    // this.setState(
+    //   Object.assign(
+    //     {
+    //       tag: "UL",
+    //       listItems: [],
+    //       listStyle: {},
+    //       listItemStyle: {}
+    //     },
+    //     args
+    //   )
+    // );
   }
+
   get defaultState() {
-    return Object.assign(
-      {
+    return (
+      this.props || {
         tag: "UL",
         listItems: [],
         listStyle: {},
         listItemStyle: {}
-      },
-      this.props
+      }
     );
   }
 
   render() {
+    // clog("UL", this.state.listItems);
+
     const li = this.state.listItems.map($ => {
       $.listItemStyle = this.state.listItemStyle;
 

@@ -1,0 +1,8 @@
+.clear {
+  clear: both;
+  &::before,
+  &::after {
+    content: "";
+    display: table;
+  }
+}
