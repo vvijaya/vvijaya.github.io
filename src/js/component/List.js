@@ -1,23 +1,24 @@
 const { Component } = require("hyperhtml/cjs");
-// const { log: clog } = console;
 
 class ListItem extends Component {
   constructor(args) {
     super().props = args;
-    this.setState(this.props);
+    this.setState(args);
   }
 
   get defaultState() {
     return {
-      listItemStyle: {}
+      class: null,
+      style: null,
+      content: null
     };
   }
 
   render() {
-    // clog("LI", this.state.listItemStyle);
-
     return this.html`
-      <li style="${this.state.listItemStyle}">${this.state.item}</li>
+    <li class="${this.state.class}" style="${this.state.style}">
+      ${this.state.content}
+    </li>
     `;
   }
 }
@@ -25,41 +26,39 @@ class ListItem extends Component {
 module.exports = class List extends Component {
   constructor(args) {
     super().props = args;
-    // this.setState(
-    //   Object.assign(
-    //     {
-    //       tag: "UL",
-    //       listItems: [],
-    //       listStyle: {},
-    //       listItemStyle: {}
-    //     },
-    //     args
-    //   )
-    // );
+    this.setState(args);
   }
 
   get defaultState() {
-    return (
-      this.props || {
-        tag: "UL",
-        listItems: [],
-        listStyle: {},
-        listItemStyle: {}
-      }
-    );
+    return {
+      tag: "ul",
+      content: null,
+      class: null,
+      style: null,
+      li: { class: null, style: null }
+    };
   }
 
   render() {
-    // clog("UL", this.state.listItems);
+    this.li = this.state.content.map($ =>
+      ListItem.for(
+        Object.assign($, {
+          class: this.state.li.class,
+          style: this.state.li.style
+        })
+      )
+    );
 
-    const li = this.state.listItems.map($ => {
-      $.listItemStyle = this.state.listItemStyle;
-
-      return ListItem.for($);
-    });
-
-    return this.state.tag.toUpperCase() === "UL"
-      ? this.html`<ul style="${this.state.listStyle}">${li}</ul>`
-      : this.html`<ol style="${this.state.listStyle}">${li}</ol>`;
+    return this.state.tag.toLowerCase() === "ul"
+      ? this.html`
+      <ul class="${this.state.class}" style="${this.state.style}">
+        ${this.li}
+      </ul>
+      `
+      : this.html`
+      <ol class="${this.state.class}" style="${this.state.style}">
+        ${this.li}
+      </ol>
+      `;
   }
 };

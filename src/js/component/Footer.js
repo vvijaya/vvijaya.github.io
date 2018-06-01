@@ -1,6 +1,6 @@
 const { Component } = require("hyperhtml/cjs");
 
-module.exports = class Link extends Component {
+module.exports = class Footer extends Component {
   constructor(args) {
     super().props = args;
     this.setState(args);
@@ -10,19 +10,17 @@ module.exports = class Link extends Component {
     return {
       class: null,
       style: null,
-      href: "#",
-      click: () => {},
       content: null
     };
   }
 
   render() {
     return this.html`
-    <a class="${this.state.class}" style="${this.state.style}"
-      href="${this.state.href}" onclick="${this.state.click}"
-    >
-      ${this.state.content}
-    </a>
+    <footer class="${this.state.class}" style="${this.state.style}">
+      <div class="container clear">
+        ${this.state.content}
+      </div>
+    </footer>
     `;
   }
 };

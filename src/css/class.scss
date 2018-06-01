@@ -1,3 +1,4 @@
+hr,
 .clear {
   clear: both;
   &::before,
@@ -5,4 +6,22 @@
     content: "";
     display: table;
   }
+}
+.container {
+  padding: 0 1em;
+  max-width: 50em;
+  margin: auto;
+}
+
+.no-scrollbar {
+  overflow: auto;
+  -ms-overflow-style: none; // IE 10+
+  overflow: -moz-scrollbars-none; // Firefox
+  &::-webkit-scrollbar {
+    display: none; // Safari and Chrome
+  }
+}
+
+.serif {
+  font-family: "Spectral", Georgia, Times, "Times New Roman", serif;
 }
