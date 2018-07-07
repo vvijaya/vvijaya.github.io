@@ -21,10 +21,14 @@ body {
     "Segoe UI Symbol";
   /* font-size: 14px; */
   line-height: 1.5;
-  background: #f2f2f2;
-  color: #24292e;
   overflow-x: hidden;
   overflow-y: scroll;
+  background: #f2f2f2;
+  color: #24292e;
+  * {
+    background: inherit;
+    color: inherit;
+  }
 }
 blockquote {
   display: inline-block;

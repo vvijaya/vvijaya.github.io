@@ -1,2 +1,14 @@
+@mixin media-query($device) {
+  @media screen and (min-width: $device) {
+    @content;
+  }
+}
+
+// Import partials.
+@import
+  "./lib/_ratio.scss",
+  "./lib/_layout.scss",
+  "./lib/_syntax.scss"
+;
 @import "./class.scss";
 @import "./tags.scss";

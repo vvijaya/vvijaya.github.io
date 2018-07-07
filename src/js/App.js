@@ -23,12 +23,12 @@ class App extends Component {
   constructor() {
     super();
     this.menuFetch();
-    this.url = "/";
+    this.url = window.location.href.replace(URI, "");
   }
 
   get defaultState() {
     return {
-      route: "/",
+      route: window.location.href.replace(URI, ""),
       html: d.tmpl.innerHTML,
       ofHeaderListItems: [1, 2, 3]
     };
@@ -53,7 +53,7 @@ class App extends Component {
     }
 
     /** @returns {void} */
-    const refresh = () => {
+    const pageRender = () => {
       this.setState({
         html: this.cachedPages[this.url],
         route: this.url
@@ -64,7 +64,7 @@ class App extends Component {
     app.navigate(this.url);
     this.cachedPages = this.cachedPages || {};
     if (this.cachedPages[this.url]) {
-      refresh();
+      pageRender();
     } else {
       fetch(`${URI}${this.url}`)
         .then(b => b.text())
@@ -72,22 +72,62 @@ class App extends Component {
           d.tmpl.innerHTML = b;
           d.tmpl.innerHTML = d.tmpl.content.getElementById("content").innerHTML;
           this.cachedPages[this.url] = d.tmpl.innerHTML;
-          refresh();
+          pageRender();
         });
     }
+  }
+  preprocess(html) {
+    html = html.replace(/(<!--)\s*(-->)/g, "$1 $2");
+    html = html.replace(
+      /data-id="([^"]*)"/g,
+      (...p) => `id="${window.btoa(p[1])}"`
+    );
+
+    return html;
   }
 
   render() {
     return this.html`
     <style>
-      #root { text-align: center; }
-      #root header { border-bottom: solid; background: #0003; }
+      #root { text-align: center; padding-top: 60px; }
+      #root header {
+        border-bottom: solid;
+        position: fixed;
+        width: 100%;
+        margin-top: -60px;
+        z-index: 1000;
+      }
+      #root header:before {
+        content: '';
+        position: absolute;
+        background: #0003;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+      }
+      #root header * { background: transparent; }
       #root header ul { white-space: nowrap; display: block; margin: 0px; padding: 0px; }
       #root header ul li { display: inline-block; }
       #root header ul li a { padding: 1em .5em; display: inline-block; text-decoration: none; }
       #root header ul li a:hover { background: #0003; }
       #root header ul li a.active { background: #0006; }
       blockquote { border-bottom: solid; background: #0003; max-width: 20.5em; }
+
+      #omnibox {
+        padding: .4em .5em;
+        border: solid 1px;
+        border-radius: .15em;
+        font-size: 1.5em;
+        background: #fff;
+        max-width: 100%;
+        width: 20em;
+      }
+      #omnibox:focus { box-shadow: 0 0 0 0.2em #0003, inset 0 0 0 1px #0006; }
+      .work { padding: .5em; }
+      .work p { margin-top: 0; }
+      .work .up a { border: solid 1px #8BC34A; }
+      .work .down a { border: solid 1px #EF5350; }
     </style>
     ${new Header({
       content: new List({
@@ -103,7 +143,11 @@ class App extends Component {
         }))
       })
     })}
-    ${new Section({ content: { html: this.state.html } })}
+    ${new Section({
+      content: {
+        html: this.preprocess(this.state.html)
+      }
+    })}
     `;
   }
 }
