@@ -1,5 +1,5 @@
 # gunawan
 
-Personal portfolio — https://gunawanwijaya.github.io
+Personal portfolio — <https://gunawanwijaya.github.io>
 
-Latest update — 2018 Feb 25
+Latest update — 2018-07-07
