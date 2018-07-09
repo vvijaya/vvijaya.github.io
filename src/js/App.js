@@ -1,6 +1,6 @@
 // /** @returns {void} */
 // const noop = () => {};
-const { log: clog } = console;
+// const { log: clog } = console;
 const d = document;
 
 d.root = d.getElementById("root");
@@ -8,7 +8,8 @@ d.tmpl = d.getElementById("content");
 const app = require("hyperhtml-app")();
 const { Component, bind } = require("hyperhtml/cjs");
 
-// const signal = require("./helper/signal");
+// const signalRecv = require("./helper/signalRecv");
+// const signalSend = require("./helper/signalSend");
 // const result = require("./helper/result");
 // const ArrowPad = require("./component/ArrowPad");
 // const Clock = require("./component/Clock");
@@ -18,6 +19,7 @@ const Link = require("./component/Link");
 const List = require("./component/List");
 
 const URI = "http://localhost:4000";
+const extBtoa = require("./helper/extendBtoa");
 
 class App extends Component {
   constructor() {
@@ -77,10 +79,10 @@ class App extends Component {
     }
   }
   preprocess(html) {
-    html = html.replace(/(<!--)\s*(-->)/g, "$1 $2");
+    html = html.replace(/(<!--)\s*(-->)/gi, "$1 $2");
     html = html.replace(
-      /data-id="([^"]*)"/g,
-      (...p) => `id="${window.btoa(p[1])}"`
+      /data-id="([^"]*)"/gi,
+      (...p) => `id="${extBtoa(p[1])}"`
     );
 
     return html;
