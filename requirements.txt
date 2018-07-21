@@ -1,0 +1,5 @@
+Flask
+flask-cors
+gevent
+python-dotenv
+requests
