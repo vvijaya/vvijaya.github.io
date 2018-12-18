@@ -5,10 +5,7 @@
   "repository": "null",
   "main": "./src/index.html",
   "scripts": {
-    "prestart": "rm -rf ./.cache && rm -rf ./src.*",
-    "start": "parcel build ./src/index.html --public-url / -d ./",
-    "poststart": "mv ./index.html ./_layouts/index.html",
-    "serve": "bundle exec jekyll serve",
+    "start": "make start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
