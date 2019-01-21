@@ -7,6 +7,7 @@
 # https://stackoverflow.com/a/21699210/4729477
 #
 ########################################
+github:               [metadata]
 title:                Gunawan Wijaya
 email:                gunawan@wijaya.cc
 description:          |
@@ -68,4 +69,9 @@ plugins:
 exclude:
   - Gemfile
   - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
 ########################################

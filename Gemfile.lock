@@ -17,6 +17,7 @@ GEM
       ruby-enum (~> 0.5)
     concurrent-ruby (1.0.5)
     concurrent-ruby (1.0.5-java)
+    dotenv (2.6.0)
     ethon (0.11.0)
       ffi (>= 1.3.0)
     execjs (2.7.0)
@@ -250,12 +251,13 @@ PLATFORMS
   x86-mswin32
 
 DEPENDENCIES
+  dotenv
   github-pages
   tzinfo-data
   wdm (>= 0.1.0)
 
 RUBY VERSION
-   ruby 2.3.1p112
+   ruby 2.5.1p57
 
 BUNDLED WITH
-   1.16.1
+   1.17.2
