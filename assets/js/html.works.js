@@ -9,7 +9,7 @@ window.defer.push(() => {
         w.Reflect.deleteProperty(dataID.dataset, 'id')
     })
 
-    fetch('https://gunawan.wijaya.cc/api/timeline.json')
+    fetch('/api/timeline.json')
         .then((data) => data.json())
         .then((data) => {
             data.map((list) => {

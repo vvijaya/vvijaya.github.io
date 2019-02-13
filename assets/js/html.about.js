@@ -7,7 +7,7 @@ window.defer.push(() => {
         dataID.id = `X-${w.md5(dataID.dataset.id)}`
         w.Reflect.deleteProperty(dataID.dataset, 'id')
     })
-    fetch('https://gunawan.wijaya.cc/api/timeline.json')
+    fetch('/api/timeline.json')
         .then((data) => data.json())
         .then((data) => {
             omnibox.removeAttribute('disabled')

@@ -248,7 +248,7 @@
         is the database take a long time to read, also nesting list on mobile
         view and category header.
 - ###########################
-  date  : Jan 2016 — Current
+  date  : Jan 2016 — Apr 2017
   md    : |
     Analyst Programmer
 
@@ -307,4 +307,57 @@
         competition and announcement period. Working great any screen size and
         using lightbox to highlight videos, not to mention the nice color
         composition (kudos to the designer).
+- ###########################
+  date  : Sep 2017 — Oct 2018
+  md    : |
+    Software Engineer
+
+    @ [Pomona](http://pomona.id)
+  detail:
+    - #######################
+      uri   : http://pomona.id
+      title : Pomona
+      img   : /assets/images/portfolio/pomona.id.jpg
+      live  : up
+      desc  : |
+        2017 — Pomona
+
+        Provide robust API across team using SOA dockerized application based on
+        pure Python + NodeJS(ExpressJS) + GraphQL
+
+        Assisting Tech team to deliver high quality product, from splitting the
+        large monolith system to several microservices architecture with its own
+        responsibility, create a seamless experience from Development to
+        Production via makefile, data model interfacing on PostgreSQL based on
+        Sequelize, and MongoDB based on Mongoose
+
+        Helping Data team to setup data infrastructure and development process
+        by creating unit test implementation on Machine Learning Python API,
+        refactoring algorithm to leverage all available resource in parallel,
+        Fuzzy Search FMCG prediction on receipt text in each retailer
+- ###########################
+  date  : Nov 2018 — Current
+  md    : |
+    Sr. Software Engineer
+
+    @ [Tokopedia](http://tokopedia.com)
+  detail:
+    - #######################
+      uri   : http://tokopedia.com
+      title : Tokopedia
+      img   : /assets/images/portfolio/tokopedia.com.jpg
+      live  : up
+      desc  : |
+        2018 — Tokopedia
+
+        Joining Logistic Tribe and doing heavy duty task using Golang, Postgre,
+        Redis and NSQ on GitHub, since the logistic is relying on 3rd party API,
+        we need a system to give assurance to customer and provider that data
+        exchanging mechanism will be accurate and profitable to each parties
+        involved, writing documentation on each 3rd party rate requests to help
+        team members on how to contribute to the code, Ensuring that unit test
+        running properly on every changes, Code refactoring for clarity & better
+        development experience, also achieving faster performance by tweaking
+        Postgre with daily, weekly and monthly periodic Materialized View with
+        aggresive indexing method
 #############################
