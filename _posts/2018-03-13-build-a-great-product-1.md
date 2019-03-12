@@ -1,10 +1,11 @@
 ---
-author:     Gunawan Wijaya
-title:      Build a Great Product (1)
-date:       2018-03-13
-tags:       career teamwork
+author: Gunawan Wijaya
+title: Build a Great Product (1)
+date: 2018-03-13
+tags: career teamwork
 #categories: works
 ---
+
 Hi there, this is only a gist on how to build a great product taken from the
 perspective of team management especially tech team
 
@@ -53,11 +54,13 @@ adjust my mission to have the same alignment with my Pomona's mission
 ## Analyze your weakness, harness your strength
 
 My weakness are:
+
 - poor time management
 - mood swing
 - perfectionist, takes longer time to do something due to extra effort
 
 My strength are:
+
 - quite good at programming & logic
 - analytical thinking
 - perfectionist, build something extra
@@ -83,6 +86,7 @@ end-to-end communication from microservice, the summary is a great product
 that loved by our lovely users, a profitable business, and engineer friendly
 
 If you ask me, the priority of satisfying rate, is like this:
+
 1. 45% engineer (employee)
 1. 30% users
 1. 25% business (client)

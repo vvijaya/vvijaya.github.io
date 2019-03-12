@@ -1,13 +1,15 @@
 ---
-permalink:      /labs/
-title:          Labs
-menu_index:     -1
-defer:          |
+permalink: /labs/
+title: Labs
+menu_index: -1
+defer: |
   <script src="https://cdn.jsdelivr.net/npm/papaparse" async="" defer=""></script>
 ---
+
 # Labs[](# '{">":"find","tag":"main","className":"align-center"}')
 
 ---
+
 <style>
 .gallery { margin: 0 -16px; position: relative; padding: 0 0 16px; }
 .gallery .unload { opacity: 0; pointer-events: none; position: absolute; left: 0; top: 0; }
@@ -46,7 +48,9 @@ defer:          |
   background: #ccc;
 }
 </style>
+
 ## Swipeable Gallery
+
 <div style="margin: 0 -16px;">
 <div class="row align-left">
   <div class=" col-sm-1 col-md-1-2"><figure class="gallery" data-bullet data-caption data-idx="2" data-img='[

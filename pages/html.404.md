@@ -1,10 +1,11 @@
 ---
-permalink:      /404.html
-className:      container err404
-header:         false
-footer:         false
-color_rotator:  false
+permalink: /404.html
+className: container err404
+header: false
+footer: false
+color_rotator: false
 ---
+
 # 404[](# '{">":"find","tag":"main","className":"align-center"}')
 
 ## (Not Found)

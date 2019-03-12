@@ -1,9 +1,9 @@
 ---
-permalink:      /works/
-title:          Works
-menu_index:     2
-defer:          |
-  <script async="" defer="" src="https://unpkg.com/fuse.js/dist/fuse.min.js"></script>
+permalink: /works/
+title: Works
+menu_index: 2
+defer: |
+  <script async="" defer="" src="https://unpkg.com/fuse.js"></script>
   <script async="" defer="" src="https://unpkg.com/blueimp-md5/js/md5.min.js"></script>
 ---
 
@@ -42,4 +42,5 @@ Below is the list of my project, click the image to enlarge, or click the link t
 </div>
 
 ---
+
 <script async="" defer="" src="{{ "/assets/js/html.works.js" | absolute_url }}"></script>

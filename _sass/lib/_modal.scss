@@ -1,109 +1,109 @@
 /* Modal
   =========================================================================== */
 .Modal {
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  background-color: $light-alt-color;
+  border: solid 1px;
+  color: $dark-color;
+  z-index: 99;
+  padding: 1em;
+  @include media-query($on-md) {
+    width: 90%;
+    height: 80%;
+    max-width: 800px;
+    max-height: 800px;
+  }
+  .header {
+    z-index: 2;
+    margin-top: 0;
     overflow: hidden;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
-    margin: auto;
-    background-color: $light-alt-color;
-    border: solid 1px;
-    color: $dark-color;
-    z-index: 99;
-    padding: 1em;
-    @include media-query($on-md) {
-        width: 90%;
-        height: 80%;
-        max-width: 800px;
-        max-height: 800px;
+    padding-right: $base-font-size * 4;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    a {
+      display: inline-block;
+      overflow: inherit;
+      white-space: inherit;
+      text-overflow: inherit;
+      vertical-align: bottom;
     }
+  }
+  .body {
+    margin-top: -5em;
+    padding-top: 5em;
+    overflow: hidden;
+    height: 100%;
+    div {
+      height: 100%;
+      overflow: auto;
+    }
+  }
+  .close {
+    z-index: 3;
+    background-color: inherit;
+    height: $base-font-size * 4;
+    width: $base-font-size * 4;
+    position: absolute;
+    font-size: 0;
+    padding: 0;
+    border: 0;
+    right: 0;
+    top: 0;
+    &:after {
+      content: "\00D7";
+      color: $r-color;
+      @include relative-font-size(4);
+      background-color: inherit;
+      height: $base-font-size * 4;
+      width: $base-font-size * 4;
+      position: absolute;
+      line-height: 1;
+      right: 0;
+      top: 0;
+    }
+    &:active,
+    &:focus,
+    &:hover {
+      &:after {
+        background-color: $r-color;
+        color: $light-alt-color;
+      }
+    }
+  }
+  &.noheader {
     .header {
-        z-index: 2;
-        margin-top: 0;
-        overflow: hidden;
-        padding-right: $base-font-size*4;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        a {
-            display: inline-block;
-            overflow: inherit;
-            white-space: inherit;
-            text-overflow: inherit;
-            vertical-align: bottom;
-        }
+      font-size: 0;
+      margin: 0;
     }
     .body {
-        margin-top: -5em;
-        padding-top: 5em;
-        overflow: hidden;
-        height: 100%;
-        div {
-            height: 100%;
-            overflow: auto;
-        }
+      margin-top: 0;
+      padding-top: 0;
+    }
+  }
+  &.sticky {
+    .header {
+      padding-right: 0;
     }
     .close {
-        z-index: 3;
-        background-color: inherit;
-        height: $base-font-size*4;
-        width: $base-font-size*4;
-        position: absolute;
-        font-size: 0;
-        padding: 0;
-        border: 0;
-        right: 0;
-        top: 0;
-        &:after {
-            content: '\00D7';
-            color: $r-color;
-            @include relative-font-size(4);
-            background-color: inherit;
-            height: $base-font-size*4;
-            width: $base-font-size*4;
-            position: absolute;
-            line-height: 1;
-            right: 0;
-            top: 0;
-        }
-        &:active,
-        &:focus,
-        &:hover {
-            &:after {
-                background-color: $r-color;
-                color: $light-alt-color;
-            }
-        }
+      width: $base-font-size * 0;
+      height: $base-font-size * 0;
+      &:after {
+        @include relative-font-size(0);
+      }
     }
-    &.noheader {
-        .header {
-            font-size: 0;
-            margin: 0;
-        }
-        .body {
-            margin-top: 0;
-            padding-top: 0;
-        }
-    }
-    &.sticky {
-        .header {
-            padding-right: 0;
-        }
-        .close {
-            width: $base-font-size*0;
-            height: $base-font-size*0;
-            &:after {
-                @include relative-font-size(0);
-            }
-        }
-    }
-    &.full {
-        width: 100%;
-        height: 100%;
-        max-width: 100%;
-        padding: $spacing-unit;
-    }
+  }
+  &.full {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    padding: $spacing-unit;
+  }
 }

@@ -7,34 +7,34 @@
 # https://stackoverflow.com/a/21699210/4729477
 #
 ########################################
-github:               [metadata]
-title:                Gunawan Wijaya
-email:                gunawan@wijaya.cc
-description:          |
+github: [metadata]
+title: Gunawan Wijaya
+email: gunawan@wijaya.cc
+description: |
   Hi there, my name is Gunawan, spelled goo - nah - one.
   I do many things, from Front End to Big Spoon.
-baseurl:              "" # the subpath of your site, e.g. /blog
-url:                  https://gunawan.wijaya.cc # the base hostname & protocol for your site, e.g. http://example.com
-repository:           gunawanwijaya/gunawanwijaya.github.io
+baseurl: "" # the subpath of your site, e.g. /blog
+url: https://gunawan.wijaya.cc # the base hostname & protocol for your site, e.g. http://example.com
+repository: gunawanwijaya/gunawanwijaya.github.io
 ########################################
 analytics:
-  google:             UA-67065348-1
-  mixpanel:           8104be8963c319b2d6aef0fd2da80da3
-  yandex:             44827765
+  google: UA-67065348-1
+  mixpanel: 8104be8963c319b2d6aef0fd2da80da3
+  yandex: 44827765
 disqus:
-  shortname:          wijaya-cc
+  shortname: wijaya-cc
 ########################################
-excerpt_separator:    <!--more-->
-limit_posts:          12
+excerpt_separator: <!--more-->
+limit_posts: 12
 # permalink:            pretty # /:categories/:year/:month/:day/:title/
 # permalink:            /:title/
-permalink:            /:year/:month/:day/:slug/
-show_drafts:          false
-unpublished:          false
-detach:               false
-future:               false
-verbose:              true
-safe:                 true
+permalink: /:year/:month/:day/:slug/
+show_drafts: false
+unpublished: false
+detach: false
+future: false
+verbose: true
+safe: true
 
 ########################################
 defaults:

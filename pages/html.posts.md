@@ -1,8 +1,9 @@
 ---
-permalink:      /posts/
-title:          Posts
-menu_index:     -1
+permalink: /posts/
+title: Posts
+menu_index: -1
 ---
+
 # Posts
 
 ---
@@ -24,6 +25,7 @@ menu_index:     -1
 </style>
 
 {% for post in site.posts %}
+
 <article itemid="{{ post.id | absolute_url }}" itemscope itemtype="http://schema.org/BlogPosting">
     <h2 class="post-title" itemprop="headline">
         <a href="{{ post.url | absolute_url }}" itemprop="url">

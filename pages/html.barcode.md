@@ -1,17 +1,18 @@
 ---
-permalink:      /barcode/
-title:          Barcode Generator
-menu_index:     -1
-header:         false
-footer:         false
-color_rotator:  false
-defer:          |
+permalink: /barcode/
+title: Barcode Generator
+menu_index: -1
+header: false
+footer: false
+color_rotator: false
+defer: |
   <script async="" defer="" src="https://unpkg.com/jsbarcode/dist/JsBarcode.all.min.js"></script>
-
 ---
+
 # Barcode Generator[](# '{">":"find","tag":"main","className":"align-center"}')
 
 ---
+
 <style>
     #barcode{
         display: inline-block;

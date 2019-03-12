@@ -21,8 +21,8 @@
   "no-reversed-links": true,
   "no-multiple-blanks": {
     "maximum": 1
-   },
-   "line-length": false,
+  },
+  "line-length": false,
   "commands-show-output": true,
   "no-missing-space-atx": true,
   "no-multiple-space-atx": true,
@@ -33,8 +33,9 @@
   "no-duplicate-header": true,
   "single-h1": false,
   "no-trailing-punctuation": {
-    "punctuation" : ".,:!?"
-  },  "no-multiple-space-blockquote": true,
+    "punctuation": ".,:!?"
+  },
+  "no-multiple-space-blockquote": true,
   "no-blanks-blockquote": false,
   "ol-prefix": {
     "style": "one"

@@ -1,8 +1,9 @@
 ---
-permalink:      /contact/
-title:          Contact
-menu_index:     3
+permalink: /contact/
+title: Contact
+menu_index: 3
 ---
+
 # Contact[](# '{">":"find","tag":"main","className":"red align-center"}')
 
 ---

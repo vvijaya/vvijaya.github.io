@@ -1,18 +1,19 @@
 ---
-permalink:      /report/
-title:          Interactive Reporting Tools
-menu_index:     -1
-header:         false
-footer:         false
-color_rotator:  false
-defer:          |
+permalink: /report/
+title: Interactive Reporting Tools
+menu_index: -1
+header: false
+footer: false
+color_rotator: false
+defer: |
   <script async="" defer="" src="https://unpkg.com/lodash/lodash.min.js"></script>
   <script async="" defer="" src="https://unpkg.com/marked/marked.min.js"></script>
-  <script async="" defer="" src="https://unpkg.com/fuse.js/dist/fuse.min.js"></script>
+  <script async="" defer="" src="https://unpkg.com/fuse.js"></script>
   <script async="" defer="" src="https://unpkg.com/riot/riot+compiler.min.js"></script>
   <script async="" defer="" src="https://unpkg.com/blueimp-md5/js/md5.min.js"></script>
   <script async="" defer="" src="https://unpkg.com/papaparse/papaparse.min.js"></script>
 ---
+
 # Interactive Reporting Tools[](# '{">":"find","tag":"main","className":"align-center"}')
 
 ---
@@ -20,6 +21,7 @@ defer:          |
 <div id="report" data-is="report"></div>
 
 ---
+
 <style>
 .Modal.loading #nprogress::after {
     content: 'Please wait...'
